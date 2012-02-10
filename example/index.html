@@ -25,7 +25,8 @@
 
   <div id="container">
     <header>
-
+      <h1>jQuery Wookmark Plug-in Example</h1>
+      <p>Resize the browser window or click a grid item to trigger layout updates.</p>
     </header>
     <div id="main" role="main">
 
@@ -81,14 +82,26 @@
     $(document).ready(new function() {
       // Prepare layout options.
       var options = {
-        autoResize: true, // This will auto-update the layout when the browser window is resized.
+        autoResize: false, // This will auto-update the layout when the browser window is resized.
         container: $('#main'), // Optional, used for some extra CSS styling
         offset: 2, // Optional, the distance between grid items
-        itemWidth: 200 // Optional, the width of a grid item
+        itemWidth: 202 // Optional, the width of a grid item
       };
       
+      // Get a reference to your grid items.
+      var handler = $('#tiles li');
+      
       // Call the layout function.
-      $('#tiles li').wookmark(options);
+      handler.wookmark(options);
+      
+      // Capture clicks on grid items.
+      handler.click(function(){
+        // Randomize the height of the clicked item.
+        $(this).css('height', Math.round(Math.random()*300+30)+'px');
+        
+        // Update the layout.
+        handler.wookmark();
+      });
     });
   </script>
   
