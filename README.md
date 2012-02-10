@@ -1,9 +1,10 @@
 jQuery Wookmark
-=============
+===============
 
 This is a [jQuery](http://www.jquery.com) plugin for laying out a dynamic grid of elements.
 
 See the [documentation page](http://www.wookmark.com/jquery-plugin) for examples.
+The repository also includes a working example.
 
 
 Installation
@@ -32,9 +33,10 @@ Where `myElement` is the class of the items you want to lay out in a grid.
 ### Options
 
     $('.myElements').wookmark({
-      container: $('myContent'),
+      container: $('#myContent'),
       offset: 5,
-      itemWidth: 200
+      itemWidth: 200,
+      autoResize: true
     });
 
 See the [documentation page](http://www.wookmark.com/jquery-plugin) for details on available options.
