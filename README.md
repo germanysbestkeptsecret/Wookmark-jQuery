@@ -4,7 +4,8 @@ jQuery Wookmark
 This is a [jQuery](http://www.jquery.com) plugin for laying out a dynamic grid of elements.
 
 See the [documentation page](http://www.wookmark.com/jquery-plugin) for examples.
-The repository also includes a working example.
+The repository also includes a working example. All images used in the example are copyrighted 
+by their respective owners and only included for showcasing plugin functionality..
 
 
 Installation

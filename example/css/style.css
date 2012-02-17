@@ -13,7 +13,6 @@ margin: 0;
  */
 #tiles li {
 width: 200px;
-height: 200px;
 background-color: #ffffff;
 border: 1px solid #dedede;
 -moz-border-radius: 2px;
@@ -21,6 +20,11 @@ border: 1px solid #dedede;
 border-radius: 2px;
 display: none; /** Hide items initially to avoid a flicker effect **/
   cursor: pointer;
+padding: 4px;
+}
+
+#tiles li img {
+display: block;
 }
 
 /**
@@ -29,21 +33,21 @@ display: none; /** Hide items initially to avoid a flicker effect **/
 #tiles li p {
 color: #666;
 font-size: 12px;
-margin: 10px 0 0 10px;
+margin: 7px 0 0 7px;
 }
 
 /**
  * Some extra styles to randomize heights of grid items.
  */
-#tiles li:nth-child(3n) {
+#tiles ali:nth-child(3n) {
 height: 175px;
 }
 
-#tiles li:nth-child(4n-3) {
+#tiles ali:nth-child(4n-3) {
 padding-bottom: 30px;
 }
 
-#tiles li:nth-child(5n) {
+#tiles ali:nth-child(5n) {
 height: 250px;
 }
 
