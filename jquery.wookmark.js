@@ -9,27 +9,15 @@
   @license Licensed under the MIT (http://www.opensource.org/licenses/mit-license.php) license.
 */
 $.fn.wookmark = function(options) {
-  this.wookmarkOptions = {};
   
-  if(options) {
-    this.wookmarkOptions = options;
-  }
-  
-  // Set default values for undefined options.
-  var defaults = {
-    container: $('body'),
-    offset: 2,
-    autoResize: false,
-    itemWidth: $(this[0]).outerWidth(),
-    resizeDelay: 50
-  }
-
-  // Override defaults for submitted options.
-  for(var i in defaults) {
-    if(!this.wookmarkOptions[i]) {
-      this.wookmarkOptions[i] = defaults[i];
-    }
-  }
+  this.wookmarkOptions = $.extend( {
+      container: $('body'),
+      offset: 2,
+      autoResize: false,
+      itemWidth: $(this[0]).outerWidth(),
+      resizeDelay: 50
+    }, options);
+    
   
   // Layout variables.
   if(!this.wookmarkColumns) {
