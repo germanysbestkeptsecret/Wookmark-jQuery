@@ -1,23 +1,26 @@
 /*!
-  jQuery Wookmark plugin 0.3
+  jQuery Wookmark plugin 0.4
   @name jquery.wookmark.js
   @author Christoph Ono (chri@sto.ph or @gbks)
-  @version 0.3
-  @date 2/10/2012
+  @version 0.4
+  @date 3/6/2012
   @category jQuery plugin
   @copyright (c) 2009-2012 Christoph Ono (www.wookmark.com)
   @license Licensed under the MIT (http://www.opensource.org/licenses/mit-license.php) license.
 */
 $.fn.wookmark = function(options) {
   
-  this.wookmarkOptions = $.extend( {
-      container: $('body'),
-      offset: 2,
-      autoResize: false,
-      itemWidth: $(this[0]).outerWidth(),
-      resizeDelay: 50
-    }, options);
-    
+  if(!this.wookmarkOptions) {
+    this.wookmarkOptions = $.extend( {
+        container: $('body'),
+        offset: 2,
+        autoResize: false,
+        itemWidth: $(this[0]).outerWidth(),
+        resizeDelay: 50
+      }, options);
+  } else if(options) {
+    this.wookmarkOptions = $.extend(this.wookmarkOptions, options);
+  }
   
   // Layout variables.
   if(!this.wookmarkColumns) {
@@ -45,6 +48,9 @@ $.fn.wookmark = function(options) {
     this.wookmarkOptions.container.css('height', bottom+'px');
   };
   
+  /**
+   * Perform a full layout update.
+   */
   this.wookmarkLayoutFull = function(columnWidth, columns, offset) {
     // Prepare Array to store height of columns.
     var heights = [];
