@@ -1,9 +1,9 @@
 /*!
-  jQuery Wookmark plugin 0.4
+  jQuery Wookmark plugin 0.5
   @name jquery.wookmark.js
   @author Christoph Ono (chri@sto.ph or @gbks)
-  @version 0.4
-  @date 3/6/2012
+  @version 0.5
+  @date 3/19/2012
   @category jQuery plugin
   @copyright (c) 2009-2012 Christoph Ono (www.wookmark.com)
   @license Licensed under the MIT (http://www.opensource.org/licenses/mit-license.php) license.
@@ -128,9 +128,12 @@ $.fn.wookmark = function(options) {
   };
   
   // Listen to resize event if requested.
+  this.wookmarkResizeTimer = null;
+  if(!this.wookmarkResizeMethod) {
+    this.wookmarkResizeMethod = null;
+  }
   if(this.wookmarkOptions.autoResize) {
     // This timer ensures that layout is not continuously called as window is being dragged.
-    this.wookmarkResizeTimer = null;
     this.wookmarkOnResize = function(event) {
       if(this.wookmarkResizeTimer) {
         clearTimeout(this.wookmarkResizeTimer);
@@ -139,7 +142,23 @@ $.fn.wookmark = function(options) {
     };
     
     // Bind event listener.
-    $(window).resize($.proxy(this.wookmarkOnResize, this));
+    if(!this.wookmarkResizeMethod) {
+      this.wookmarkResizeMethod = $.proxy(this.wookmarkOnResize, this);
+    }
+    $(window).resize(this.wookmarkResizeMethod);
+  };
+  
+  /**
+   * Clear event listeners and time outs.
+   */
+  this.wookmarkClear = function() {
+    if(this.wookmarkResizeTimer) {
+      clearTimeout(this.wookmarkResizeTimer);
+      this.wookmarkResizeTimer = null;
+    }
+    if(this.wookmarkResizeMethod) {
+      $(window).unbind('resize', this.wookmarkResizeMethod);
+    }
   };
   
   // Apply layout

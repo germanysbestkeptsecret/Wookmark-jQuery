@@ -1,0 +1,124 @@
+<!doctype html>
+<!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js ie8 oldie" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+  <title>jQuery Wookmark Plug-in Example</title>
+  <meta name="description" content="An very basic example of how to use the Wookmark jQuery plug-in.">
+  <meta name="author" content="Christoph Ono">
+
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+
+  <!-- CSS Reset -->
+  <link rel="stylesheet" href="css/reset.css">
+  
+  <!-- Styling for your grid blocks -->
+  <link rel="stylesheet" href="css/style.css">
+
+</head>
+
+<body>
+
+  <div id="container">
+    <header>
+      <h1>jQuery Wookmark Plug-in Example</h1>
+      <p>Scroll down to see the infinite scroll effect.</p>
+    </header>
+    <div id="main" role="main">
+
+      <ul id="tiles">
+        <!-- These are our grid blocks -->
+        <li><img src="images/image_1.jpg" width="200" height="283"><p>1</p></li>
+        <li><img src="images/image_2.jpg" width="200" height="300"><p>2</p></li>
+        <li><img src="images/image_3.jpg" width="200" height="252"><p>3</p></li>
+        <li><img src="images/image_4.jpg" width="200" height="158"><p>4</p></li>
+        <li><img src="images/image_5.jpg" width="200" height="300"><p>5</p></li>
+        <li><img src="images/image_6.jpg" width="200" height="297"><p>6</p></li>
+        <li><img src="images/image_7.jpg" width="200" height="200"><p>7</p></li>
+        <li><img src="images/image_8.jpg" width="200" height="200"><p>8</p></li>
+        <li><img src="images/image_9.jpg" width="200" height="398"><p>9</p></li>
+        <li><img src="images/image_10.jpg" width="200" height="267"><p>10</p></li>
+        <li><img src="images/image_1.jpg" width="200" height="283"><p>11</p></li>
+        <li><img src="images/image_2.jpg" width="200" height="300"><p>12</p></li>
+        <li><img src="images/image_3.jpg" width="200" height="252"><p>13</p></li>
+        <li><img src="images/image_4.jpg" width="200" height="158"><p>14</p></li>
+        <li><img src="images/image_5.jpg" width="200" height="300"><p>15</p></li>
+        <li><img src="images/image_6.jpg" width="200" height="297"><p>16</p></li>
+        <li><img src="images/image_7.jpg" width="200" height="200"><p>17</p></li>
+        <li><img src="images/image_8.jpg" width="200" height="200"><p>18</p></li>
+        <li><img src="images/image_9.jpg" width="200" height="398"><p>19</p></li>
+        <li><img src="images/image_10.jpg" width="200" height="267"><p>20</p></li>
+        <li><img src="images/image_1.jpg" width="200" height="283"><p>21</p></li>
+        <li><img src="images/image_2.jpg" width="200" height="300"><p>22</p></li>
+        <li><img src="images/image_3.jpg" width="200" height="252"><p>23</p></li>
+        <li><img src="images/image_4.jpg" width="200" height="158"><p>24</p></li>
+        <li><img src="images/image_5.jpg" width="200" height="300"><p>25</p></li>
+        <li><img src="images/image_6.jpg" width="200" height="297"><p>26</p></li>
+        <li><img src="images/image_7.jpg" width="200" height="200"><p>27</p></li>
+        <li><img src="images/image_8.jpg" width="200" height="200"><p>28</p></li>
+        <li><img src="images/image_9.jpg" width="200" height="398"><p>29</p></li>
+        <li><img src="images/image_10.jpg" width="200" height="267"><p>30</p></li>
+        <!-- End of grid blocks -->
+      </ul>
+
+    </div>
+    <footer>
+
+    </footer>
+  </div>
+
+  <!-- include jQuery -->
+  <script src="js/jquery-1.7.1.min.js"></script>
+  
+  <!-- Include the plug-in -->
+  <script src="js/jquery.wookmark.js"></script>
+  
+  <!-- Once the page is loaded, initalize the plug-in. -->
+  <script type="text/javascript">
+    var handler = null;
+    
+    // Prepare layout options.
+    var options = {
+      autoResize: true, // This will auto-update the layout when the browser window is resized.
+      container: $('#main'), // Optional, used for some extra CSS styling
+      offset: 2, // Optional, the distance between grid items
+      itemWidth: 210 // Optional, the width of a grid item
+    };
+    
+    /**
+     * When scrolled all the way to the bottom, add more tiles.
+     */
+    function onScroll(event) {
+      // Check if we're within 100 pixels of the bottom edge of the broser window.
+      var closeToBottom = ($(window).scrollTop() + $(window).height() > $(document).height() - 100);
+      if(closeToBottom) {
+        // Get the first then items from the grid, clone them, and add them to the bottom of the grid.
+        var items = $('#tiles li');
+        var firstTen = items.slice(0, 10);
+        $('#tiles').append(firstTen.clone());
+        
+        // Clear our previous layout handler.
+        if(handler) handler.wookmarkClear();
+        
+        // Create a new layout handler.
+        handler = $('#tiles li');
+        handler.wookmark(options);
+      }
+    };
+  
+    $(document).ready(new function() {
+      // Capture scroll event.
+      $(document).bind('scroll', onScroll);
+      
+      // Call the layout function.
+      handler = $('#tiles li');
+      handler.wookmark(options);
+    });
+  </script>
+  
+</body>
+</html>
