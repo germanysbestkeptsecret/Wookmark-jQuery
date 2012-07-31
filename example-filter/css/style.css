@@ -1,0 +1,116 @@
+
+/**
+ * Grid container
+ */
+#tiles {
+list-style-type: none;
+position: relative; /** Needed to ensure items are laid out relative to this container **/
+margin: 0;
+}
+
+/**
+ * Grid items
+ */
+#tiles li {
+width: 200px;
+background-color: #ffffff;
+border: 1px solid #dedede;
+-moz-border-radius: 2px;
+-webkit-border-radius: 2px;
+border-radius: 2px;
+display: none; /** Hide items initially to avoid a flicker effect **/
+  cursor: pointer;
+padding: 4px;
+  -webkit-transition: all 0.3s ease-out;
+     -moz-transition: all 0.3s ease-out;
+       -o-transition: all 0.3s ease-out;
+          transition: all 0.3s ease-out;
+}
+
+#tiles li.inactive {
+opacity: 0;
+}
+
+#tiles li img {
+display: block;
+}
+
+#filters {
+list-style-type: none;
+text-align: center;
+height: 50px;
+margin: 0 5% 0 5%;
+}
+
+#filters li {
+font-size: 12px;
+float: left;
+padding: 6px 0 4px 0;
+cursor: pointer;
+  -webkit-transition: all 0.15s ease-out;
+     -moz-transition: all 0.15s ease-out;
+       -o-transition: all 0.15s ease-out;
+          transition: all 0.15s ease-out;
+-moz-border-radius: 3px;
+-webkit-border-radius: 3px;
+border-radius: 3px;
+margin: 0 1% 0 1%;
+width: 8%;
+}
+
+#filters li:hover {
+background: #dedede;
+}
+
+#filters li.active {
+background: #333333;
+color: #ffffff;
+}
+
+/**
+ * Grid item text
+ */
+#tiles li p {
+color: #666;
+font-size: 12px;
+margin: 7px 0 0 7px;
+}
+
+/**
+ * Some extra styles to randomize heights of grid items.
+ */
+#tiles ali:nth-child(3n) {
+height: 175px;
+}
+
+#tiles ali:nth-child(4n-3) {
+padding-bottom: 30px;
+}
+
+#tiles ali:nth-child(5n) {
+height: 250px;
+}
+
+/** General page styling **/
+  
+html {
+background-color: #e9e9e9;
+}
+
+#main {
+padding: 30px 0 30px 0;
+}
+
+header h1 {
+text-align: center;
+font-size: 24px;
+font-weight: normal;
+margin: 30px 0 3px 0;
+}
+
+header p {
+text-align: center;
+font-size: 13px;
+color: #777;
+margin: 0;
+}
