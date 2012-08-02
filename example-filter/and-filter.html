@@ -26,7 +26,7 @@
   <div id="container">
     <header>
       <h1>jQuery Wookmark Plug-in Example</h1>
-      <p>Click the words below to filter the grid. Grid items that match at least one filter will remain visible.</p>
+      <p>Click the words below to filter the grid. Grid items that match all filters will stay visible.</p>
     </header>
     <div id="main" role="main">
       
@@ -139,7 +139,7 @@
       var updateFilters = function() {
         var oldFilter = filter;
         filter = '';
-        var filters = [];
+        var filters = ['#tiles li'];
         
         // Collect filter list.
         var lis = $('#filters li');
@@ -147,7 +147,7 @@
         for(; i<length; i++) {
           li = $(lis[i]);
           if(li.hasClass('active')) {
-            filters.push('#tiles li.'+li.attr('data-filter'));
+            filters.push('.'+li.attr('data-filter'));
           }
         }
         
@@ -157,7 +157,7 @@
         }
         
         // Finalize our filter selector for jQuery.
-        filter = filters.join(', ');
+        filter = filters.join('');
         
         // If the filter has changed, update the layout.
         if(oldFilter != filter) {

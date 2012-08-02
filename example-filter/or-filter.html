@@ -26,7 +26,7 @@
   <div id="container">
     <header>
       <h1>jQuery Wookmark Plug-in Example</h1>
-      <p>Click the words below to filter the grid. Grid items that match at least one filter will remain visible.</p>
+      <p>Click one of the words below to filter the grid. Only one filter can be selected at a time.</p>
     </header>
     <div id="main" role="main">
       
@@ -170,6 +170,7 @@
        */
       var onClickFilter = function(event) {
         var item = $(event.currentTarget);
+        $('#filters li').removeClass('active');
         item.toggleClass('active');
         updateFilters();
       }
