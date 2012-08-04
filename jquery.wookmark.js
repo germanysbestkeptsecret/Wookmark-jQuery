@@ -9,13 +9,21 @@
   @license Licensed under the MIT (http://www.opensource.org/licenses/mit-license.php) license.
 */
 $.fn.wookmark = function(options) {
-  
+
+  var widthSetter = $(this[0]);
+  var getItemWidth = function(fixedWidth) {
+    if(fixedWidth===undefined) {
+      return widthSetter.outerWidth();
+    } else {
+      return fixedWidth;
+    }
+  }
+
   if(!this.wookmarkOptions) {
     this.wookmarkOptions = $.extend( {
         container: $('body'),
         offset: 2,
         autoResize: false,
-        itemWidth: $(this[0]).outerWidth(),
         resizeDelay: 50
       }, options);
   } else if(options) {
@@ -31,7 +39,7 @@ $.fn.wookmark = function(options) {
   // Main layout function.
   this.wookmarkLayout = function() {
     // Calculate basic layout parameters.
-    var columnWidth = this.wookmarkOptions.itemWidth + this.wookmarkOptions.offset;
+    var columnWidth = getItemWidth(this.wookmarkOptions.itemWidth) + this.wookmarkOptions.offset;
     var containerWidth = this.wookmarkOptions.container.width();
     var columns = Math.floor((containerWidth+this.wookmarkOptions.offset)/columnWidth);
     var offset = Math.round((containerWidth - (columns*columnWidth-this.wookmarkOptions.offset))/2);
