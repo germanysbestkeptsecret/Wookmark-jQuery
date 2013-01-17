@@ -1,9 +1,9 @@
 /*!
-  jQuery Wookmark plugin 0.5
+  jQuery Wookmark plugin 0.6
   @name jquery.wookmark.js
   @author Christoph Ono (chri@sto.ph or @gbks)
-  @version 0.5
-  @date 3/19/2012
+  @version 0.6
+  @date 1/17/2013
   @category jQuery plugin
   @copyright (c) 2009-2012 Christoph Ono (www.wookmark.com)
   @license Licensed under the MIT (http://www.opensource.org/licenses/mit-license.php) license.

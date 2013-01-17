@@ -1,0 +1,27 @@
+{
+  "name": "Wookmark",
+  "title": "jQuery Wookmark",
+  "description": "jQuery plugin for laying out elements of varying heights in a column-based grid.",
+  "keywords": [
+    "ui",
+    "layout"
+  ],
+  "version": "0.6",
+  "author": {
+    "name": "Christoph Ono",
+    "url": "http://germanysbestkeptsecret.com"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/jquery/jquery-color/blob/2.1.2/MIT-LICENSE.txt"
+    }
+  ],
+  "bugs": "https://github.com/GBKS/Wookmark-jQuery/issues",
+  "homepage": "https://github.com/GBKS/Wookmark-jQuery",
+  "docs": "http://www.wookmark.com/jquery-plugin",
+  "demo": "http://www.wookmark.com/jquery-plugin",
+  "dependencies": {
+    "jquery": ">=1.5"
+  }
+}
