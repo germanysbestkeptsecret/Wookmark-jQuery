@@ -2,6 +2,7 @@
   jQuery Wookmark plugin 1.0.2
   @name jquery.wookmark.js
   @author Christoph Ono (chri@sto.ph or @gbks)
+  @author Sebastian Helzle (sebastian@helzle.net or @sebobo)
   @version 1.0.2
   @date 1/27/2013
   @category jQuery plugin
