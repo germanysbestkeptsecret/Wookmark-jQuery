@@ -12,7 +12,8 @@
 (function($){
 
   // Wookmark default options
-  var wookmarkOptions = {
+  var defaultOptions = {
+    align: 'center',
     container: $('body'),
     offset: 2,
     autoResize: false,
@@ -27,7 +28,7 @@
     }
 
     // Create options for each plugin instance
-    this.wookmarkOptions = $.extend(true, {}, this.wookmarkOptions, {
+    this.wookmarkOptions = $.extend({}, defaultOptions, {
       itemWidth: $(this[0]).outerWidth()
     }, options);
 
@@ -42,8 +43,21 @@
       // Calculate basic layout parameters.
       var columnWidth = this.wookmarkOptions.itemWidth + this.wookmarkOptions.offset;
       var containerWidth = this.wookmarkOptions.container.width();
-      var columns = Math.floor((containerWidth+this.wookmarkOptions.offset)/columnWidth);
-      var offset = Math.round((containerWidth - (columns*columnWidth-this.wookmarkOptions.offset))/2);
+      var columns = Math.floor((containerWidth + this.wookmarkOptions.offset) / columnWidth);
+      var offset;
+
+      // Calculate the offset based on the alignment of columns to the parent container
+      switch (this.wookmarkOptions.align) {
+        case 'left':
+        case 'right':
+          offset = Math.floor((columns / columnWidth + this.wookmarkOptions.offset) / 2);
+          break;
+
+        case 'center':
+        default:
+          offset = Math.round((containerWidth - (columns * columnWidth - this.wookmarkOptions.offset)) / 2);
+          break;
+      }
 
       // If container and column count hasn't changed, we can only update the columns.
       var bottom = 0;
@@ -54,7 +68,7 @@
       }
 
       // Set container height to height of the grid.
-      this.wookmarkOptions.container.css('height', bottom+'px');
+      this.wookmarkOptions.container.css('height', bottom + 'px');
     };
 
     /**
@@ -91,9 +105,15 @@
         // Postion the item.
         item.css({
           position: 'absolute',
-          top: shortest+'px',
-          left: (shortestIndex*columnWidth + offset)+'px'
+          top: shortest+'px'
         });
+
+        var sideOffset = (shortestIndex * columnWidth + offset) + 'px';
+        if(this.wookmarkOptions.align == 'right') {
+          item.css('right', sideOffset);
+        } else {
+          item.css('left', sideOffset);
+        }
 
         // Update column height.
         heights[shortestIndex] = shortest + item.outerHeight() + this.wookmarkOptions.offset;
@@ -124,9 +144,16 @@
         for(k=0; k<kLength; k++) {
           item = column[k];
           item.css({
-            left: (i*columnWidth + offset)+'px',
             top: heights[i]+'px'
           });
+
+          var sideOffset = (i * columnWidth + offset) + 'px';
+          if(this.wookmarkOptions.align == 'right') {
+            item.css('right', sideOffset);
+          } else {
+            item.css('left', sideOffset);
+          }
+
           heights[i] += item.outerHeight() + this.wookmarkOptions.offset;
 
           bottom = Math.max(bottom, heights[i]);
