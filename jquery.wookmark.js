@@ -8,6 +8,7 @@
   @copyright (c) 2009-2013 Christoph Ono (www.wookmark.com)
   @license Licensed under the MIT (http://www.opensource.org/licenses/mit-license.php) license.
 */
+(function($){
 $.fn.wookmark = function(options) {
   
   if(!this.wookmarkOptions) {
@@ -167,3 +168,4 @@ $.fn.wookmark = function(options) {
   // Display items (if hidden).
   this.show();
 };
+})(jQuery)
