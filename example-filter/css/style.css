@@ -28,7 +28,8 @@ padding: 4px;
 }
 
 #tiles li.inactive {
-opacity: 0;
+  opacity: 0;
+  display: none !important;
 }
 
 #tiles li img {
@@ -92,7 +93,7 @@ height: 250px;
 }
 
 /** General page styling **/
-  
+
 html {
 background-color: #e9e9e9;
 }
