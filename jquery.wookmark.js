@@ -3,7 +3,7 @@
   @name jquery.wookmark.js
   @author Christoph Ono (chri@sto.ph or @gbks)
   @author Sebastian Helzle (sebastian@helzle.net or @sebobo)
-  @version 1.0.2
+  @version 1.0.3
   @date 1/27/2013
   @category jQuery plugin
   @copyright (c) 2009-2013 Christoph Ono (www.wookmark.com)
@@ -27,10 +27,17 @@
       options = {};
     }
 
+    var $self = $(this[0]);
+
+    function getItemWidth(fixedWidth) {
+      if(fixedWidth === undefined) {
+        return $self.outerWidth();
+      }
+      return fixedWidth;
+    }
+
     // Create options for each plugin instance
-    this.wookmarkOptions = $.extend({}, defaultOptions, {
-      itemWidth: $(this[0]).outerWidth()
-    }, options);
+    this.wookmarkOptions = $.extend({}, defaultOptions, options);
 
     // Layout variables.
     if(!this.wookmarkColumns) {
@@ -40,8 +47,13 @@
 
     // Main layout function.
     this.wookmarkLayout = function() {
+      // Do nothing if container isn't visible
+      if(!this.wookmarkOptions.container.is(":visible")) {
+        return;
+      }
+
       // Calculate basic layout parameters.
-      var columnWidth = this.wookmarkOptions.itemWidth + this.wookmarkOptions.offset;
+      var columnWidth = getItemWidth(this.wookmarkOptions.itemWidth) + this.wookmarkOptions.offset;
       var containerWidth = this.wookmarkOptions.container.width();
       var columns = Math.floor((containerWidth + this.wookmarkOptions.offset) / columnWidth);
       var offset;
@@ -182,6 +194,7 @@
         this.wookmarkResizeMethod = $.proxy(this.wookmarkOnResize, this);
       }
       $(window).resize(this.wookmarkResizeMethod);
+      this.wookmarkOptions.container.bind('refreshWookmark',this.wookmarkResizeMethod);
     };
 
     /**
@@ -194,6 +207,7 @@
       }
       if(this.wookmarkResizeMethod) {
         $(window).unbind('resize', this.wookmarkResizeMethod);
+        this.wookmarkOptions.container.unbind('refreshWookmark',this.wookmarkResizeMethod);
       }
     };
 

@@ -43,6 +43,13 @@ Where `myElement` is the class of the items you want to lay out in a grid.
 
 See the [documentation page](http://www.wookmark.com/jquery-plugin) for details on available options.
 
+### Refresh trigger
+
+Elements which are hidden have cannot be laid out until they are visible. If you use wookmark on a hidden tab layout will not be immediately performed. When the tab is made visible you can manually refresh wookmark using a trigger on your container.
+
+    $('#myContent').trigger('refreshWookmark');
+
+
 Included examples
 -----------------
 
