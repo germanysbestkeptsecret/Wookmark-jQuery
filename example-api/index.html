@@ -84,9 +84,6 @@
      * Refreshes the layout.
      */
     function applyLayout() {
-      // Clear our previous layout handler.
-      if(handler) handler.wookmarkClear();
-
       // Create a new layout handler.
       handler = $('#tiles li');
       handler.wookmark(options);

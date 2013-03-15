@@ -113,12 +113,6 @@
 
       // This function filters the grid when a change is made.
       var refresh = function() {
-        // Clear our previous handler.
-        if(handler) {
-          handler.wookmarkClear();
-          handler = null;
-        }
-
         // This hides all grid items ("inactive" is a CSS class that sets opacity to 0).
         $('#tiles li').addClass('inactive');
 

@@ -3,7 +3,7 @@
   @name jquery.wookmark.js
   @author Christoph Ono (chri@sto.ph or @gbks)
   @author Sebastian Helzle (sebastian@helzle.net or @sebobo)
-  @version 1.0.4
+  @version 1.1.0
   @date 1/27/2013
   @category jQuery plugin
   @copyright (c) 2009-2013 Christoph Ono (www.wookmark.com)
@@ -11,8 +11,16 @@
 */
 (function($){
 
+  var Wookmark, defaultOptions, __bind;
+
+  __bind = function(fn, me) {
+    return function() {
+      return fn.apply(me, arguments);
+    };
+  };
+
   // Wookmark default options
-  var defaultOptions = {
+  defaultOptions = {
     align: 'center',
     container: $('body'),
     offset: 2,
@@ -21,203 +29,207 @@
     resizeDelay: 50
   };
 
-  $.fn.wookmark = function(options) {
-    // Set options to empty object if undefined
-    if (options == null) {
-      options = {};
-    }
+  Wookmark = (function(options) {
 
-    var $self = $(this[0]);
+    function Wookmark(handler, options) {
+      this.handler = handler;
 
-    function getItemWidth(fixedWidth) {
-      if(fixedWidth === undefined) {
-        return $self.outerWidth();
-      }
-      return fixedWidth;
-    }
+      // Layout variables.
+      this.columns = null;
+      this.containerWidth = null;
+      this.resizeTimer = null;
 
-    // Create options for each plugin instance
-    this.wookmarkOptions = $.extend({}, defaultOptions, options);
+      $.extend(true, this, defaultOptions, options);
 
-    // Layout variables.
-    if(!this.wookmarkColumns) {
-      this.wookmarkColumns = null;
-      this.wookmarkContainerWidth = null;
-    }
+      // Bind methods
+      this.update = __bind(this.update, this);
+      this.onResize = __bind(this.onResize, this);
+      this.getItemWidth = __bind(this.getItemWidth, this);
+      this.layout = __bind(this.layout, this);
+      this.layoutFull = __bind(this.layoutFull, this);
+      this.layoutColumns = __bind(this.layoutColumns, this);
+      this.clear = __bind(this.clear, this);
 
-    // Main layout function.
-    this.wookmarkLayout = function() {
+      // Listen to resize event if requested.
+      if (this.autoResize) {
+        $(window).bind('resize.wookmark', this.onResize);
+        this.container.bind('refreshWookmark', this.onResize);
+      };
+    };
+
+    // Method for updating the plugins options
+    Wookmark.prototype.update = function(options) {
+      $.extend(true, this, options);
+    };
+
+    // This timer ensures that layout is not continuously called as window is being dragged.
+    Wookmark.prototype.onResize = function() {
+      clearTimeout(this.resizeTimer);
+      this.resizeTimer = setTimeout(this.layout, this.resizeDelay);
+    };
+
+    // Method to get the standard item width
+    Wookmark.prototype.getItemWidth = function() {
+      return this.itemWidth === undefined ? this.handler.eq(0).outerWidth() : this.itemWidth;
+    };
+
+    // Main layout methdd.
+    Wookmark.prototype.layout = function() {
       // Do nothing if container isn't visible
-      if(!this.wookmarkOptions.container.is(":visible")) {
+      if(!this.container.is(":visible")) {
         return;
       }
 
       // Calculate basic layout parameters.
-      var columnWidth = getItemWidth(this.wookmarkOptions.itemWidth) + this.wookmarkOptions.offset;
-      var containerWidth = this.wookmarkOptions.container.width();
-      var columns = Math.floor((containerWidth + this.wookmarkOptions.offset) / columnWidth);
-      var offset;
+      var columnWidth = this.getItemWidth() + this.offset,
+          containerWidth = this.container.width(),
+          columns = Math.floor((containerWidth + this.offset) / columnWidth),
+          offset = 0,
+          bottom = 0;
 
       // Calculate the offset based on the alignment of columns to the parent container
-      switch (this.wookmarkOptions.align) {
+      switch (this.align) {
         case 'left':
         case 'right':
-          offset = Math.floor((columns / columnWidth + this.wookmarkOptions.offset) / 2);
+          offset = Math.floor((columns / columnWidth + this.offset) / 2);
           break;
-
         case 'center':
         default:
-          offset = Math.round((containerWidth - (columns * columnWidth - this.wookmarkOptions.offset)) / 2);
+          offset = Math.round((containerWidth - (columns * columnWidth - this.offset)) / 2);
           break;
       }
 
       // If container and column count hasn't changed, we can only update the columns.
-      var bottom = 0;
-      if(this.wookmarkColumns != null && this.wookmarkColumns.length == columns) {
-        bottom = this.wookmarkLayoutColumns(columnWidth, offset);
+      if(this.columns != null && this.columns.length == columns) {
+        bottom = this.layoutColumns(columnWidth, offset);
       } else {
-        bottom = this.wookmarkLayoutFull(columnWidth, columns, offset);
+        bottom = this.layoutFull(columnWidth, columns, offset);
       }
 
       // Set container height to height of the grid.
-      this.wookmarkOptions.container.css('height', bottom + 'px');
+      this.container.css('height', bottom + 'px');
     };
 
     /**
      * Perform a full layout update.
      */
-    this.wookmarkLayoutFull = function(columnWidth, columns, offset) {
+    Wookmark.prototype.layoutFull = function(columnWidth, columns, offset) {
       // Prepare Array to store height of columns.
       var heights = [];
-      while(heights.length < columns) {
+      while (heights.length < columns) {
         heights.push(0);
       }
 
       // Store column data.
-      this.wookmarkColumns = [];
-      while(this.wookmarkColumns.length < columns) {
-        this.wookmarkColumns.push([]);
+      this.columns = [];
+      while (this.columns.length < columns) {
+        this.columns.push([]);
       }
 
       // Loop over items.
-      var item, top, left, i=0, k=0, length=this.length, shortest=null, shortestIndex=null, bottom = 0;
-      for(; i<length; i++ ) {
-        item = $(this[i]);
+      var item, top, left, i = 0, k = 0,
+          length = this.handler.length,
+          shortest = null,
+          shortestIndex = null,
+          bottom = 0,
+          itemCSS = {position: 'absolute'},
+          sideOffset;
+
+      for(; i < length; i++ ) {
+        item = this.handler.eq(i);
 
         // Find the shortest column.
-        shortest = null;
+        shortest = heights[0];
         shortestIndex = 0;
-        for(k=0; k<columns; k++) {
-          if(shortest == null || heights[k] < shortest) {
+        for (k = 0; k < columns; k++) {
+          if (heights[k] < shortest) {
             shortest = heights[k];
             shortestIndex = k;
           }
         }
 
         // Postion the item.
-        item.css({
-          position: 'absolute',
-          top: shortest+'px'
-        });
+        itemCSS.top = shortest + 'px';
 
-        var sideOffset = (shortestIndex * columnWidth + offset) + 'px';
-        if(this.wookmarkOptions.align == 'right') {
-          item.css('right', sideOffset);
+        sideOffset = (shortestIndex * columnWidth + offset) + 'px';
+        if (this.align == 'right') {
+          itemCSS.right = sideOffset;
         } else {
-          item.css('left', sideOffset);
+          itemCSS.left = sideOffset;
         }
+        item.css(itemCSS);
 
         // Update column height.
-        heights[shortestIndex] = shortest + item.outerHeight() + this.wookmarkOptions.offset;
+        heights[shortestIndex] = shortest + item.outerHeight() + this.offset;
         bottom = Math.max(bottom, heights[shortestIndex]);
 
-        this.wookmarkColumns[shortestIndex].push(item);
+        this.columns[shortestIndex].push(item);
       }
-
       return bottom;
     };
 
     /**
-     * This layout function only updates the vertical position of the
+     * This layout method only updates the vertical position of the
      * existing column assignments.
      */
-    this.wookmarkLayoutColumns = function(columnWidth, offset) {
-      var heights = [];
-      while(heights.length < this.wookmarkColumns.length) {
+    Wookmark.prototype.layoutColumns = function(columnWidth, offset) {
+      var heights = [],
+          length = this.columns.length,
+          i = 0, column, k = 0, kLength, item,
+          bottom = 0, itemCSS, sideOffset;
+
+      while (heights.length < length) {
         heights.push(0);
       }
 
-      var i=0, length = this.wookmarkColumns.length, column;
-      var k=0, kLength, item;
-      var bottom = 0;
-      for(; i<length; i++) {
-        column = this.wookmarkColumns[i];
+      for (; i < length; i++) {
+        column = this.columns[i];
         kLength = column.length;
-        for(k=0; k<kLength; k++) {
+        for (k = 0; k < kLength; k++) {
           item = column[k];
-          item.css({
-            top: heights[i]+'px'
-          });
+          itemCSS = {
+            top: heights[i] + 'px'
+          };
 
-          var sideOffset = (i * columnWidth + offset) + 'px';
-          if(this.wookmarkOptions.align == 'right') {
-            item.css('right', sideOffset);
+          sideOffset = (i * columnWidth + offset) + 'px';
+          if (this.align == 'right') {
+            itemCSS.right = sideOffset;
           } else {
-            item.css('left', sideOffset);
+            itemCSS.left = sideOffset;
           }
+          item.css(itemCSS);
 
-          heights[i] += item.outerHeight() + this.wookmarkOptions.offset;
-
+          heights[i] += item.outerHeight() + this.offset;
           bottom = Math.max(bottom, heights[i]);
         }
       }
-
       return bottom;
-    };
-
-    // Listen to resize event if requested.
-    this.wookmarkResizeTimer = null;
-    if(!this.wookmarkResizeMethod) {
-      this.wookmarkResizeMethod = null;
-    }
-    if(this.wookmarkOptions.autoResize) {
-      // This timer ensures that layout is not continuously called as window is being dragged.
-      this.wookmarkOnResize = function(event) {
-        if(this.wookmarkResizeTimer) {
-          clearTimeout(this.wookmarkResizeTimer);
-        }
-        this.wookmarkResizeTimer = setTimeout($.proxy(this.wookmarkLayout, this), this.wookmarkOptions.resizeDelay)
-      };
-
-      // Bind event listener.
-      if(!this.wookmarkResizeMethod) {
-        this.wookmarkResizeMethod = $.proxy(this.wookmarkOnResize, this);
-      }
-      $(window).resize(this.wookmarkResizeMethod);
-      this.wookmarkOptions.container.bind('refreshWookmark',this.wookmarkResizeMethod);
     };
 
     /**
      * Clear event listeners and time outs.
      */
-    this.wookmarkClear = function() {
-      if(this.wookmarkResizeTimer) {
-        clearTimeout(this.wookmarkResizeTimer);
-        this.wookmarkResizeTimer = null;
-      }
-      if(this.wookmarkResizeMethod) {
-        $(window).unbind('resize', this.wookmarkResizeMethod);
-        this.wookmarkOptions.container.unbind('refreshWookmark',this.wookmarkResizeMethod);
-      }
+    Wookmark.prototype.clear = function() {
+      clearTimeout(this.resizeTimer);
+      $(window).unbind('resize.wookmark', this.onResize);
+      this.container.unbind('refreshWookmark', this.onResize);
     };
 
+    return Wookmark;
+  })();
+
+  $.fn.wookmark = function(options) {
+    // Create a wookmark instance if not available
+    if (!this.wookmarkInstance) {
+      this.wookmarkInstance = new Wookmark(this, options || {});
+    } else {
+      this.wookmarkInstance.update(options || {});
+    }
+
     // Apply layout
-    this.wookmarkLayout();
+    this.wookmarkInstance.layout();
 
-    // Display items (if hidden).
-    this.show();
-
-    // Maintain chainability
-    return this;
+    // Display items (if hidden) and return jQuery object to maintain chainability
+    return this.show();
   };
 })(jQuery);

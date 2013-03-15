@@ -35,10 +35,12 @@ Where `myElement` is the class of the items you want to lay out in a grid.
 ### Options
 
     $('.myElements').wookmark({
+      align: 'center',
+      autoResize: false,
       container: $('#myContent'),
-      offset: 5,
-      itemWidth: 200,
-      autoResize: true
+      itemWidth: 0,
+      offset: 2,
+      resizeDelay: 50
     });
 
 See the [documentation page](http://www.wookmark.com/jquery-plugin) for details on available options.

@@ -98,12 +98,9 @@
       var closeToBottom = ($(window).scrollTop() + winHeight > $(document).height() - 100);
       if(closeToBottom) {
         // Get the first then items from the grid, clone them, and add them to the bottom of the grid.
-        var items = $('#tiles li');
-        var firstTen = items.slice(0, 10);
+        var items = $('#tiles li'),
+            firstTen = items.slice(0, 10);
         $('#tiles').append(firstTen.clone());
-
-        // Clear our previous layout handler.
-        if(handler) handler.wookmarkClear();
 
         // Create a new layout handler.
         handler = $('#tiles li');
