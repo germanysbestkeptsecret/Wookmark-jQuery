@@ -70,7 +70,7 @@
 
     // Method to get the standard item width
     Wookmark.prototype.getItemWidth = function() {
-      return this.itemWidth === undefined ? this.handler.eq(0).outerWidth() : this.itemWidth;
+      return this.itemWidth === undefined || this.itemWidth === 0 ? this.handler.eq(0).outerWidth() : this.itemWidth;
     };
 
     // Main layout methdd.
