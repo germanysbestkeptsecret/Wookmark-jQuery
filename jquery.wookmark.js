@@ -26,6 +26,7 @@
     offset: 2,
     autoResize: false,
     itemWidth: 0,
+    flexibleWidth: 0,
     resizeDelay: 50
   };
 
@@ -73,11 +74,27 @@
       return this.itemWidth === undefined || this.itemWidth === 0 ? this.handler.eq(0).outerWidth() : this.itemWidth;
     };
 
+    // Method to get the flexible item width
+    Wookmark.prototype.getFlexibleWidth = function() {
+      var containerWidth = this.container.width(), columns = 1, columnWidth = containerWidth;
+      for (; columnWidth > this.flexibleWidth; columns++) {
+          columnWidth = (containerWidth - (columns - 1) * this.offset)/(columns);
+      }
+      return Math.floor(columnWidth);
+    };
+
     // Main layout methdd.
     Wookmark.prototype.layout = function() {
       // Do nothing if container isn't visible
       if(!this.container.is(":visible")) {
         return;
+      }
+
+      // Calculate flexible item width if option is set
+      if (this.flexibleWidth) {
+        this.itemWidth = this.getFlexibleWidth();
+        // Stretch items to fill calculated width
+        this.handler.css('width', this.itemWidth + 'px');
       }
 
       // Calculate basic layout parameters.
