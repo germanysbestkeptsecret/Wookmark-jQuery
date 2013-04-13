@@ -168,7 +168,12 @@
         // Postion the item.
         itemCSS.top = shortest + 'px';
 
-        sideOffset = (shortestIndex * columnWidth + offset) + 'px';
+        // stick to left side if alignment is left and this is the first column
+        if (shortestIndex == 0 && this.align == 'left') {
+            sideOffset = '0';
+        } else {
+            sideOffset = (shortestIndex * columnWidth + offset) + 'px';
+        }
         if (this.align == 'right') {
           itemCSS.right = sideOffset;
         } else {
