@@ -104,6 +104,9 @@
           offset = 0,
           bottom = 0;
 
+      // Use less columns if there are to few items
+      columns = Math.min(columns, this.handler.length);
+
       // Calculate the offset based on the alignment of columns to the parent container
       switch (this.align) {
         case 'left':
