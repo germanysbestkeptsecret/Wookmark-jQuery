@@ -133,15 +133,13 @@
      * Perform a full layout update.
      */
     Wookmark.prototype.layoutFull = function(columnWidth, columns, offset) {
-      // Loop over items.
       var item, top, left, i = 0, k = 0 , j = 0,
           length = this.handler.length,
-          shortest = null,
-          shortestIndex = null,
-          bottom = 0,
+          shortest = null, shortestIndex = null,
           itemCSS = {position: 'absolute'},
-          sideOffset,
-          heights = [];
+          sideOffset, heights = [],
+          leftAligned = this.align == 'left' ? true : false,
+          align = leftAligned ? 'right' : 'left';
 
       this.columns = [];
 
@@ -151,7 +149,8 @@
         this.columns.push([]);
       }
 
-      for(; i < length; i++ ) {
+      // Loop over items.
+      for (; i < length; i++ ) {
         item = this.handler.eq(i);
 
         // Find the shortest column.
@@ -164,29 +163,25 @@
           }
         }
 
-        // Postion the item.
-        itemCSS.top = shortest;
-
         // stick to left side if alignment is left and this is the first column
-        if (shortestIndex == 0 && this.align == 'left') {
-            sideOffset = 0;
+        if (shortestIndex == 0 && leftAligned) {
+          sideOffset = 0;
         } else {
-            sideOffset = shortestIndex * columnWidth + offset;
+          sideOffset = shortestIndex * columnWidth + offset;
         }
-        if (this.align == 'right') {
-          itemCSS.right = sideOffset;
-        } else {
-          itemCSS.left = sideOffset;
-        }
+
+        // Position the item.
+        itemCSS[align] = sideOffset;
+        itemCSS.top = shortest;
         item.css(itemCSS);
 
-        // Update column height.
-        heights[shortestIndex] = shortest + item.outerHeight() + this.offset;
-        bottom = Math.max(bottom, heights[shortestIndex]);
-
+        // Update column height and store item in shortest column
+        heights[shortestIndex] += item.outerHeight() + this.offset;
         this.columns[shortestIndex].push(item);
       }
-      return bottom;
+
+      // Return longest column
+      return Math.max.apply(Math, heights);
     };
 
     /**
@@ -195,36 +190,30 @@
      */
     Wookmark.prototype.layoutColumns = function(columnWidth, offset) {
       var heights = [],
-          length = this.columns.length,
-          i = 0, column, k = 0, kLength, item,
-          bottom = 0, itemCSS, sideOffset;
+          i = 0, k = 0,
+          column, item, itemCSS, sideOffset,
+          align = this.align == 'right' ? 'right' : 'left';
 
-      while (heights.length < length) {
+      for (; i < this.columns.length; i++) {
         heights.push(0);
-      }
-
-      for (; i < length; i++) {
         column = this.columns[i];
-        kLength = column.length;
-        for (k = 0; k < kLength; k++) {
+        sideOffset = i * columnWidth + offset;
+
+        for (k = 0; k < column.length; k++) {
           item = column[k];
           itemCSS = {
             top: heights[i]
           };
+          itemCSS[align] = sideOffset;
 
-          sideOffset = i * columnWidth + offset;
-          if (this.align == 'right') {
-            itemCSS.right = sideOffset;
-          } else {
-            itemCSS.left = sideOffset;
-          }
           item.css(itemCSS);
 
           heights[i] += item.outerHeight() + this.offset;
-          bottom = Math.max(bottom, heights[i]);
         }
       }
-      return bottom;
+
+      // Return longest column
+      return Math.max.apply(Math, heights);
     };
 
     /**
