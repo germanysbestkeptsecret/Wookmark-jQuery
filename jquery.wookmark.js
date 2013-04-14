@@ -39,6 +39,7 @@
       this.columns = null;
       this.containerWidth = null;
       this.resizeTimer = null;
+      this.direction = 'left';
 
       $.extend(true, this, defaultOptions, options);
 
@@ -102,31 +103,30 @@
           containerWidth = this.container.width(),
           columns = Math.floor((containerWidth + this.offset) / columnWidth),
           offset = 0,
-          bottom = 0;
+          maxHeight = 0;
 
       // Use less columns if there are to few items
       columns = Math.min(columns, this.handler.length);
 
       // Calculate the offset based on the alignment of columns to the parent container
-      switch (this.align) {
-        case 'left':
-        case 'right':
-          offset = Math.floor((columns / columnWidth + this.offset) / 2);
-          break;
-        case 'center':
-        default:
-          offset = Math.round((containerWidth - (columns * columnWidth - this.offset)) / 2);
+      if (this.align == 'left' || this.align == 'right') {
+        offset = Math.floor((columns / columnWidth + this.offset) / 2);
+      } else {
+        offset = Math.round((containerWidth - (columns * columnWidth - this.offset)) / 2);
       }
+
+      // Get direction for positioning
+      this.direction = this.align == 'right' ? 'right' : 'left';
 
       // If container and column count hasn't changed, we can only update the columns.
       if(this.columns != null && this.columns.length == columns) {
-        bottom = this.layoutColumns(columnWidth, offset);
+        maxHeight = this.layoutColumns(columnWidth, offset);
       } else {
-        bottom = this.layoutFull(columnWidth, columns, offset);
+        maxHeight = this.layoutFull(columnWidth, columns, offset);
       }
 
       // Set container height to height of the grid.
-      this.container.css('height', bottom);
+      this.container.css('height', maxHeight);
     };
 
     /**
@@ -138,8 +138,7 @@
           shortest = null, shortestIndex = null,
           itemCSS = {position: 'absolute'},
           sideOffset, heights = [],
-          leftAligned = this.align == 'left' ? true : false,
-          align = leftAligned ? 'right' : 'left';
+          leftAligned = this.align == 'left' ? true : false;
 
       this.columns = [];
 
@@ -171,7 +170,7 @@
         }
 
         // Position the item.
-        itemCSS[align] = sideOffset;
+        itemCSS[this.direction] = sideOffset;
         itemCSS.top = shortest;
         item.css(itemCSS);
 
@@ -191,8 +190,7 @@
     Wookmark.prototype.layoutColumns = function(columnWidth, offset) {
       var heights = [],
           i = 0, k = 0,
-          column, item, itemCSS, sideOffset,
-          align = this.align == 'right' ? 'right' : 'left';
+          column, item, itemCSS, sideOffset;
 
       for (; i < this.columns.length; i++) {
         heights.push(0);
@@ -204,7 +202,7 @@
           itemCSS = {
             top: heights[i]
           };
-          itemCSS[align] = sideOffset;
+          itemCSS[this.direction] = sideOffset;
 
           item.css(itemCSS);
 
