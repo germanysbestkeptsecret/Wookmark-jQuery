@@ -40,10 +40,16 @@ Where `myElement` is the class of the items you want to lay out in a grid.
       container: $('#myContent'),
       itemWidth: 0,
       offset: 2,
-      resizeDelay: 50
+      resizeDelay: 50,
+      flexibleWidth: 0
     });
 
 See the [documentation page](http://www.wookmark.com/jquery-plugin) for details on available options.
+
+#### itemWidth and flexibleWidth
+
+These values can be given as numbers which will be interpreted as pixels or you can use percentage strings like '20%'. 
+If you use a percentage string for itemWidth the number of columns will be fixed and items may overlap if the viewport is small.
 
 ### Refresh trigger
 
@@ -69,7 +75,9 @@ https://gist.github.com/797120
 Feedback
 --------
 
-Please send me an [email](chri@sto.ph) with any feedback you have or contact me on twitter @gbks.
+Please send code specific questions and feedback to [Sebastian](sebastian@helzle.net) or contact him on twitter @sebobo. 
+
+If you have other questions and feedback which is for example related to Wookmark send a mail to [Christoph](chri@sto.ph) or contact him on twitter @gbks.
 
 Contributing
 ------------
