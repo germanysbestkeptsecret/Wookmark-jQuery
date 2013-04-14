@@ -94,7 +94,7 @@
       if (this.flexibleWidth) {
         this.itemWidth = this.getFlexibleWidth();
         // Stretch items to fill calculated width
-        this.handler.css('width', this.itemWidth + 'px');
+        this.handler.css('width', this.itemWidth);
       }
 
       // Calculate basic layout parameters.
@@ -113,7 +113,6 @@
         case 'center':
         default:
           offset = Math.round((containerWidth - (columns * columnWidth - this.offset)) / 2);
-          break;
       }
 
       // If container and column count hasn't changed, we can only update the columns.
@@ -124,33 +123,30 @@
       }
 
       // Set container height to height of the grid.
-      this.container.css('height', bottom + 'px');
+      this.container.css('height', bottom);
     };
 
     /**
      * Perform a full layout update.
      */
     Wookmark.prototype.layoutFull = function(columnWidth, columns, offset) {
-      // Prepare Array to store height of columns.
-      var heights = [];
-      while (heights.length < columns) {
-        heights.push(0);
-      }
-
-      // Store column data.
-      this.columns = [];
-      while (this.columns.length < columns) {
-        this.columns.push([]);
-      }
-
       // Loop over items.
-      var item, top, left, i = 0, k = 0,
+      var item, top, left, i = 0, k = 0 , j = 0,
           length = this.handler.length,
           shortest = null,
           shortestIndex = null,
           bottom = 0,
           itemCSS = {position: 'absolute'},
-          sideOffset;
+          sideOffset,
+          heights = [];
+
+      this.columns = [];
+
+      // Prepare arrays to store height of columns and items.
+      while (heights.length < columns) {
+        heights.push(0);
+        this.columns.push([]);
+      }
 
       for(; i < length; i++ ) {
         item = this.handler.eq(i);
@@ -166,13 +162,13 @@
         }
 
         // Postion the item.
-        itemCSS.top = shortest + 'px';
+        itemCSS.top = shortest;
 
         // stick to left side if alignment is left and this is the first column
         if (shortestIndex == 0 && this.align == 'left') {
-            sideOffset = '0';
+            sideOffset = 0;
         } else {
-            sideOffset = (shortestIndex * columnWidth + offset) + 'px';
+            sideOffset = shortestIndex * columnWidth + offset;
         }
         if (this.align == 'right') {
           itemCSS.right = sideOffset;
@@ -210,10 +206,10 @@
         for (k = 0; k < kLength; k++) {
           item = column[k];
           itemCSS = {
-            top: heights[i] + 'px'
+            top: heights[i]
           };
 
-          sideOffset = (i * columnWidth + offset) + 'px';
+          sideOffset = i * columnWidth + offset;
           if (this.align == 'right') {
             itemCSS.right = sideOffset;
           } else {
