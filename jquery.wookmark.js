@@ -72,15 +72,28 @@
 
     // Method to get the standard item width
     Wookmark.prototype.getItemWidth = function() {
-      return this.itemWidth === undefined || this.itemWidth === 0 ? this.handler.eq(0).outerWidth() : this.itemWidth;
+      if (this.itemWidth === undefined || this.itemWidth === 0) {
+        return this.handler.eq(0).outerWidth();
+      }
+      else if (typeof this.itemWidth == 'string' && this.itemWidth.indexOf('%') >= 0) {
+        return parseFloat(this.itemWidth) / 100 * this.container.width();
+      }
+      return this.itemWidth;
     };
 
     // Method to get the flexible item width
     Wookmark.prototype.getFlexibleWidth = function() {
-      var containerWidth = this.container.width(), columns = 1, columnWidth = containerWidth;
-      for (; columnWidth > this.flexibleWidth; columns++) {
-          columnWidth = (containerWidth - (columns - 1) * this.offset)/(columns);
+      var containerWidth = this.container.width(),
+          flexibleWidth = this.flexibleWidth;
+
+      if (typeof flexibleWidth == 'string' && flexibleWidth.indexOf('%') >= 0) {
+        flexibleWidth = parseFloat(flexibleWidth) / 100 * containerWidth;
+        flexibleWidth -= this.handler.eq(0).outerWidth() - this.handler.eq(0).innerWidth();
       }
+
+      var columns = Math.floor(1 + containerWidth / (flexibleWidth + this.offset)),
+          columnWidth = (containerWidth - (columns - 1) * this.offset) / columns;
+
       return Math.floor(columnWidth);
     };
 
