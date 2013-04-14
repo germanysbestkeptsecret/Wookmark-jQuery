@@ -100,8 +100,7 @@
   <script type="text/javascript">
     $(document).ready(new function() {
       // This filter is later used as the selector for which grid items to show.
-      var filter = '';
-      var handler;
+      var filter = '', handler;
 
       // Prepare layout options.
       var options = {
@@ -131,22 +130,22 @@
        * If they have changed, it also calls a refresh (see above).
        */
       var updateFilters = function() {
-        var oldFilter = filter;
-        filter = '';
-        var filters = [];
+        var oldFilter = filter,
+            filters = [];
 
         // Collect filter list.
-        var lis = $('#filters li');
-        var i=0, length=lis.length, li;
-        for(; i<length; i++) {
-          li = $(lis[i]);
-          if(li.hasClass('active')) {
-            filters.push('#tiles li.'+li.attr('data-filter'));
+        var items = $('#filters li'),
+            i = 0, length = items.length, item;
+
+        for(; i < length; i++) {
+          item = items.eq(i);
+          if(item.hasClass('active')) {
+            filters.push('#tiles li.' + item.attr('data-filter'));
           }
         }
 
         // If no filters active, set default to show all.
-        if(filters.length == 0) {
+        if (filters.length == 0) {
           filters.push('#tiles li');
         }
 
@@ -163,9 +162,8 @@
        * When a filter is clicked, toggle it's active state and refresh.
        */
       var onClickFilter = function(event) {
-        var item = $(event.currentTarget);
         $('#filters li').removeClass('active');
-        item.toggleClass('active');
+        $(event.currentTarget).toggleClass('active');
         updateFilters();
       }
 

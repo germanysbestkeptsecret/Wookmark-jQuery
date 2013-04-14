@@ -28,7 +28,6 @@
 
 #tiles li.inactive {
   opacity: 0;
-  display: none !important;
 }
 
 #tiles li img {
