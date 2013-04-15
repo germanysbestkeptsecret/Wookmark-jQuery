@@ -41,7 +41,8 @@ Where `myElement` is the class of the items you want to lay out in a grid.
       itemWidth: 0,
       offset: 2,
       resizeDelay: 50,
-      flexibleWidth: 0
+      flexibleWidth: 0,
+      onLayoutChanged: undefined
     });
 
 See the [documentation page](http://www.wookmark.com/jquery-plugin) for details on available options.
