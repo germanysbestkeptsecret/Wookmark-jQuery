@@ -75,9 +75,9 @@ https://gist.github.com/797120
 Feedback
 --------
 
-Please send code specific questions and feedback to [Sebastian](mailto:sebastian@helzle.net) or contact him on twitter @sebobo. 
+Please send code specific questions and feedback to [Sebastian](mailto:sebastian@helzle.net) or contact him on [twitter](http://twitter.com/sebobo). 
 
-If you have other questions and feedback which is for example related to Wookmark send a mail to [Christoph](mailto:chri@sto.ph) or contact him on twitter @gbks.
+If you have other questions and feedback which is for example related to Wookmark send a mail to [Christoph](mailto:chri@sto.ph) or contact him on [twitter](https://twitter.com/gbks).
 
 Contributing
 ------------
