@@ -27,7 +27,8 @@
     autoResize: false,
     itemWidth: 0,
     flexibleWidth: 0,
-    resizeDelay: 50
+    resizeDelay: 50,
+    onLayoutChanged: undefined
   };
 
   Wookmark = (function(options) {
@@ -140,6 +141,10 @@
 
       // Set container height to height of the grid.
       this.container.css('height', maxHeight);
+
+      if (this.onLayoutChanged !== undefined && typeof this.onLayoutChanged === 'function') {
+        this.onLayoutChanged();
+      }
     };
 
     /**
