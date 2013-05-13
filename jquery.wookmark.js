@@ -3,8 +3,8 @@
   @name jquery.wookmark.js
   @author Christoph Ono (chri@sto.ph or @gbks)
   @author Sebastian Helzle (sebastian@helzle.net or @sebobo)
-  @version 1.1.1
-  @date 4/14/2013
+  @version 1.1.2
+  @date 5/13/2013
   @category jQuery plugin
   @copyright (c) 2009-2013 Christoph Ono (www.wookmark.com)
   @license Licensed under the MIT (http://www.opensource.org/licenses/mit-license.php) license.
@@ -73,29 +73,36 @@
 
     // Method to get the standard item width
     Wookmark.prototype.getItemWidth = function() {
-      if (this.itemWidth === undefined || this.itemWidth === 0) {
-        return this.handler.eq(0).outerWidth();
+      var itemWidth = this.itemWidth,
+          containerWidth = this.container.width(),
+          firstElement = this.handler.eq(0);
+
+      if (this.itemWidth === undefined || this.itemWidth === 0 && !this.flexibleWidth) {
+        itemWidth = firstElement.outerWidth();
       }
       else if (typeof this.itemWidth == 'string' && this.itemWidth.indexOf('%') >= 0) {
-        return parseFloat(this.itemWidth) / 100 * this.container.width();
-      }
-      return this.itemWidth;
-    };
-
-    // Method to get the flexible item width
-    Wookmark.prototype.getFlexibleWidth = function() {
-      var containerWidth = this.container.width(),
-          flexibleWidth = this.flexibleWidth;
-
-      if (typeof flexibleWidth == 'string' && flexibleWidth.indexOf('%') >= 0) {
-        flexibleWidth = parseFloat(flexibleWidth) / 100 * containerWidth;
-        flexibleWidth -= this.handler.eq(0).outerWidth() - this.handler.eq(0).innerWidth();
+        itemWidth = parseFloat(this.itemWidth) / 100 * containerWidth;
       }
 
-      var columns = Math.floor(1 + containerWidth / (flexibleWidth + this.offset)),
-          columnWidth = (containerWidth - (columns - 1) * this.offset) / columns;
+      // Calculate flexible item width if option is set
+      if (this.flexibleWidth) {
+        var flexibleWidth = this.flexibleWidth;
 
-      return Math.floor(columnWidth);
+        if (typeof flexibleWidth == 'string' && flexibleWidth.indexOf('%') >= 0) {
+          flexibleWidth = parseFloat(flexibleWidth) / 100 * containerWidth
+            - firstElement.outerWidth() + firstElement.innerWidth();
+        }
+
+        var columns = Math.floor(1 + containerWidth / (flexibleWidth + this.offset)),
+            columnWidth = (containerWidth - (columns - 1) * this.offset) / columns;
+
+        itemWidth = Math.max(itemWidth, Math.floor(columnWidth));
+
+        // Stretch items to fill calculated width
+        this.handler.css('width', itemWidth);
+      }
+
+      return itemWidth;
     };
 
     // Main layout methdd.
@@ -103,13 +110,6 @@
       // Do nothing if container isn't visible
       if(!this.container.is(":visible")) {
         return;
-      }
-
-      // Calculate flexible item width if option is set
-      if (this.flexibleWidth) {
-        this.itemWidth = this.getFlexibleWidth();
-        // Stretch items to fill calculated width
-        this.handler.css('width', this.itemWidth);
       }
 
       // Calculate basic layout parameters.

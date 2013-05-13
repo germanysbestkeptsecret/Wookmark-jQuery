@@ -51,6 +51,7 @@ See the [documentation page](http://www.wookmark.com/jquery-plugin) for details 
 
 These values can be given as numbers which will be interpreted as pixels or you can use percentage strings like '20%'. 
 If you use a percentage string for itemWidth the number of columns will be fixed and items may overlap if the viewport is small.
+When flexibleWidth is set an itemWidth != 0 is used as minimum item width.
 
 ### Refresh trigger
 
