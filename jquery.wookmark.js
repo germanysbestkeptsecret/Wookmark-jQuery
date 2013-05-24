@@ -135,7 +135,6 @@
             currentItem = shortestFilter[i];
             itemValid = true;
             for (j in activeFilters) {
-              if (!itemValid) break;
               if (shortestFilterId == j) continue;
 
               foundInFilter = false;
@@ -150,6 +149,7 @@
               // Set item invalid if it hasn't been found
               if (!foundInFilter) {
                 itemValid = false;
+                break;
               }
             }
             if (itemValid) {
