@@ -34,7 +34,7 @@
   Wookmark = (function(options) {
 
     function Wookmark(handler, options) {
-      self = this;
+      var self = this;
       this.handler = handler;
 
       // Layout variables.
@@ -106,7 +106,7 @@
       if (filters.length) {
         // Collect active filters
         for (i in filters) {
-          filter = filters[i].toLowerCase();
+          filter = $.trim(filters[i].toLowerCase());
           if (filter in this.filterClasses) {
             activeFilters.push(this.filterClasses[filter]);
           }
