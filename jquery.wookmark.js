@@ -3,8 +3,8 @@
   @name jquery.wookmark.js
   @author Christoph Ono (chri@sto.ph or @gbks)
   @author Sebastian Helzle (sebastian@helzle.net or @sebobo)
-  @version 1.1.2
-  @date 5/13/2013
+  @version 1.2.0
+  @date 5/24/2013
   @category jQuery plugin
   @copyright (c) 2009-2013 Christoph Ono (www.wookmark.com)
   @license Licensed under the MIT (http://www.opensource.org/licenses/mit-license.php) license.
@@ -34,6 +34,7 @@
   Wookmark = (function(options) {
 
     function Wookmark(handler, options) {
+      self = this;
       this.handler = handler;
 
       // Layout variables.
@@ -51,7 +52,29 @@
       this.layout = __bind(this.layout, this);
       this.layoutFull = __bind(this.layoutFull, this);
       this.layoutColumns = __bind(this.layoutColumns, this);
+      this.filter = __bind(this.filter, this);
       this.clear = __bind(this.clear, this);
+      this.getActiveItems = __bind(this.getActiveItems, this);
+
+      // Filter variables
+      this.filterClasses = {};
+
+      // Iterate over items and read filter classes
+      handler.each(function(i, item) {
+        $item = $(item);
+        itemFilterClasses = $item.data('filterClass');
+
+        // Globally store each filter class as object and the fitting items in the array
+        if (typeof itemFilterClasses == 'object' && itemFilterClasses.length > 0) {
+          for (i in itemFilterClasses) {
+            filterClass = $.trim(itemFilterClasses[i]).toLowerCase();
+            if (!(filterClass in self.filterClasses)) {
+              self.filterClasses[filterClass] = [];
+            }
+            self.filterClasses[filterClass].push($item[0]);
+          }
+        }
+      });
 
       // Listen to resize event if requested.
       if (this.autoResize) {
@@ -70,6 +93,89 @@
       clearTimeout(this.resizeTimer);
       this.resizeTimer = setTimeout(this.layout, this.resizeDelay);
     };
+
+    // This timer ensures that layout is not continuously called as window is being dragged.
+    Wookmark.prototype.filter = function(filters, mode) {
+      var activeFilters = [],
+          activeItems = $(),
+          i, j, k, filter;
+
+      filters = filters || [];
+      mode = mode || 'or';
+
+      if (filters.length) {
+        // Collect active filters
+        for (i in filters) {
+          filter = filters[i].toLowerCase();
+          if (filter in this.filterClasses) {
+            activeFilters.push(this.filterClasses[filter]);
+          }
+        }
+
+        // Get items for active filters with the selected mode
+        if (mode == 'or' || activeFilters.length == 1) {
+          for (i in activeFilters) {
+            activeItems = activeItems.add(activeFilters[i]);
+          }
+        } else if (mode == 'and') {
+          // Find shortest filter class
+          var shortestFilterId = 0;
+
+          for (i in activeFilters) {
+            if (activeFilters[i].length < activeFilters[shortestFilterId].length) {
+              shortestFilterId = i;
+            }
+          }
+
+          // Iterate over shortest filter and find elements in other filter classes
+          var shortestFilter = activeFilters[shortestFilterId],
+              itemValid = true, foundInFilter, currentItem;
+
+          for (i in shortestFilter) {
+            currentItem = shortestFilter[i];
+            itemValid = true;
+            for (j in activeFilters) {
+              if (!itemValid) break;
+              if (shortestFilterId == j) continue;
+
+              foundInFilter = false;
+              for (k in activeFilters[j]) {
+                // Search for current item in each active filter class
+                if (activeFilters[j][k] == currentItem) {
+                  foundInFilter = true;
+                  break;
+                }
+              }
+
+              // Set item invalid if it hasn't been found
+              if (!foundInFilter) {
+                itemValid = false;
+              }
+            }
+            if (itemValid) {
+              activeItems.push(shortestFilter[i]);
+            }
+          }
+        }
+        // Hide inactive items
+        this.handler.not(activeItems).addClass('inactive');
+      } else {
+        // Show all items if no filter is selected
+        activeItems = this.handler;
+      }
+
+      // Show active items
+      activeItems.removeClass('inactive');
+
+      // Unset columns and refresh grid for a full layout
+      this.columns = null;
+      this.layout();
+    };
+
+    // Method the get active items which are not disabled and visible
+    Wookmark.prototype.getActiveItems = function() {
+      return this.handler.not('.inactive');
+    }
 
     // Method to get the standard item width
     Wookmark.prototype.getItemWidth = function() {
@@ -105,7 +211,7 @@
       return itemWidth;
     };
 
-    // Main layout methdd.
+    // Main layout method.
     Wookmark.prototype.layout = function() {
       // Do nothing if container isn't visible
       if(!this.container.is(":visible")) {
@@ -117,10 +223,11 @@
           containerWidth = this.container.width(),
           columns = Math.floor((containerWidth + this.offset) / columnWidth),
           offset = 0,
-          maxHeight = 0;
+          maxHeight = 0,
+          activeItems = this.getActiveItems();
 
       // Use less columns if there are to few items
-      columns = Math.min(columns, this.handler.length);
+      columns = Math.min(columns, activeItems.length);
 
       // Calculate the offset based on the alignment of columns to the parent container
       if (this.align == 'left' || this.align == 'right') {
@@ -152,7 +259,8 @@
      */
     Wookmark.prototype.layoutFull = function(columnWidth, columns, offset) {
       var item, top, left, i = 0, k = 0 , j = 0,
-          length = this.handler.length,
+          activeItems = this.getActiveItems(),
+          length = activeItems.length,
           shortest = null, shortestIndex = null,
           itemCSS = {position: 'absolute'},
           sideOffset, heights = [],
@@ -168,7 +276,7 @@
 
       // Loop over items.
       for (; i < length; i++ ) {
-        item = this.handler.eq(i);
+        item = activeItems.eq(i);
 
         // Find the shortest column.
         shortest = heights[0];

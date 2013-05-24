@@ -15,7 +15,6 @@
   background-color: #ffffff;
   border: 1px solid #dedede;
   display: none; /** Hide items initially to avoid a flicker effect **/
-  cursor: pointer;
   padding: 4px;
   -webkit-transition: all 0.3s ease-out;
      -moz-transition: all 0.3s ease-out;
@@ -27,6 +26,7 @@
 }
 
 #tiles li.inactive {
+  visibility: hidden;
   opacity: 0;
 }
 
