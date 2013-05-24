@@ -1,0 +1,76 @@
+
+/**
+ * Grid container
+ */
+#tiles {
+  list-style-type: none;
+  position: relative; /** Needed to ensure items are laid out relative to this container **/
+  margin: 0;
+}
+
+/**
+ * Grid items
+ */
+#tiles li {
+  width: 200px;
+  background-color: #ffffff;
+  border: 1px solid #dedede;
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+  border-radius: 2px;
+  display: none; /** Hide items initially to avoid a flicker effect **/
+  padding: 4px;
+}
+
+#tiles li img {
+  display: block;
+  cursor: pointer;
+}
+
+/**
+ * Grid item text
+ */
+#tiles li p {
+  color: #666;
+  font-size: 12px;
+  margin: 7px 0 0 7px;
+}
+
+/**
+ * Some extra styles to randomize heights of grid items.
+ */
+#tiles ali:nth-child(3n) {
+  height: 175px;
+}
+
+#tiles ali:nth-child(4n-3) {
+  padding-bottom: 30px;
+}
+
+#tiles ali:nth-child(5n) {
+  height: 250px;
+}
+
+/** General page styling **/
+
+html {
+  background-color: #e9e9e9;
+}
+
+#main {
+  padding: 30px 0 30px 0;
+}
+
+header h1 {
+  text-align: center;
+  font-size: 24px;
+  font-weight: normal;
+  margin: 30px 0 3px 0;
+}
+
+header p {
+  text-align: center;
+  font-size: 13px;
+  color: #777;
+  margin: 0;
+}
