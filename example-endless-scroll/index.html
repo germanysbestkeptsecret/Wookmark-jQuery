@@ -103,6 +103,11 @@
             firstTen = items.slice(0, 10);
         $('#tiles').append(firstTen.clone());
 
+        // Destroy the old handler
+        if (handler.wookmarkInstance) {
+          handler.wookmarkInstance.clear();
+        }
+
         // Create a new layout handler.
         handler = $('#tiles li');
         handler.wookmark(options);
