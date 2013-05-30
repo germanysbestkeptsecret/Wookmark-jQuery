@@ -42,12 +42,14 @@
       this.containerWidth = null;
       this.resizeTimer = null;
       this.direction = 'left';
+      this.itemHeightsDirty = true;
 
       $.extend(true, this, defaultOptions, options);
 
-      // Bind methods
+      // Bind instance methods
       this.update = __bind(this.update, this);
       this.onResize = __bind(this.onResize, this);
+      this.onRefresh = __bind(this.onRefresh, this);
       this.getItemWidth = __bind(this.getItemWidth, this);
       this.layout = __bind(this.layout, this);
       this.layoutFull = __bind(this.layoutFull, this);
@@ -79,25 +81,36 @@
       // Listen to resize event if requested.
       if (this.autoResize) {
         $(window).bind('resize.wookmark', this.onResize);
-        this.container.bind('refreshWookmark', this.onResize);
       };
+      this.container.bind('refreshWookmark', this.onRefresh);
     };
 
     // Method for updating the plugins options
     Wookmark.prototype.update = function(options) {
+      this.itemHeightsDirty = true;
       $.extend(true, this, options);
     };
 
     // This timer ensures that layout is not continuously called as window is being dragged.
     Wookmark.prototype.onResize = function() {
       clearTimeout(this.resizeTimer);
+      this.itemHeightsDirty = this.flexibleWidth != 0;
       this.resizeTimer = setTimeout(this.layout, this.resizeDelay);
     };
 
-    // This timer ensures that layout is not continuously called as window is being dragged.
+    // Marks the items heights as dirty and does a relayout
+    Wookmark.prototype.onRefresh = function() {
+      this.itemHeightsDirty = true;
+      this.layout();
+    };
+
+    /**
+     * Filters the active items with the given string filters.
+     * @param filters array of string
+     * @param mode 'or' or 'and'
+     */
     Wookmark.prototype.filter = function(filters, mode) {
-      var activeFilters = [],
-          activeItems = $(),
+      var activeFilters = [], activeFiltersLength, activeItems = $(),
           i, j, k, filter;
 
       filters = filters || [];
@@ -214,33 +227,41 @@
     // Main layout method.
     Wookmark.prototype.layout = function() {
       // Do nothing if container isn't visible
-      if(!this.container.is(":visible")) {
-        return;
-      }
+      if (!this.container.is(":visible")) return;
 
       // Calculate basic layout parameters.
       var columnWidth = this.getItemWidth() + this.offset,
           containerWidth = this.container.width(),
-          columns = Math.floor((containerWidth + this.offset) / columnWidth),
-          offset = 0,
-          maxHeight = 0,
-          activeItems = this.getActiveItems();
+          columns = ~~((containerWidth + this.offset) / columnWidth),
+          offset = maxHeight = i = 0,
+          activeItems = this.getActiveItems(),
+          activeItemsLength = activeItems.length,
+          $item;
+
+      // Cache item height
+      if (this.itemHeightsDirty) {
+        for (; i < activeItemsLength; i++) {
+          $item = activeItems.eq(i);
+          $item.data('outerHeight', $item.outerHeight());
+        }
+        this.itemHeightsDirty = false;
+      }
 
       // Use less columns if there are to few items
-      columns = Math.min(columns, activeItems.length);
+      columns = Math.max(1, Math.min(columns, activeItemsLength));
 
       // Calculate the offset based on the alignment of columns to the parent container
       if (this.align == 'left' || this.align == 'right') {
-        offset = Math.floor((columns / columnWidth + this.offset) / 2);
+        offset = ~~((columns / columnWidth + this.offset) >> 1);
       } else {
-        offset = Math.round((containerWidth - (columns * columnWidth - this.offset)) / 2);
+        offset = ~~(.5 + (containerWidth - (columns * columnWidth - this.offset)) >> 1);
       }
 
       // Get direction for positioning
       this.direction = this.align == 'right' ? 'right' : 'left';
 
       // If container and column count hasn't changed, we can only update the columns.
-      if(this.columns != null && this.columns.length == columns) {
+      if (this.columns != null && this.columns.length == columns) {
         maxHeight = this.layoutColumns(columnWidth, offset);
       } else {
         maxHeight = this.layoutFull(columnWidth, columns, offset);
@@ -346,7 +367,7 @@
     Wookmark.prototype.clear = function() {
       clearTimeout(this.resizeTimer);
       $(window).unbind('resize.wookmark', this.onResize);
-      this.container.unbind('refreshWookmark', this.onResize);
+      this.container.unbind('refreshWookmark', this.onRefresh);
     };
 
     return Wookmark;
