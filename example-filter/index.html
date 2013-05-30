@@ -214,7 +214,7 @@
 
         // Collect active filter strings
         filters.filter('.active').each(function() {
-          activeFilters.push($(this).text());
+          activeFilters.push($(this).data('filter'));
         });
 
         handler.wookmarkInstance.filter(activeFilters, 'or');
