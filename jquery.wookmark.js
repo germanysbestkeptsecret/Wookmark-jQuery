@@ -34,10 +34,8 @@
   Wookmark = (function(options) {
 
     function Wookmark(handler, options) {
-      var self = this;
+      // Instance variables.
       this.handler = handler;
-
-      // Layout variables.
       this.columns = null;
       this.containerWidth = null;
       this.resizeTimer = null;
@@ -58,25 +56,28 @@
       this.clear = __bind(this.clear, this);
       this.getActiveItems = __bind(this.getActiveItems, this);
 
-      // Filter variables
-      this.filterClasses = {};
+      // Collect filter data
+      var i = j = 0, filterClasses = {}, itemFilterClasses;
 
-      // Iterate over items and read filter classes
-      handler.each(function(i, item) {
-        $item = $(item);
+      for (; i < handler.length; i++) {
+        $item = handler.eq(i);
+
+        // Read filter classes
         itemFilterClasses = $item.data('filterClass');
 
         // Globally store each filter class as object and the fitting items in the array
         if (typeof itemFilterClasses == 'object' && itemFilterClasses.length > 0) {
-          for (i in itemFilterClasses) {
-            filterClass = $.trim(itemFilterClasses[i]).toLowerCase();
-            if (!(filterClass in self.filterClasses)) {
-              self.filterClasses[filterClass] = [];
+          for (j = 0; j < itemFilterClasses.length; j++) {
+            filterClass = $.trim(itemFilterClasses[j]).toLowerCase();
+
+            if (!(filterClass in filterClasses)) {
+              filterClasses[filterClass] = [];
             }
-            self.filterClasses[filterClass].push($item[0]);
+            filterClasses[filterClass].push($item[0]);
           }
         }
-      });
+      };
+      this.filterClasses = filterClasses;
 
       // Listen to resize event if requested.
       if (this.autoResize) {
@@ -118,7 +119,7 @@
 
       if (filters.length) {
         // Collect active filters
-        for (i in filters) {
+        for (i = 0; i < filters.length; i++) {
           filter = $.trim(filters[i].toLowerCase());
           if (filter in this.filterClasses) {
             activeFilters.push(this.filterClasses[filter]);
@@ -126,48 +127,40 @@
         }
 
         // Get items for active filters with the selected mode
-        if (mode == 'or' || activeFilters.length == 1) {
-          for (i in activeFilters) {
+        activeFiltersLength = activeFilters.length
+        if (mode == 'or' || activeFiltersLength == 1) {
+          // Set all items in all active filters active
+          for (i = 0; i < activeFiltersLength; i++) {
             activeItems = activeItems.add(activeFilters[i]);
           }
         } else if (mode == 'and') {
-          // Find shortest filter class
-          var shortestFilterId = 0;
+          var shortestFilter = activeFilters[0],
+              itemValid = true, foundInFilter,
+              currentItem, currentFilter;
 
-          for (i in activeFilters) {
-            if (activeFilters[i].length < activeFilters[shortestFilterId].length) {
-              shortestFilterId = i;
+          // Find shortest filter class
+          for (i = 1; i < activeFiltersLength; i++) {
+            if (activeFilters[i].length < shortestFilter.length) {
+              shortestFilter = activeFilters[i];
             }
           }
 
           // Iterate over shortest filter and find elements in other filter classes
-          var shortestFilter = activeFilters[shortestFilterId],
-              itemValid = true, foundInFilter, currentItem;
-
-          for (i in shortestFilter) {
+          for (i = 0; i < shortestFilter.length; i++) {
             currentItem = shortestFilter[i];
             itemValid = true;
-            for (j in activeFilters) {
-              if (shortestFilterId == j) continue;
 
-              foundInFilter = false;
-              for (k in activeFilters[j]) {
-                // Search for current item in each active filter class
-                if (activeFilters[j][k] == currentItem) {
-                  foundInFilter = true;
-                  break;
-                }
-              }
+            for (j = 0; j < activeFilters.length && itemValid; j++) {
+              currentFilter = activeFilters[j];
+              if (shortestFilter == currentFilter) continue;
 
-              // Set item invalid if it hasn't been found
-              if (!foundInFilter) {
-                itemValid = false;
-                break;
+              // Search for current item in each active filter class
+              for (k = 0, foundInFilter = false; k < currentFilter.length && !foundInFilter; k++) {
+                foundInFilter = currentFilter[k] == currentItem;
               }
+              itemValid &= foundInFilter;
             }
-            if (itemValid) {
-              activeItems.push(shortestFilter[i]);
-            }
+            itemValid && activeItems.push(shortestFilter[i]);
           }
         }
         // Hide inactive items
@@ -194,7 +187,8 @@
     Wookmark.prototype.getItemWidth = function() {
       var itemWidth = this.itemWidth,
           containerWidth = this.container.width(),
-          firstElement = this.handler.eq(0);
+          firstElement = this.handler.eq(0),
+          flexibleWidth = this.flexibleWidth;
 
       if (this.itemWidth === undefined || this.itemWidth === 0 && !this.flexibleWidth) {
         itemWidth = firstElement.outerWidth();
@@ -204,18 +198,16 @@
       }
 
       // Calculate flexible item width if option is set
-      if (this.flexibleWidth) {
-        var flexibleWidth = this.flexibleWidth;
-
+      if (flexibleWidth) {
         if (typeof flexibleWidth == 'string' && flexibleWidth.indexOf('%') >= 0) {
           flexibleWidth = parseFloat(flexibleWidth) / 100 * containerWidth
             - firstElement.outerWidth() + firstElement.innerWidth();
         }
 
-        var columns = Math.floor(1 + containerWidth / (flexibleWidth + this.offset)),
+        var columns = ~~(1 + containerWidth / (flexibleWidth + this.offset)),
             columnWidth = (containerWidth - (columns - 1) * this.offset) / columns;
 
-        itemWidth = Math.max(itemWidth, Math.floor(columnWidth));
+        itemWidth = Math.max(itemWidth, ~~(columnWidth));
 
         // Stretch items to fill calculated width
         this.handler.css('width', itemWidth);
@@ -297,7 +289,7 @@
 
       // Loop over items.
       for (; i < length; i++ ) {
-        item = activeItems.eq(i);
+        $item = activeItems.eq(i);
 
         // Find the shortest column.
         shortest = heights[0];
@@ -319,11 +311,11 @@
         // Position the item.
         itemCSS[this.direction] = sideOffset;
         itemCSS.top = shortest;
-        item.css(itemCSS);
+        $item.css(itemCSS);
 
         // Update column height and store item in shortest column
-        heights[shortestIndex] += item.outerHeight() + this.offset;
-        this.columns[shortestIndex].push(item);
+        heights[shortestIndex] += $item.data('outerHeight') + this.offset;
+        this.columns[shortestIndex].push($item);
       }
 
       // Return longest column
@@ -345,15 +337,15 @@
         sideOffset = i * columnWidth + offset;
 
         for (k = 0; k < column.length; k++) {
-          item = column[k];
+          $item = column[k];
           itemCSS = {
             top: heights[i]
           };
           itemCSS[this.direction] = sideOffset;
 
-          item.css(itemCSS);
+          $item.css(itemCSS);
 
-          heights[i] += item.outerHeight() + this.offset;
+          heights[i] += $item.data('outerHeight') + this.offset;
         }
       }
 
