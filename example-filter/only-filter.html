@@ -26,7 +26,7 @@
   <div id="container">
     <header>
       <h1>jQuery Wookmark Plug-in Example</h1>
-      <p>Click the words below to filter the grid. Grid items that match all selected filters will remain visible.</p>
+      <p>Click the words below to filter the grid. Grid items that match at the selected filter will remain visible.</p>
     </header>
     <div id="main" role="main">
 
@@ -63,9 +63,9 @@
           <img src="../sample-images/image_3.jpg" height="252" width="200">
           <p>Berlin Video</p>
         </li>
-        <li data-filter-class='["tokyo", "fashion", "berlin"]'>
+        <li data-filter-class='["tokyo", "fashion"]'>
           <img src="../sample-images/image_4.jpg" height="158" width="200">
-          <p>Tokyo Fashion Berlin</p>
+          <p>Tokyo Fashion</p>
         </li>
         <li data-filter-class='["berlin", "art"]'>
           <img src="../sample-images/image_5.jpg" height="300" width="200">
@@ -175,6 +175,9 @@
       </ul>
 
     </div>
+    <footer>
+
+    </footer>
   </div>
 
   <!-- include jQuery -->
@@ -211,14 +214,18 @@
         var onClickFilter = function(event) {
           var item = $(event.currentTarget),
               activeFilters = [];
+
+          if (!item.hasClass('active')) {
+            filters.removeClass('active');
+          }
           item.toggleClass('active');
 
-          // Collect active filter strings
-          filters.filter('.active').each(function() {
-            activeFilters.push($(this).data('filter'));
-          });
+          // Filter by the currently selected filter
+          if (item.hasClass('active')) {
+            activeFilters.push(item.data('filter'));
+          }
 
-          handler.wookmarkInstance.filter(activeFilters, 'and');
+          handler.wookmarkInstance.filter(activeFilters);
         }
 
         // Capture filter click events.

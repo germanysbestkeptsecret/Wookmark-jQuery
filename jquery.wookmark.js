@@ -3,13 +3,18 @@
   @name jquery.wookmark.js
   @author Christoph Ono (chri@sto.ph or @gbks)
   @author Sebastian Helzle (sebastian@helzle.net or @sebobo)
-  @version 1.2.1
-  @date 5/30/2013
+  @version 1.2.2
+  @date 6/05/2013
   @category jQuery plugin
   @copyright (c) 2009-2013 Christoph Ono (www.wookmark.com)
   @license Licensed under the MIT (http://www.opensource.org/licenses/mit-license.php) license.
 */
-(function($){
+(function (factory) {
+  if (typeof define === 'function' && define.amd)
+    define(['jquery'], factory);
+  else
+    factory(jQuery);
+}(function ($) {
 
   var Wookmark, defaultOptions, __bind;
 
@@ -379,4 +384,4 @@
     // Display items (if hidden) and return jQuery object to maintain chainability
     return this.show();
   };
-})(jQuery);
+}));

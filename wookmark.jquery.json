@@ -4,9 +4,13 @@
     "description": "jQuery plugin for laying out elements of varying heights in a column-based grid.",
     "keywords": [
         "ui",
-        "layout"
+        "layout",
+        "amd",
+        "filtering",
+        "gallery",
+        "responsive"
     ],
-    "version": "1.2.1",
+    "version": "1.2.2",
     "author": {
         "name": "Christoph Ono",
         "url": "http://germanysbestkeptsecret.com"

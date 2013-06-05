@@ -227,6 +227,9 @@
   <!-- include jQuery -->
   <script src="../libs/jquery.min.js"></script>
 
+  <!-- Include the imagesLoaded plug-in -->
+  <script src="../libs/jquery.imagesloaded.js"></script>
+
   <!-- include colorbox -->
   <script src="js/jquery.colorbox-min.js"></script>
 
@@ -235,26 +238,28 @@
 
   <!-- Once the page is loaded, initalize the plug-in. -->
   <script type="text/javascript">
-    $(document).ready(new function() {
-      // Prepare layout options.
-      var options = {
-        autoResize: true, // This will auto-update the layout when the browser window is resized.
-        container: $('#main'), // Optional, used for some extra CSS styling
-        offset: 2, // Optional, the distance between grid items
-        itemWidth: 210 // Optional, the width of a grid item
-      };
+    (function ($){
+      $('#tiles').imagesLoaded(function() {
+        // Prepare layout options.
+        var options = {
+          autoResize: true, // This will auto-update the layout when the browser window is resized.
+          container: $('#main'), // Optional, used for some extra CSS styling
+          offset: 2, // Optional, the distance between grid items
+          itemWidth: 210 // Optional, the width of a grid item
+        };
 
-      // Get a reference to your grid items.
-      var handler = $('#tiles li');
+        // Get a reference to your grid items.
+        var handler = $('#tiles li');
 
-      // Call the layout function.
-      handler.wookmark(options);
+        // Call the layout function.
+        handler.wookmark(options);
 
-      // Init lightbox
-      $('a', handler).colorbox({
-        rel: 'lightbox'
+        // Init lightbox
+        $('a', handler).colorbox({
+          rel: 'lightbox'
+        });
       });
-    });
+    })(jQuery);
   </script>
 
 </body>
