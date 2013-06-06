@@ -1,5 +1,4 @@
 requirejs.config({
-  "baseUrl": "",
   "paths": {
     "jquery": "../libs/jquery.min",
     "imagesLoaded": "../libs/jquery.imagesloaded",
