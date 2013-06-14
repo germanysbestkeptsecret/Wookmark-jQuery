@@ -3,8 +3,8 @@
   @name jquery.wookmark.js
   @author Christoph Ono (chri@sto.ph or @gbks)
   @author Sebastian Helzle (sebastian@helzle.net or @sebobo)
-  @version 1.2.2
-  @date 6/05/2013
+  @version 1.2.3
+  @date 6/14/2013
   @category jQuery plugin
   @copyright (c) 2009-2013 Christoph Ono (www.wookmark.com)
   @license Licensed under the MIT (http://www.opensource.org/licenses/mit-license.php) license.
@@ -41,9 +41,8 @@
     function Wookmark(handler, options) {
       // Instance variables.
       this.handler = handler;
-      this.columns = null;
-      this.containerWidth = null;
-      this.resizeTimer = null;
+      this.columns = this.containerWidth = this.resizeTimer = null;
+      this.activeItemCount = 0;
       this.direction = 'left';
       this.itemHeightsDirty = true;
 
@@ -258,11 +257,12 @@
       this.direction = this.align == 'right' ? 'right' : 'left';
 
       // If container and column count hasn't changed, we can only update the columns.
-      if (this.columns != null && this.columns.length == columns) {
+      if (this.columns != null && this.columns.length == columns && this.activeItemCount == activeItemsLength) {
         maxHeight = this.layoutColumns(columnWidth, offset);
       } else {
         maxHeight = this.layoutFull(columnWidth, columns, offset);
       }
+      this.activeItemCount = activeItemsLength;
 
       // Set container height to height of the grid.
       this.container.css('height', maxHeight);
