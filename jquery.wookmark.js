@@ -3,8 +3,8 @@
   @name jquery.wookmark.js
   @author Christoph Ono (chri@sto.ph or @gbks)
   @author Sebastian Helzle (sebastian@helzle.net or @sebobo)
-  @version 1.2.3
-  @date 6/14/2013
+  @version 1.3.0
+  @date 6/23/2013
   @category jQuery plugin
   @copyright (c) 2009-2013 Christoph Ono (www.wookmark.com)
   @license Licensed under the MIT (http://www.opensource.org/licenses/mit-license.php) license.
@@ -33,7 +33,8 @@
     itemWidth: 0,
     flexibleWidth: 0,
     resizeDelay: 50,
-    onLayoutChanged: undefined
+    onLayoutChanged: undefined,
+    fillEmptySpace: false
   };
 
   Wookmark = (function(options) {
@@ -45,6 +46,7 @@
       this.activeItemCount = 0;
       this.direction = 'left';
       this.itemHeightsDirty = true;
+      this.placeholders = [];
 
       $.extend(true, this, defaultOptions, options);
 
@@ -59,6 +61,7 @@
       this.filter = __bind(this.filter, this);
       this.clear = __bind(this.clear, this);
       this.getActiveItems = __bind(this.getActiveItems, this);
+      this.refreshPlaceholders = __bind(this.refreshPlaceholders, this);
 
       // Collect filter data
       var i = j = 0, filterClasses = {}, itemFilterClasses;
@@ -182,10 +185,49 @@
       this.layout();
     };
 
+    /**
+     * Creates or updates existing placeholders to create columns of even height
+     */
+    Wookmark.prototype.refreshPlaceholders = function(columnWidth, sideOffset) {
+      var i = this.placeholders.length,
+          $placeholder, $lastColumnItem, columnsLength = this.columns.length,
+          placeholderBorderWidth,
+          height, width, top,
+          containerHeight = this.container.outerHeight();
+
+      for (; i < columnsLength; i++) {
+        $placeholder = $('<div class="wookmark-placeholder"/>').appendTo(this.container);
+        this.placeholders.push($placeholder);
+      }
+
+      innerOffset = this.offset + parseInt(this.placeholders[0].css('borderWidth')) * 2;
+
+      for (i = 0; i < this.placeholders.length; i++) {
+        $placeholder = this.placeholders[i];
+
+        if (i >= columnsLength) {
+          $placeholder.css('display', 'none');
+        } else {
+          $lastColumnItem = this.columns[i][this.columns[i].length - 1];
+          top = parseInt($lastColumnItem.css('top')) + $lastColumnItem.data('outerHeight') + this.offset;
+          height = containerHeight - top - innerOffset;
+
+          $placeholder.css({
+            position: 'absolute',
+            display: height > 0 ? 'block' : 'none',
+            left: i * columnWidth + sideOffset,
+            top: top,
+            width: columnWidth - innerOffset,
+            height: height
+          });
+        }
+      }
+    };
+
     // Method the get active items which are not disabled and visible
     Wookmark.prototype.getActiveItems = function() {
       return this.handler.not('.inactive');
-    }
+    };
 
     // Method to get the standard item width
     Wookmark.prototype.getItemWidth = function() {
@@ -266,6 +308,11 @@
 
       // Set container height to height of the grid.
       this.container.css('height', maxHeight);
+
+      // Update placeholders
+      if (this.fillEmptySpace) {
+        this.refreshPlaceholders(columnWidth, offset);
+      }
 
       if (this.onLayoutChanged !== undefined && typeof this.onLayoutChanged === 'function') {
         this.onLayoutChanged();

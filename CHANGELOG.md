@@ -1,5 +1,8 @@
 # Changes
 
+## 1.3.0
+* New option 'fillEmptySpace' which creates placeholders at the bottom of the columns to create an even layout. See 'example-placeholder' on how to use it.
+
 ## 1.2.3
 * FIX: layout now checks if active item count has changed and does a full relayout when that happens
 

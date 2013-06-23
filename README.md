@@ -42,7 +42,8 @@ Where `myElement` is the class of the items you want to lay out in a grid.
       offset: 2,
       resizeDelay: 50,
       flexibleWidth: 0,
-      onLayoutChanged: undefined
+      onLayoutChanged: undefined,
+      fillEmptySpace: false
     });
 
 See the [documentation page](http://www.wookmark.com/jquery-plugin) for details on available options.
@@ -59,6 +60,9 @@ Elements which are hidden have cannot be laid out until they are visible. If you
 
     $('#myContent').trigger('refreshWookmark');
 
+### fillEmptySpace
+
+This creates placeholders at the bottom of each column to create an even layout. See 'example-placeholder' on how to use it. These placeholders use the css class 'wookmark-placeholder'. You can overwrite it in your own css to fit your needs.
 
 Included examples
 -----------------
@@ -73,6 +77,25 @@ modified by desandro). The grid layout is performed after all images are loaded 
 retrieved. This approach is much slower. The imagesLoaded plugin can also be found on github right here:
 https://gist.github.com/797120
 
+
+FAQ
+--------
+
+### The tiles overlap after loading.
+
+You should use the 'imagesloaded' plugin. Most the examples in this package include the code how to use it.
+
+### The tiles overlap after their height is changed.
+
+Use the 'finished'-callback of your animation/effect to trigger 'refreshWookmark' on the container element supplied to the plugin.
+
+### The placeholders at the end of each column have wrong heights or positions.
+
+Set 'position: relative' on your container element and check if there are other elements in the container before your tiles.
+
+### My question isn't answered here.
+
+Send us some feedback or create an issue on github.
 
 Feedback
 --------
