@@ -4,7 +4,7 @@
   @author Christoph Ono (chri@sto.ph or @gbks)
   @author Sebastian Helzle (sebastian@helzle.net or @sebobo)
   @version 1.3.0
-  @date 6/23/2013
+  @date 6/27/2013
   @category jQuery plugin
   @copyright (c) 2009-2013 Christoph Ono (www.wookmark.com)
   @license Licensed under the MIT (http://www.opensource.org/licenses/mit-license.php) license.
@@ -190,7 +190,8 @@
      */
     Wookmark.prototype.refreshPlaceholders = function(columnWidth, sideOffset) {
       var i = this.placeholders.length,
-          $placeholder, $lastColumnItem, columnsLength = this.columns.length,
+          $placeholder, $lastColumnItem,
+          columnsLength = this.columns.length, column,
           placeholderBorderWidth,
           height, width, top,
           containerHeight = this.container.outerHeight();
@@ -204,12 +205,14 @@
 
       for (i = 0; i < this.placeholders.length; i++) {
         $placeholder = this.placeholders[i];
+        column = this.columns[i];
 
-        if (i >= columnsLength) {
+        if (i >= columnsLength || !column[column.length - 1]) {
           $placeholder.css('display', 'none');
         } else {
-          $lastColumnItem = this.columns[i][this.columns[i].length - 1];
-          top = parseInt($lastColumnItem.css('top')) + $lastColumnItem.data('outerHeight') + this.offset;
+          $lastColumnItem = column[column.length - 1];
+          if (!$lastColumnItem) continue;
+          top = $lastColumnItem.data('wookmark-top') + $lastColumnItem.data('wookmark-height') + this.offset;
           height = containerHeight - top - innerOffset;
 
           $placeholder.css({
@@ -280,7 +283,7 @@
       if (this.itemHeightsDirty) {
         for (; i < activeItemsLength; i++) {
           $item = activeItems.eq(i);
-          $item.data('outerHeight', $item.outerHeight());
+          $item.data('wookmark-height', $item.outerHeight());
         }
         this.itemHeightsDirty = false;
       }
@@ -363,10 +366,10 @@
         // Position the item.
         itemCSS[this.direction] = sideOffset;
         itemCSS.top = shortest;
-        $item.css(itemCSS);
+        $item.css(itemCSS).data('wookmark-top', shortest);
 
         // Update column height and store item in shortest column
-        heights[shortestIndex] += $item.data('outerHeight') + this.offset;
+        heights[shortestIndex] += $item.data('wookmark-height') + this.offset;
         this.columns[shortestIndex].push($item);
       }
 
@@ -387,18 +390,20 @@
         heights.push(0);
         column = this.columns[i];
         sideOffset = i * columnWidth + offset;
+        currentHeight = heights[i];
 
         for (k = 0; k < column.length; k++) {
           $item = column[k];
           itemCSS = {
-            top: heights[i]
+            top: currentHeight
           };
           itemCSS[this.direction] = sideOffset;
 
-          $item.css(itemCSS);
+          $item.css(itemCSS).data('wookmark-top', currentHeight);
 
-          heights[i] += $item.data('outerHeight') + this.offset;
+          currentHeight += $item.data('wookmark-height') + this.offset;
         }
+        heights[i] = currentHeight;
       }
 
       // Return longest column
