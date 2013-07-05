@@ -5,9 +5,12 @@ This is a [jQuery](http://www.jquery.com) plugin for laying out a dynamic grid o
 
 See the [documentation page](http://www.wookmark.com/jquery-plugin) for examples.
 
-The repository also includes two functional examples. All images used in the example are copyrighted 
+The repository also includes two functional examples. All images used in the example are copyrighted
 by their respective owners and only included for showcasing plugin functionality.
 
+
+Do you like this project?
+[Buy me a beer](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=TSN2TDYNKZHF4)
 
 Installation
 ------------
@@ -15,7 +18,7 @@ Installation
 ### Prequisites
 
  * [jQuery](http://www.jquery.com) - 1.4.3 or better
- 
+
 ### Required files
 
 Copy `jquery.wookmark.js` to your javascript folder.
@@ -25,11 +28,11 @@ Usage
 -----
 
 The plugin can be called with jQuery in different ways.
-    
+
 ### Standard call with default settings:
 
     $('.myElements').wookmark();
-    
+
 Where `myElement` is the class of the items you want to lay out in a grid.
 
 ### Options
@@ -50,7 +53,7 @@ See the [documentation page](http://www.wookmark.com/jquery-plugin) for details 
 
 #### itemWidth and flexibleWidth
 
-These values can be given as numbers which will be interpreted as pixels or you can use percentage strings like '20%'. 
+These values can be given as numbers which will be interpreted as pixels or you can use percentage strings like '20%'.
 If you use a percentage string for itemWidth the number of columns will be fixed and items may overlap if the viewport is small.
 When flexibleWidth is set an itemWidth != 0 is used as minimum item width.
 
@@ -68,7 +71,7 @@ Included examples
 -----------------
 
 /example
-Is the preferred setup. In this scenario the width and height of all images is set in the HTML img attributes. 
+Is the preferred setup. In this scenario the width and height of all images is set in the HTML img attributes.
 The grid layout can be performed as soon as the document is rendered, BEFORE images are loaded.
 
 /example-load-images
@@ -100,7 +103,7 @@ Send us some feedback or create an issue on github.
 Feedback
 --------
 
-Please send code specific questions and feedback to [Sebastian](mailto:sebastian@helzle.net) or contact him on [twitter](http://twitter.com/sebobo). 
+Please send code specific questions and feedback to [Sebastian](mailto:sebastian@helzle.net) or contact him on [twitter](http://twitter.com/sebobo).
 
 If you have other questions and feedback which is for example related to Wookmark send a mail to [Christoph](mailto:chri@sto.ph) or contact him on [twitter](https://twitter.com/gbks).
 
