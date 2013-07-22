@@ -1,5 +1,8 @@
 # Changes
 
+## 1.3.1
+* New option 'ignoreInactiveItems'. When set to 'false' inactive items will still be shown when filtered. This can be used to fade out filtered items. See the example-filter/fade.html example.
+
 ## 1.3.0
 * New option 'fillEmptySpace' which creates placeholders at the bottom of the columns to create an even layout. See 'example-placeholder' on how to use it.
 

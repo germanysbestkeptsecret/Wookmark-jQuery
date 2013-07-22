@@ -40,13 +40,14 @@ Where `myElement` is the class of the items you want to lay out in a grid.
     $('.myElements').wookmark({
       align: 'center',
       autoResize: false,
-      container: $('#myContent'),
+      container: $('body'),
+      ignoreInactiveItems: true,
       itemWidth: 0,
-      offset: 2,
-      resizeDelay: 50,
+      fillEmptySpace: false,
       flexibleWidth: 0,
+      offset: 2,
       onLayoutChanged: undefined,
-      fillEmptySpace: false
+      resizeDelay: 50
     });
 
 See the [documentation page](http://www.wookmark.com/jquery-plugin) for details on available options.
@@ -66,6 +67,10 @@ Elements which are hidden have cannot be laid out until they are visible. If you
 ### fillEmptySpace
 
 This creates placeholders at the bottom of each column to create an even layout. See 'example-placeholder' on how to use it. These placeholders use the css class 'wookmark-placeholder'. You can overwrite it in your own css to fit your needs.
+
+### ignoreInactiveItems
+
+When set to 'false' inactive items will still be shown when filtered. This can be used to fade out filtered items. See the example-filter/fade.html example.
 
 Included examples
 -----------------

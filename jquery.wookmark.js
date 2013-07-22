@@ -3,8 +3,8 @@
   @name jquery.wookmark.js
   @author Christoph Ono (chri@sto.ph or @gbks)
   @author Sebastian Helzle (sebastian@helzle.net or @sebobo)
-  @version 1.3.0
-  @date 6/27/2013
+  @version 1.3.1
+  @date 7/22/2013
   @category jQuery plugin
   @copyright (c) 2009-2013 Christoph Ono (www.wookmark.com)
   @license Licensed under the MIT (http://www.opensource.org/licenses/mit-license.php) license.
@@ -27,17 +27,18 @@
   // Wookmark default options
   defaultOptions = {
     align: 'center',
-    container: $('body'),
-    offset: 2,
     autoResize: false,
+    container: $('body'),
+    ignoreInactiveItems: true,
     itemWidth: 0,
+    fillEmptySpace: false,
     flexibleWidth: 0,
-    resizeDelay: 50,
+    offset: 2,
     onLayoutChanged: undefined,
-    fillEmptySpace: false
+    resizeDelay: 50
   };
 
-  Wookmark = (function(options) {
+  Wookmark = (function() {
 
     function Wookmark(handler, options) {
       // Instance variables.
@@ -64,7 +65,7 @@
       this.refreshPlaceholders = __bind(this.refreshPlaceholders, this);
 
       // Collect filter data
-      var i = j = 0, filterClasses = {}, itemFilterClasses;
+      var i = 0, j = 0, filterClasses = {}, itemFilterClasses, $item, filterClass;
 
       for (; i < handler.length; i++) {
         $item = handler.eq(i);
@@ -83,15 +84,15 @@
             filterClasses[filterClass].push($item[0]);
           }
         }
-      };
+      }
       this.filterClasses = filterClasses;
 
       // Listen to resize event if requested.
-      if (this.autoResize) {
+      if (this.autoResize)
         $(window).bind('resize.wookmark', this.onResize);
-      };
+
       this.container.bind('refreshWookmark', this.onRefresh);
-    };
+    }
 
     // Method for updating the plugins options
     Wookmark.prototype.update = function(options) {
@@ -102,7 +103,7 @@
     // This timer ensures that layout is not continuously called as window is being dragged.
     Wookmark.prototype.onResize = function() {
       clearTimeout(this.resizeTimer);
-      this.itemHeightsDirty = this.flexibleWidth != 0;
+      this.itemHeightsDirty = this.flexibleWidth !== 0;
       this.resizeTimer = setTimeout(this.layout, this.resizeDelay);
     };
 
@@ -134,7 +135,7 @@
         }
 
         // Get items for active filters with the selected mode
-        activeFiltersLength = activeFilters.length
+        activeFiltersLength = activeFilters.length;
         if (mode == 'or' || activeFiltersLength == 1) {
           // Set all items in all active filters active
           for (i = 0; i < activeFiltersLength; i++) {
@@ -167,7 +168,8 @@
               }
               itemValid &= foundInFilter;
             }
-            itemValid && activeItems.push(shortestFilter[i]);
+            if (itemValid)
+              activeItems.push(shortestFilter[i]);
           }
         }
         // Hide inactive items
@@ -192,8 +194,7 @@
       var i = this.placeholders.length,
           $placeholder, $lastColumnItem,
           columnsLength = this.columns.length, column,
-          placeholderBorderWidth,
-          height, width, top,
+          height, top, innerOffset,
           containerHeight = this.container.outerHeight();
 
       for (; i < columnsLength; i++) {
@@ -201,7 +202,7 @@
         this.placeholders.push($placeholder);
       }
 
-      innerOffset = this.offset + parseInt(this.placeholders[0].css('borderWidth')) * 2;
+      innerOffset = this.offset + parseInt(this.placeholders[0].css('borderWidth'), 10) * 2;
 
       for (i = 0; i < this.placeholders.length; i++) {
         $placeholder = this.placeholders[i];
@@ -229,7 +230,9 @@
 
     // Method the get active items which are not disabled and visible
     Wookmark.prototype.getActiveItems = function() {
-      return this.handler.not('.inactive');
+      if (this.ignoreInactiveItems)
+        return this.handler.not('.inactive');
+      return this.handler;
     };
 
     // Method to get the standard item width
@@ -249,8 +252,8 @@
       // Calculate flexible item width if option is set
       if (flexibleWidth) {
         if (typeof flexibleWidth == 'string' && flexibleWidth.indexOf('%') >= 0) {
-          flexibleWidth = parseFloat(flexibleWidth) / 100 * containerWidth
-            - firstElement.outerWidth() + firstElement.innerWidth();
+          flexibleWidth = parseFloat(flexibleWidth) / 100 * containerWidth -
+            firstElement.outerWidth() + firstElement.innerWidth();
         }
 
         var columns = ~~(1 + containerWidth / (flexibleWidth + this.offset)),
@@ -268,13 +271,13 @@
     // Main layout method.
     Wookmark.prototype.layout = function() {
       // Do nothing if container isn't visible
-      if (!this.container.is(":visible")) return;
+      if (!this.container.is(':visible')) return;
 
       // Calculate basic layout parameters.
       var columnWidth = this.getItemWidth() + this.offset,
           containerWidth = this.container.width(),
           columns = ~~((containerWidth + this.offset) / columnWidth),
-          offset = maxHeight = i = 0,
+          offset = 0, maxHeight = 0, i = 0,
           activeItems = this.getActiveItems(),
           activeItemsLength = activeItems.length,
           $item;
@@ -295,14 +298,14 @@
       if (this.align == 'left' || this.align == 'right') {
         offset = ~~((columns / columnWidth + this.offset) >> 1);
       } else {
-        offset = ~~(.5 + (containerWidth - (columns * columnWidth - this.offset)) >> 1);
+        offset = ~~(0.5 + (containerWidth - (columns * columnWidth - this.offset)) >> 1);
       }
 
       // Get direction for positioning
       this.direction = this.align == 'right' ? 'right' : 'left';
 
       // If container and column count hasn't changed, we can only update the columns.
-      if (this.columns != null && this.columns.length == columns && this.activeItemCount == activeItemsLength) {
+      if (this.columns !== null && this.columns.length == columns && this.activeItemCount == activeItemsLength) {
         maxHeight = this.layoutColumns(columnWidth, offset);
       } else {
         maxHeight = this.layoutFull(columnWidth, columns, offset);
@@ -326,7 +329,7 @@
      * Perform a full layout update.
      */
     Wookmark.prototype.layoutFull = function(columnWidth, columns, offset) {
-      var item, top, left, i = 0, k = 0 , j = 0,
+      var $item, i = 0, k = 0,
           activeItems = this.getActiveItems(),
           length = activeItems.length,
           shortest = null, shortestIndex = null,
@@ -357,7 +360,7 @@
         }
 
         // stick to left side if alignment is left and this is the first column
-        if (shortestIndex == 0 && leftAligned) {
+        if (shortestIndex === 0 && leftAligned) {
           sideOffset = 0;
         } else {
           sideOffset = shortestIndex * columnWidth + offset;
@@ -383,8 +386,8 @@
      */
     Wookmark.prototype.layoutColumns = function(columnWidth, offset) {
       var heights = [],
-          i = 0, k = 0,
-          column, item, itemCSS, sideOffset;
+          i = 0, k = 0, currentHeight,
+          column, $item, itemCSS, sideOffset;
 
       for (; i < this.columns.length; i++) {
         heights.push(0);
