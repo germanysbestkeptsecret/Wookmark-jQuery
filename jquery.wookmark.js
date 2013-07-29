@@ -3,8 +3,8 @@
   @name jquery.wookmark.js
   @author Christoph Ono (chri@sto.ph or @gbks)
   @author Sebastian Helzle (sebastian@helzle.net or @sebobo)
-  @version 1.3.1
-  @date 7/22/2013
+  @version 1.3.2
+  @date 7/29/2013
   @category jQuery plugin
   @copyright (c) 2009-2013 Christoph Ono (www.wookmark.com)
   @license Licensed under the MIT (http://www.opensource.org/licenses/mit-license.php) license.
@@ -28,6 +28,7 @@
   defaultOptions = {
     align: 'center',
     autoResize: false,
+    comparator: null,
     container: $('body'),
     ignoreInactiveItems: true,
     itemWidth: 0,
@@ -63,6 +64,7 @@
       this.clear = __bind(this.clear, this);
       this.getActiveItems = __bind(this.getActiveItems, this);
       this.refreshPlaceholders = __bind(this.refreshPlaceholders, this);
+      this.sortElements = __bind(this.sortElements, this);
 
       // Collect filter data
       var i = 0, j = 0, filterClasses = {}, itemFilterClasses, $item, filterClass;
@@ -326,11 +328,18 @@
     };
 
     /**
+     * Sort elements with configurable comparator
+     */
+    Wookmark.prototype.sortElements = function(elements) {
+      return typeof(this.comparator) === "function" ? elements.sort(this.comparator) : elements;
+    }
+
+    /**
      * Perform a full layout update.
      */
     Wookmark.prototype.layoutFull = function(columnWidth, columns, offset) {
       var $item, i = 0, k = 0,
-          activeItems = this.getActiveItems(),
+          activeItems = $.makeArray(this.getActiveItems()),
           length = activeItems.length,
           shortest = null, shortestIndex = null,
           itemCSS = {position: 'absolute'},
@@ -338,6 +347,9 @@
           leftAligned = this.align == 'left' ? true : false;
 
       this.columns = [];
+
+      // Sort elements before layouting
+      activeItems = this.sortElements(activeItems);
 
       // Prepare arrays to store height of columns and items.
       while (heights.length < columns) {
@@ -347,7 +359,7 @@
 
       // Loop over items.
       for (; i < length; i++ ) {
-        $item = activeItems.eq(i);
+        $item = $(activeItems[i]);
 
         // Find the shortest column.
         shortest = heights[0];
