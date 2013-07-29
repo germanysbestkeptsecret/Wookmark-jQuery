@@ -1,5 +1,8 @@
 # Changes
 
+## 1.3.2
+* New option 'comparator'. A comparison function which can be used to sort the items before they are positioned in the layout.
+
 ## 1.3.1
 * New option 'ignoreInactiveItems'. When set to 'false' inactive items will still be shown when filtered. This can be used to fade out filtered items. See the example-filter/fade.html example.
 
