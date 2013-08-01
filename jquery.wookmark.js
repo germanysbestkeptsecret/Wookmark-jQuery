@@ -3,8 +3,8 @@
   @name jquery.wookmark.js
   @author Christoph Ono (chri@sto.ph or @gbks)
   @author Sebastian Helzle (sebastian@helzle.net or @sebobo)
-  @version 1.3.2
-  @date 7/29/2013
+  @version 1.4.0
+  @date 8/1/2013
   @category jQuery plugin
   @copyright (c) 2009-2013 Christoph Ono (www.wookmark.com)
   @license Licensed under the MIT (http://www.opensource.org/licenses/mit-license.php) license.
@@ -271,14 +271,14 @@
     };
 
     // Main layout method.
-    Wookmark.prototype.layout = function() {
+    Wookmark.prototype.layout = function(force) {
       // Do nothing if container isn't visible
       if (!this.container.is(':visible')) return;
 
       // Calculate basic layout parameters.
       var columnWidth = this.getItemWidth() + this.offset,
           containerWidth = this.container.width(),
-          columns = ~~((containerWidth + this.offset) / columnWidth),
+          columns = ~~(containerWidth / columnWidth),
           offset = 0, maxHeight = 0, i = 0,
           activeItems = this.getActiveItems(),
           activeItemsLength = activeItems.length,
@@ -307,7 +307,7 @@
       this.direction = this.align == 'right' ? 'right' : 'left';
 
       // If container and column count hasn't changed, we can only update the columns.
-      if (this.columns !== null && this.columns.length == columns && this.activeItemCount == activeItemsLength) {
+      if (!force && this.columns !== null && this.columns.length == columns && this.activeItemCount == activeItemsLength) {
         maxHeight = this.layoutColumns(columnWidth, offset);
       } else {
         maxHeight = this.layoutFull(columnWidth, columns, offset);
@@ -372,11 +372,9 @@
         }
 
         // stick to left side if alignment is left and this is the first column
-        if (shortestIndex === 0 && leftAligned) {
-          sideOffset = 0;
-        } else {
-          sideOffset = shortestIndex * columnWidth + offset;
-        }
+        sideOffset = offset;
+        if (shortestIndex > 0 || !leftAligned)
+          sideOffset += shortestIndex * columnWidth;
 
         // Position the item.
         itemCSS[this.direction] = sideOffset;
@@ -446,7 +444,7 @@
     }
 
     // Apply layout
-    this.wookmarkInstance.layout();
+    this.wookmarkInstance.layout(true);
 
     // Display items (if hidden) and return jQuery object to maintain chainability
     return this.show();

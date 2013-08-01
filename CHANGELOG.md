@@ -1,7 +1,9 @@
 # Changes
 
-## 1.3.2
+## 1.4.0
 * New option 'comparator'. A comparison function which can be used to sort the items before they are positioned in the layout.
+* Offset for first column is now correctly set when align is 'left' or 'right'.
+* Column count behaviour improved, when browser window is resized.
 
 ## 1.3.1
 * New option 'ignoreInactiveItems'. When set to 'false' inactive items will still be shown when filtered. This can be used to fade out filtered items. See the example-filter/fade.html example.

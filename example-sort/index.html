@@ -1,0 +1,168 @@
+<!doctype html>
+<!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js ie8 oldie" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+  <title>jQuery Wookmark Plug-in Example</title>
+  <meta name="description" content="An very basic example of how to use the Wookmark jQuery plug-in.">
+  <meta name="author" content="Christoph Ono, Sebastian Helzle">
+
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+
+  <!-- CSS Reset -->
+  <link rel="stylesheet" href="../css/reset.css">
+
+  <!-- Styling for your grid blocks -->
+  <link rel="stylesheet" href="css/style.css">
+
+</head>
+
+<body>
+
+  <div id="container">
+    <header>
+      <h1>jQuery Wookmark Plug-in Example</h1>
+      <p>Click the words below to sort the grid.</p>
+    </header>
+
+    <!--
+      These are our filter options. The "data-filter" classes are used to identify which
+      grid items to show.
+      -->
+    <br/>
+    <ol id="sortbys">
+      <li data-sortby="name" class="active">Name</li>
+      <li data-sortby="price">Price</li>
+      <li data-sortby="popularity">Popularity</li>
+    </ol>
+    <br/>
+
+    <div id="main" role="main">
+
+      <ul id="tiles">
+        <!--
+          These are our grid items. Notice how each one has classes assigned that
+          are used for filtering. The classes match the "data-filter" properties above.
+          -->
+        <li data-price="20" data-popularity="4" data-name="icebear">
+          <img src="../sample-images/image_1.jpg" height="283" width="200">
+          <p>Icebear / 20 € / &#9733;&#9733;&#9733;&#9733;</p>
+        </li>
+        <li data-price="24" data-popularity="3" data-name="hand">
+          <img src="../sample-images/image_2.jpg" height="300" width="200">
+          <p>Hand / 24 € / &#9733;&#9733;&#9733;</p>
+        </li>
+        <li data-price="12.50" data-popularity="2" data-name="water">
+          <img src="../sample-images/image_3.jpg" height="252" width="200">
+          <p>Water / 12,50 € / &#9733;&#9733;</p>
+        </li>
+        <li data-price="100" data-popularity="1" data-name="runner">
+          <img src="../sample-images/image_4.jpg" height="158" width="200">
+          <p>Runner / 100 € / &#9733;</p>
+        </li>
+        <li data-price="42.12" data-popularity="3" data-name="street">
+          <img src="../sample-images/image_5.jpg" height="300" width="200">
+          <p>Street / 42,12 € / &#9733;&#9733;&#9733;</p>
+        </li>
+        <li data-price="15" data-popularity="1" data-name="bathroom">
+          <img src="../sample-images/image_6.jpg" height="297" width="200">
+          <p>Bathroom / 15 € / &#9733;</p>
+        </li>
+        <li data-price="70" data-popularity="2" data-name="sign">
+          <img src="../sample-images/image_7.jpg" height="200" width="200">
+          <p>Sign / 70 € / &#9733;&#9733;</p>
+        </li>
+        <li data-price="18.99" data-popularity="4" data-name="camera">
+          <img src="../sample-images/image_8.jpg" height="200" width="200">
+          <p>Camera / 18,99 € / &#9733;&#9733;&#9733;&#9733;</p>
+        </li>
+        <li data-price="5" data-popularity="4" data-name="winter">
+          <img src="../sample-images/image_9.jpg" height="398" width="200">
+          <p>Winter / 5 € / &#9733;&#9733;&#9733;&#9733;</p>
+        </li>
+        <li data-price="7" data-popularity="1" data-name="kitchen">
+          <img src="../sample-images/image_10.jpg" height="267" width="200">
+          <p>Kitchen / 7 € / &#9733;</p>
+        </li>
+        <!-- End of grid blocks -->
+      </ul>
+
+    </div>
+  </div>
+
+  <!-- include jQuery -->
+  <script src="../libs/jquery.min.js"></script>
+
+  <!-- Include the imagesLoaded plug-in -->
+  <script src="../libs/jquery.imagesloaded.js"></script>
+
+  <!-- Include the plug-in -->
+  <script src="../jquery.wookmark.js"></script>
+
+  <!-- Once the page is loaded, initalize the plug-in. -->
+  <script type="text/javascript">
+    (function ($){
+      $('#tiles').imagesLoaded(function() {
+        function comparatorName(a, b) {
+          return $(a).data('name') < $(b).data('name') ? -1 : 1;
+        }
+        function comparatorPopularity(a, b) {
+          return $(a).data('popularity') > $(b).data('popularity') ? -1 : 1;
+        }
+        function comparatorPrice(a, b) {
+          return $(a).data('price') < $(b).data('price') ? -1 : 1;
+        }
+
+        // Prepare layout options.
+        var options = {
+          autoResize: true, // This will auto-update the layout when the browser window is resized.
+          container: $('#main'), // Optional, used for some extra CSS styling
+          offset: 2, // Optional, the distance between grid items
+          itemWidth: 210, // Optional, the width of a grid item
+          comparator: comparatorName
+        };
+
+        // Get a reference to your grid items.
+        var $handler = $('#tiles li'),
+            $sortbys = $('#sortbys li');
+
+        // Call the layout function.
+        $handler.wookmark(options);
+
+        /**
+         * When a filter is clicked, toggle it's active state and refresh.
+         */
+        var onClickSortBy = function(e) {
+          e.preventDefault();
+          $currentSortby = $(this);
+          switch ($currentSortby.data('sortby')) {
+            case 'price':
+              options.comparator = comparatorPrice;
+              break;
+            case 'popularity':
+              options.comparator = comparatorPopularity;
+              break;
+            case 'name':
+            default:
+              options.comparator = comparatorName;
+              break;
+          }
+
+          $sortbys.removeClass('active');
+          $currentSortby.addClass('active');
+
+          $handler.wookmark(options);
+        }
+
+        // Capture filter click events.
+        $sortbys.click(onClickSortBy);
+      });
+    })(jQuery);
+  </script>
+
+</body>
+</html>
