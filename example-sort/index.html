@@ -16,8 +16,55 @@
   <!-- CSS Reset -->
   <link rel="stylesheet" href="../css/reset.css">
 
-  <!-- Styling for your grid blocks -->
-  <link rel="stylesheet" href="css/style.css">
+  <!-- Global CSS for the page and tiles -->
+  <link rel="stylesheet" href="../css/main.css">
+
+  <!-- Specific CSS for the example -->
+  <style>
+    /**
+     * Grid items
+     */
+    #tiles li {
+      -webkit-transition: all 0.3s ease-out;
+         -moz-transition: all 0.3s ease-out;
+           -o-transition: all 0.3s ease-out;
+              transition: all 0.3s ease-out;
+    }
+
+    /**
+     * Sort buttons
+     */
+    #sortbys {
+      list-style-type: none;
+      text-align: center;
+      margin: 0 5% 0 5%;
+    }
+
+    #sortbys li {
+      font-size: 12px;
+      float: left;
+      padding: 6px 0 4px 0;
+      cursor: pointer;
+      margin: 0 1% 0 1%;
+      width: 8%;
+      -webkit-transition: all 0.15s ease-out;
+         -moz-transition: all 0.15s ease-out;
+           -o-transition: all 0.15s ease-out;
+              transition: all 0.15s ease-out;
+      -webkit-border-radius: 3px;
+         -moz-border-radius: 3px;
+              border-radius: 3px;
+    }
+
+    #sortbys li:hover {
+      background: #dedede;
+    }
+
+    #sortbys li.active {
+      background: #333333;
+      color: #ffffff;
+    }
+  </style>
 
 </head>
 
