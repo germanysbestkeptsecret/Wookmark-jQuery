@@ -6,6 +6,7 @@ html {
 
 #main {
   margin: 30px 0;
+  position: relative;
 }
 
 header h1 {

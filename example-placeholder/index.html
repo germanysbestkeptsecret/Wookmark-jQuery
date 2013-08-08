@@ -16,8 +16,8 @@
   <!-- CSS Reset -->
   <link rel="stylesheet" href="../css/reset.css">
 
-  <!-- Styling for your grid blocks -->
-  <link rel="stylesheet" href="css/style.css">
+  <!-- Global CSS for the page and tiles -->
+  <link rel="stylesheet" href="../css/main.css">
 
 </head>
 
@@ -95,16 +95,6 @@
 
         // Call the layout function.
         handler.wookmark(options);
-
-        // Capture clicks on grid items.
-        handler.click(function(){
-          // Randomize the height of the clicked item.
-          var newHeight = $('img', this).height() + Math.round(Math.random()*300+30);
-          $(this).css('height', newHeight+'px');
-
-          // Update the layout.
-          handler.wookmark();
-        });
       });
     })(jQuery);
   </script>
