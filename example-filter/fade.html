@@ -27,6 +27,10 @@
     #tiles li.inactive {
       visibility: visible;
       opacity: .2;
+      filter: alpha(opacity=20); /* IE 7 and Earlier */
+      /* Next 2 lines IE8 */
+      -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=20)";
+      filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=20);
     }
   </style>
 
