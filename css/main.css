@@ -30,6 +30,7 @@ header p {
   list-style-type: none;
   position: relative; /** Needed to ensure items are laid out relative to this container **/
   margin: 0;
+  padding: 0;
 }
 
 /**

@@ -3,8 +3,8 @@
   @name jquery.wookmark.js
   @author Christoph Ono (chri@sto.ph or @gbks)
   @author Sebastian Helzle (sebastian@helzle.net or @sebobo)
-  @version 1.4.0
-  @date 8/1/2013
+  @version 1.4.1
+  @date 8/8/2013
   @category jQuery plugin
   @copyright (c) 2009-2013 Christoph Ono (www.wookmark.com)
   @license Licensed under the MIT (http://www.opensource.org/licenses/mit-license.php) license.
@@ -36,6 +36,7 @@
     flexibleWidth: 0,
     offset: 2,
     onLayoutChanged: undefined,
+    outerOffset: 0,
     resizeDelay: 50
   };
 
@@ -197,7 +198,7 @@
           $placeholder, $lastColumnItem,
           columnsLength = this.columns.length, column,
           height, top, innerOffset,
-          containerHeight = this.container.outerHeight();
+          containerHeight = this.container.innerHeight();
 
       for (; i < columnsLength; i++) {
         $placeholder = $('<div class="wookmark-placeholder"/>').appendTo(this.container);
@@ -232,15 +233,13 @@
 
     // Method the get active items which are not disabled and visible
     Wookmark.prototype.getActiveItems = function() {
-      if (this.ignoreInactiveItems)
-        return this.handler.not('.inactive');
-      return this.handler;
+      return this.ignoreInactiveItems ? this.handler.not('.inactive') : this.handler;
     };
 
     // Method to get the standard item width
     Wookmark.prototype.getItemWidth = function() {
       var itemWidth = this.itemWidth,
-          containerWidth = this.container.width(),
+          innerWidth = this.container.width() - 2 * this.outerOffset,
           firstElement = this.handler.eq(0),
           flexibleWidth = this.flexibleWidth;
 
@@ -248,20 +247,20 @@
         itemWidth = firstElement.outerWidth();
       }
       else if (typeof this.itemWidth == 'string' && this.itemWidth.indexOf('%') >= 0) {
-        itemWidth = parseFloat(this.itemWidth) / 100 * containerWidth;
+        itemWidth = parseFloat(this.itemWidth) / 100 * innerWidth;
       }
 
       // Calculate flexible item width if option is set
       if (flexibleWidth) {
         if (typeof flexibleWidth == 'string' && flexibleWidth.indexOf('%') >= 0) {
-          flexibleWidth = parseFloat(flexibleWidth) / 100 * containerWidth -
+          flexibleWidth = parseFloat(flexibleWidth) / 100 * innerWidth -
             firstElement.outerWidth() + firstElement.innerWidth();
         }
 
-        var columns = ~~(1 + containerWidth / (flexibleWidth + this.offset)),
-            columnWidth = (containerWidth - (columns - 1) * this.offset) / columns;
+        var columns = ~~(1 + (innerWidth + this.offset) / (flexibleWidth + this.offset)),
+            columnWidth = ~~((innerWidth - (columns - 1) * this.offset) / columns);
 
-        itemWidth = Math.max(itemWidth, ~~(columnWidth));
+        itemWidth = Math.max(itemWidth, columnWidth);
 
         // Stretch items to fill calculated width
         this.handler.css('width', itemWidth);
@@ -278,7 +277,8 @@
       // Calculate basic layout parameters.
       var columnWidth = this.getItemWidth() + this.offset,
           containerWidth = this.container.width(),
-          columns = ~~(containerWidth / columnWidth),
+          innerWidth = containerWidth - 2 * this.outerOffset,
+          columns = ~~((innerWidth + this.offset) / columnWidth),
           offset = 0, maxHeight = 0, i = 0,
           activeItems = this.getActiveItems(),
           activeItemsLength = activeItems.length,
@@ -297,10 +297,9 @@
       columns = Math.max(1, Math.min(columns, activeItemsLength));
 
       // Calculate the offset based on the alignment of columns to the parent container
-      if (this.align == 'left' || this.align == 'right') {
-        offset = ~~((columns / columnWidth + this.offset) >> 1);
-      } else {
-        offset = ~~(0.5 + (containerWidth - (columns * columnWidth - this.offset)) >> 1);
+      offset = this.outerOffset;
+      if (this.align == 'center') {
+        offset += ~~(0.5 + (innerWidth - (columns * columnWidth - this.offset)) >> 1);
       }
 
       // Get direction for positioning
@@ -331,8 +330,8 @@
      * Sort elements with configurable comparator
      */
     Wookmark.prototype.sortElements = function(elements) {
-      return typeof(this.comparator) === "function" ? elements.sort(this.comparator) : elements;
-    }
+      return typeof(this.comparator) === 'function' ? elements.sort(this.comparator) : elements;
+    };
 
     /**
      * Perform a full layout update.
@@ -353,7 +352,7 @@
 
       // Prepare arrays to store height of columns and items.
       while (heights.length < columns) {
-        heights.push(0);
+        heights.push(this.outerOffset);
         this.columns.push([]);
       }
 
@@ -400,7 +399,7 @@
           column, $item, itemCSS, sideOffset;
 
       for (; i < this.columns.length; i++) {
-        heights.push(0);
+        heights.push(this.outerOffset);
         column = this.columns[i];
         sideOffset = i * columnWidth + offset;
         currentHeight = heights[i];
