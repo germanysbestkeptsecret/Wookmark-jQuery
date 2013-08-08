@@ -47,6 +47,7 @@ Where `myElement` is the class of the items you want to lay out in a grid.
       flexibleWidth: 0,
       offset: 2,
       onLayoutChanged: undefined,
+      outerOffset: 0,
       resizeDelay: 50
     });
 

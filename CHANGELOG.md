@@ -1,5 +1,8 @@
 # Changes
 
+## 1.4.1
+* New option 'outerOffset'. Optional offset to the sides of the tiles. The old 'offset' will only be used between tiles.
+
 ## 1.4.0
 * New option 'comparator'. A comparison function which can be used to sort the items before they are positioned in the layout.
 * Offset for first column is now correctly set when align is 'left' or 'right'.
