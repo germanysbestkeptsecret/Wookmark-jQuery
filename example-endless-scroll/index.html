@@ -16,8 +16,8 @@
   <!-- CSS Reset -->
   <link rel="stylesheet" href="../css/reset.css">
 
-  <!-- Styling for your grid blocks -->
-  <link rel="stylesheet" href="css/style.css">
+  <!-- Global CSS for the page and tiles -->
+  <link rel="stylesheet" href="../css/main.css">
 
 </head>
 
@@ -94,6 +94,19 @@
           itemWidth: 210 // Optional, the width of a grid item
         };
 
+        function applyLayout() {
+          $('#tiles').imagesLoaded(function() {
+            // Destroy the old handler
+            if (handler.wookmarkInstance) {
+              handler.wookmarkInstance.clear();
+            }
+
+            // Create a new layout handler.
+            handler = $('#tiles li');
+            handler.wookmark(options);
+          });
+        }
+
         /**
          * When scrolled all the way to the bottom, add more tiles.
          */
@@ -108,14 +121,7 @@
                 firstTen = items.slice(0, 10);
             $('#tiles').append(firstTen.clone());
 
-            // Destroy the old handler
-            if (handler.wookmarkInstance) {
-              handler.wookmarkInstance.clear();
-            }
-
-            // Create a new layout handler.
-            handler = $('#tiles li');
-            handler.wookmark(options);
+            applyLayout();
           }
         };
 

@@ -16,8 +16,8 @@
   <!-- CSS Reset -->
   <link rel="stylesheet" href="../css/reset.css">
 
-  <!-- Styling for your grid blocks -->
-  <link rel="stylesheet" href="css/style.css">
+  <!-- Global CSS for the page and tiles -->
+  <link rel="stylesheet" href="../css/main.css">
 
 </head>
 
@@ -47,6 +47,9 @@
 
   <!-- include jQuery -->
   <script src="../libs/jquery.min.js"></script>
+
+  <!-- Include the imagesLoaded plug-in -->
+  <script src="../libs/jquery.imagesloaded.js"></script>
 
   <!-- Include the plug-in -->
   <script src="../jquery.wookmark.js"></script>
@@ -85,9 +88,11 @@
        * Refreshes the layout.
        */
       function applyLayout() {
-        // Create a new layout handler.
-        handler = $('#tiles li');
-        handler.wookmark(options);
+        options.container.imagesLoaded(function() {
+          // Create a new layout handler when images have loaded.
+          handler = $('#tiles li');
+          handler.wookmark(options);
+        });
       };
 
       /**
