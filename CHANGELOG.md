@@ -1,5 +1,8 @@
 # Changes
 
+## 1.4.2
+* 'flexibleWidth' now works as expected when it's greater than 50% or more than half of the containers width in pixels.
+
 ## 1.4.1
 * New option 'outerOffset'. Optional offset to the sides of the tiles. The old 'offset' will only be used between tiles.
 

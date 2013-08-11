@@ -56,8 +56,7 @@ See the [documentation page](http://www.wookmark.com/jquery-plugin) for details 
 #### itemWidth and flexibleWidth
 
 These values can be given as numbers which will be interpreted as pixels or you can use percentage strings like '20%'.
-If you use a percentage string for itemWidth the number of columns will be fixed and items may overlap if the viewport is small.
-When flexibleWidth is set an itemWidth != 0 is used as minimum item width.
+When `flexibleWidth` is set an `itemWidth` != 0 is used as minimum item width. As example using a `flexibleWidth` of 40% will result in two columns with 10% space to the sides of the container.
 
 ### Refresh trigger
 
@@ -67,25 +66,59 @@ Elements which are hidden have cannot be laid out until they are visible. If you
 
 ### fillEmptySpace
 
-This creates placeholders at the bottom of each column to create an even layout. See 'example-placeholder' on how to use it. These placeholders use the css class 'wookmark-placeholder'. You can overwrite it in your own css to fit your needs.
+This creates placeholders at the bottom of each column to create an even layout. See `example-placeholder` on how to use it. These placeholders use the css class `wookmark-placeholder`. You can overwrite it in your own css to fit your needs.
 
 ### ignoreInactiveItems
 
-When set to 'false' inactive items will still be shown when filtered. This can be used to fade out filtered items. See the example-filter/fade.html example.
+When set to `false` inactive items will still be shown when filtered. This can be used to fade out filtered items. See the example-filter/fade.html example.
 
 Included examples
 -----------------
 
-/example
+### example
+
 Is the preferred setup. In this scenario the width and height of all images is set in the HTML img attributes.
 The grid layout can be performed as soon as the document is rendered, BEFORE images are loaded.
 
-/example-load-images
+### example-load-images
+
 In this example, the width and height of the images is not known. Via Paul Irish's imagesLoaded plugin (slightly
 modified by desandro). The grid layout is performed after all images are loaded and their dimensions can be
 retrieved. This approach is much slower. The imagesLoaded plugin can also be found on github right here:
 https://gist.github.com/797120
 
+### example-amd
+
+This example shows how to load and initialize the plugin when using `require.js` or a different amd loading method.
+
+### example-api
+
+This example shows how to load the tile data from a remote api and layout it.
+
+### example-endless-scroll
+
+This example shows how to add new tiles at runtime and refresh the layout.
+
+### example-filter
+
+This example shows to use the `filter` feature of the plugin to show just the tiles the user wants.
+
+### example-flexible
+
+This example shows how to use the `flexibleWidth` option. This option allows your tiles to grow a certain amount, as long as there is room. When using percentage values for the width options you can create a fixed column count layout.
+
+### example-lightbox
+
+This example shows you how to include a lightbox.
+
+### example-placeholder
+
+This example shows you how to enable placeholders at the bottom of the tile layout to create an even footer.
+
+### example-sort
+
+This example shows how the `sort` feature works. This option allows you to specify a sorting function which will rearrange your tiles.
+For example you can use it to sort your tiles containing products by price, popularity or name.
 
 FAQ
 --------

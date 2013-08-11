@@ -3,8 +3,8 @@
   @name jquery.wookmark.js
   @author Christoph Ono (chri@sto.ph or @gbks)
   @author Sebastian Helzle (sebastian@helzle.net or @sebobo)
-  @version 1.4.1
-  @date 8/8/2013
+  @version 1.4.2
+  @date 8/11/2013
   @category jQuery plugin
   @copyright (c) 2009-2013 Christoph Ono (www.wookmark.com)
   @license Licensed under the MIT (http://www.opensource.org/licenses/mit-license.php) license.
@@ -253,12 +253,11 @@
       // Calculate flexible item width if option is set
       if (flexibleWidth) {
         if (typeof flexibleWidth == 'string' && flexibleWidth.indexOf('%') >= 0) {
-          flexibleWidth = parseFloat(flexibleWidth) / 100 * innerWidth -
-            firstElement.outerWidth() + firstElement.innerWidth();
+          flexibleWidth = parseFloat(flexibleWidth) / 100 * innerWidth;
         }
 
-        var columns = ~~(1 + (innerWidth + this.offset) / (flexibleWidth + this.offset)),
-            columnWidth = ~~((innerWidth - (columns - 1) * this.offset) / columns);
+        var columns = ~~(0.5 + (innerWidth + this.offset) / (flexibleWidth + this.offset)),
+            columnWidth = Math.min(flexibleWidth, ~~((innerWidth - (columns - 1) * this.offset) / columns));
 
         itemWidth = Math.max(itemWidth, columnWidth);
 
