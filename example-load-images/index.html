@@ -1,0 +1,113 @@
+<!doctype html>
+<!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js ie8 oldie" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+  <title>jQuery Wookmark Plug-in Example</title>
+  <meta name="description" content="An very basic example of how to use the Wookmark jQuery plug-in.">
+  <meta name="author" content="Christoph Ono, Sebastian Helzle">
+
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+
+  <!-- CSS Reset -->
+  <link rel="stylesheet" href="../css/reset.css">
+
+  <!-- Global CSS for the page and tiles -->
+  <link rel="stylesheet" href="../css/main.css">
+
+</head>
+
+<body>
+
+  <div id="container">
+    <header>
+      <h1>jQuery Wookmark Plug-in Example</h1>
+      <p>Resize the browser window or click a grid item to trigger layout updates.</p>
+    </header>
+    <div id="main" role="main">
+
+      <ul id="tiles">
+        <!-- These are our grid blocks -->
+        <li><img src="../sample-images/image_1.jpg"><p>1</p></li>
+        <li><img src="../sample-images/image_2.jpg"><p>2</p></li>
+        <li><img src="../sample-images/image_3.jpg"><p>3</p></li>
+        <li><img src="../sample-images/image_4.jpg"><p>4</p></li>
+        <li><img src="../sample-images/image_5.jpg"><p>5</p></li>
+        <li><img src="../sample-images/image_6.jpg"><p>6</p></li>
+        <li><img src="../sample-images/image_7.jpg"><p>7</p></li>
+        <li><img src="../sample-images/image_8.jpg"><p>8</p></li>
+        <li><img src="../sample-images/image_9.jpg"><p>9</p></li>
+        <li><img src="../sample-images/image_10.jpg"><p>10</p></li>
+        <li><img src="../sample-images/image_1.jpg"><p>11</p></li>
+        <li><img src="../sample-images/image_2.jpg"><p>12</p></li>
+        <li><img src="../sample-images/image_3.jpg"><p>13</p></li>
+        <li><img src="../sample-images/image_4.jpg"><p>14</p></li>
+        <li><img src="../sample-images/image_5.jpg"><p>15</p></li>
+        <li><img src="../sample-images/image_6.jpg"><p>16</p></li>
+        <li><img src="../sample-images/image_7.jpg"><p>17</p></li>
+        <li><img src="../sample-images/image_8.jpg"><p>18</p></li>
+        <li><img src="../sample-images/image_9.jpg"><p>19</p></li>
+        <li><img src="../sample-images/image_10.jpg"><p>20</p></li>
+        <li><img src="../sample-images/image_1.jpg"><p>21</p></li>
+        <li><img src="../sample-images/image_2.jpg"><p>22</p></li>
+        <li><img src="../sample-images/image_3.jpg"><p>23</p></li>
+        <li><img src="../sample-images/image_4.jpg"><p>24</p></li>
+        <li><img src="../sample-images/image_5.jpg"><p>25</p></li>
+        <li><img src="../sample-images/image_6.jpg"><p>26</p></li>
+        <li><img src="../sample-images/image_7.jpg"><p>27</p></li>
+        <li><img src="../sample-images/image_8.jpg"><p>28</p></li>
+        <li><img src="../sample-images/image_9.jpg"><p>29</p></li>
+        <li><img src="../sample-images/image_10.jpg"><p>30</p></li>
+        <!-- End of grid blocks -->
+      </ul>
+
+    </div>
+  </div>
+
+  <!-- include jQuery -->
+  <script src="../libs/jquery.min.js"></script>
+
+  <!-- Include the imagesLoaded plug-in -->
+  <script src="../libs/jquery.imagesloaded.js"></script>
+
+  <!-- Include the plug-in -->
+  <script src="../jquery.wookmark.js"></script>
+
+  <!-- Once the page is loaded, initalize the plug-in. -->
+  <script type="text/javascript">
+    (function ($){
+      $('#tiles').imagesLoaded(function() {
+        // Prepare layout options.
+        var options = {
+          autoResize: true, // This will auto-update the layout when the browser window is resized.
+          container: $('#main'), // Optional, used for some extra CSS styling
+          offset: 5, // Optional, the distance between grid items
+          outerOffset: 10, // Optional, the distance to the containers border
+          itemWidth: 210 // Optional, the width of a grid item
+        };
+
+        // Get a reference to your grid items.
+        var handler = $('#tiles li');
+
+        // Call the layout function.
+        handler.wookmark(options);
+
+        // Capture clicks on grid items.
+        handler.click(function(){
+          // Randomize the height of the clicked item.
+          var newHeight = $('img', this).height() + Math.round(Math.random() * 300 + 30);
+          $(this).css('height', newHeight+'px');
+
+          // Update the layout.
+          handler.wookmark();
+        });
+      });
+    })(jQuery);
+  </script>
+
+</body>
+</html>
