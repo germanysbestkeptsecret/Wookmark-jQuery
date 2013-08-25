@@ -1,5 +1,8 @@
 # Changes
 
+## 1.4.3
+* Enabled option 'direction'. This was an internal setting and can now be overriden to order the items from one direction but align them to a different side.
+
 ## 1.4.2
 * 'flexibleWidth' now works as expected when it's greater than 50% or more than half of the containers width in pixels.
 

@@ -1,0 +1,147 @@
+<!doctype html>
+<!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js ie8 oldie" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+  <title>jQuery Wookmark Plug-in Example</title>
+  <meta name="description" content="An very basic example of how to use the Wookmark jQuery plug-in.">
+  <meta name="author" content="Christoph Ono, Sebastian Helzle">
+
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+
+  <!-- CSS Reset -->
+  <link rel="stylesheet" href="../css/reset.css">
+
+  <!-- Global CSS for the page and tiles -->
+  <link rel="stylesheet" href="../css/main.css">
+
+  <!-- Specific CSS for the example -->
+  <style>
+    /**
+     * Grid items
+     */
+    #tiles li {
+      -webkit-transition: all 0.3s ease-out;
+         -moz-transition: all 0.3s ease-out;
+           -o-transition: all 0.3s ease-out;
+              transition: all 0.3s ease-out;
+    }
+  </style>
+
+</head>
+
+<body>
+
+  <div id="container">
+    <header>
+      <h1>jQuery Wookmark Plug-in Example</h1>
+      <p>The items with the 'stamped' descriptions keep their positions even if they are defined out of order in the code.</p>
+      <p>Each number in the descriptions represent their real index in the html code.</p>
+      <p>You can stamp the first item to the right by setting the direction option to 'right'.</p>
+    </header>
+    <br/>
+
+    <div id="main" role="main">
+
+      <ul id="tiles">
+        <li>
+          <img src="../sample-images/image_1.jpg" height="283" width="200">
+          <p>(1)</p>
+        </li>
+        <li class="stamped-last">
+          <img src="../sample-images/image_2.jpg" height="300" width="200">
+          <p>(2) Stamped to be the last!</p>
+        </li>
+        <li>
+          <img src="../sample-images/image_3.jpg" height="252" width="200">
+          <p>(3)</p>
+        </li>
+        <li class="stamped-first">
+          <img src="../sample-images/image_4.jpg" height="158" width="200">
+          <p>(4) Stamped to be the first!</p>
+        </li>
+        <li>
+          <img src="../sample-images/image_5.jpg" height="300" width="200">
+          <p>(5)</p>
+        </li>
+        <li>
+          <img src="../sample-images/image_6.jpg" height="297" width="200">
+          <p>(6)</p>
+        </li>
+        <li>
+          <img src="../sample-images/image_7.jpg" height="200" width="200">
+          <p>(7)</p>
+        </li>
+        <li class="stamped-fourth">
+          <img src="../sample-images/image_8.jpg" height="200" width="200">
+          <p>(8) Stamped to be the fourth!</p>
+        </li>
+        <li>
+          <img src="../sample-images/image_9.jpg" height="398" width="200">
+          <p>(9)</p>
+        </li>
+        <li>
+          <img src="../sample-images/image_10.jpg" height="267" width="200">
+          <p>(10)</p>
+        </li>
+      </ul>
+
+    </div>
+  </div>
+
+  <!-- include jQuery -->
+  <script src="../libs/jquery.min.js"></script>
+
+  <!-- Include the imagesLoaded plug-in -->
+  <script src="../libs/jquery.imagesloaded.js"></script>
+
+  <!-- Include the plug-in -->
+  <script src="../jquery.wookmark.js"></script>
+
+  <!-- Once the page is loaded, initalize the plug-in. -->
+  <script type="text/javascript">
+    (function ($){
+      $('#tiles').imagesLoaded(function() {
+        function comparatorIsStamped(a, b) {
+          var $a = $(a), $b = $(b);
+          // Check if tile should be the first one
+          if (!$a.hasClass('stamped-first') && $b.hasClass('stamped-first'))
+            return 1;
+          // Check if tile should be the last one
+          if ($a.hasClass('stamped-last') && !$b.hasClass('stamped-last'))
+            return 1;
+          // Check if tile should the fourth one
+          if (!$a.hasClass('stamped-fourth') && $b.hasClass('stamped-fourth') && $a.index() >= 4)
+            return 1;
+          return -1;
+        }
+
+        // Prepare layout options.
+        var options = {
+          autoResize: true, // This will auto-update the layout when the browser window is resized.
+          container: $('#main'), // Optional, used for some extra CSS styling
+          offset: 2, // Optional, the distance between grid items
+          itemWidth: 210, // Optional, the width of a grid item
+          comparator: comparatorIsStamped, // Used to sort the items
+          direction: 'left' // Set this to 'right' if you want to stamp the 'stamped-first' item to the right
+        };
+
+        // Get a reference to your grid items.
+        var $handler = $('#tiles li');
+
+        $handler.each(function(i) {
+          console.log($(this).index() + ':' + $(this).find('p').text());
+        });
+
+        // Call the layout function.
+        $handler.wookmark(options);
+      });
+    })(jQuery);
+  </script>
+
+</body>
+</html>

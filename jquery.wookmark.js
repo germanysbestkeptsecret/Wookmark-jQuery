@@ -3,8 +3,8 @@
   @name jquery.wookmark.js
   @author Christoph Ono (chri@sto.ph or @gbks)
   @author Sebastian Helzle (sebastian@helzle.net or @sebobo)
-  @version 1.4.2
-  @date 8/11/2013
+  @version 1.4.3
+  @date 8/25/2013
   @category jQuery plugin
   @copyright (c) 2009-2013 Christoph Ono (www.wookmark.com)
   @license Licensed under the MIT (http://www.opensource.org/licenses/mit-license.php) license.
@@ -34,6 +34,7 @@
     itemWidth: 0,
     fillEmptySpace: false,
     flexibleWidth: 0,
+    direction: undefined,
     offset: 2,
     onLayoutChanged: undefined,
     outerOffset: 0,
@@ -47,7 +48,6 @@
       this.handler = handler;
       this.columns = this.containerWidth = this.resizeTimer = null;
       this.activeItemCount = 0;
-      this.direction = 'left';
       this.itemHeightsDirty = true;
       this.placeholders = [];
 
@@ -302,7 +302,7 @@
       }
 
       // Get direction for positioning
-      this.direction = this.align == 'right' ? 'right' : 'left';
+      this.direction = this.direction || (this.align == 'right' ? 'right' : 'left');
 
       // If container and column count hasn't changed, we can only update the columns.
       if (!force && this.columns !== null && this.columns.length == columns && this.activeItemCount == activeItemsLength) {

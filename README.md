@@ -40,7 +40,9 @@ Where `myElement` is the class of the items you want to lay out in a grid.
     $('.myElements').wookmark({
       align: 'center',
       autoResize: false,
+      comparator: null,
       container: $('body'),
+      direction: undefined,
       ignoreInactiveItems: true,
       itemWidth: 0,
       fillEmptySpace: false,
@@ -71,6 +73,10 @@ This creates placeholders at the bottom of each column to create an even layout.
 ### ignoreInactiveItems
 
 When set to `false` inactive items will still be shown when filtered. This can be used to fade out filtered items. See the example-filter/fade.html example.
+
+### comparator
+
+You can use this option to provide a custom comparator function which the plugin will use to sort the tiles. See example-sort or example-stamp on how to use it.
 
 Included examples
 -----------------
