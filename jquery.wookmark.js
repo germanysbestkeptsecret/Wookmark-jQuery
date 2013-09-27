@@ -38,7 +38,8 @@
     offset: 2,
     onLayoutChanged: undefined,
     outerOffset: 0,
-    resizeDelay: 50
+    resizeDelay: 50,
+    possibleFilters: []
   };
 
   Wookmark = (function() {
@@ -68,7 +69,7 @@
       this.sortElements = __bind(this.sortElements, this);
 
       // Collect filter data
-      var i = 0, j = 0, filterClasses = {}, itemFilterClasses, $item, filterClass;
+      var i = 0, j = 0, k = 0, filterClasses = {}, itemFilterClasses, $item, filterClass;
 
       for (; i < handler.length; i++) {
         $item = handler.eq(i);
@@ -88,6 +89,15 @@
           }
         }
       }
+
+      var possibleFilters = this.possibleFilters;
+      for (; k < possibleFilters.length; k++) {
+        var possibleFilter = $.trim(possibleFilters[k]).toLowerCase();
+        if (!(possibleFilter in filterClasses)) {
+          filterClasses[possibleFilter] = [];
+        }
+      }
+
       this.filterClasses = filterClasses;
 
       // Listen to resize event if requested.
