@@ -145,7 +145,7 @@
             activeItems = activeItems.add(activeFilters[i]);
           }
         } else if (mode == 'and') {
-          var shortestFilter = activeFilters[0],
+          var shortestFilter = activeFilters[0] | [],
               itemValid = true, foundInFilter,
               currentItem, currentFilter;
 
