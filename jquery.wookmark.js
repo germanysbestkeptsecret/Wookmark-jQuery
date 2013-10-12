@@ -157,6 +157,7 @@
           }
 
           // Iterate over shortest filter and find elements in other filter classes
+          shortestFilter = shortestFilter || [];
           for (i = 0; i < shortestFilter.length; i++) {
             currentItem = shortestFilter[i];
             itemValid = true;
