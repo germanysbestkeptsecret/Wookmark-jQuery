@@ -1,5 +1,10 @@
 # Changes
 
+## 1.4.4
+* Wookmark layouting won't break when container isn't visible at the start. But you should call 'refreshWookmark' after making it visible.
+* Added 'possibleFilters' option. With this you can have filter even when no items fit. Patch by Aakash Goel. Thanks!
+* Fix when filtering and no items match. Patch by Gabriel Kaam. Thanks!
+
 ## 1.4.3
 * Enabled option 'direction'. This was an internal setting and can now be overriden to order the items from one direction but align them to a different side.
 

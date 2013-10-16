@@ -50,7 +50,8 @@ Where `myElement` is the class of the items you want to lay out in a grid.
       offset: 2,
       onLayoutChanged: undefined,
       outerOffset: 0,
-      resizeDelay: 50
+      resizeDelay: 50,
+      possibleFilters: []
     });
 
 See the [documentation page](http://www.wookmark.com/jquery-plugin) for details on available options.
