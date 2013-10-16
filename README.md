@@ -5,7 +5,7 @@ This is a [jQuery](http://www.jquery.com) plugin for laying out a dynamic grid o
 
 See the [documentation page](http://www.wookmark.com/jquery-plugin) for examples.
 
-The repository also includes two functional examples. All images used in the example are copyrighted
+The repository also includes many functional examples. All images used in the example are copyrighted
 by their respective owners and only included for showcasing plugin functionality.
 
 
