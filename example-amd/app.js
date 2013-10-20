@@ -6,8 +6,7 @@ requirejs.config({
     "colorbox": "../libs/jquery.colorbox-min"
   },
   "shim": {
-    "colorbox": ["jquery"],
-    "imagesLoaded": ["jquery"]
+    "colorbox": ["jquery"]
   }
 });
 
