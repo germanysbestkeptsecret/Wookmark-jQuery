@@ -216,7 +216,7 @@
         this.placeholders.push($placeholder);
       }
 
-      innerOffset = this.offset + parseInt(this.placeholders[0].css('borderWidth'), 10) * 2;
+      innerOffset = this.offset + parseInt(this.placeholders[0].css('borderLeftWidth'), 10) * 2;
 
       for (i = 0; i < this.placeholders.length; i++) {
         $placeholder = this.placeholders[i];
