@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+  <title>jQuery Wookmark Plug-in Example</title>
+  <meta name="description" content="Overview of the wookmark examples">
+  <meta name="author" content="Christoph Ono, Sebastian Helzle">
+
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+
+  <!-- CSS Reset -->
+  <link rel="stylesheet" href="css/reset.css">
+
+  <!-- Global CSS for the page and tiles -->
+  <link rel="stylesheet" href="css/main.css">
+
+</head>
+<body>
+  <div id="container">
+    <header>
+      <h1>jQuery Wookmark Plug-in Examples</h1>
+      <p>Click a tile to view the example</p>
+    </header>
+    <div id="main" role="main">
+      <ul class="example-tiles">
+        <li><a href="example-amd/">Loading Wookmark via AMD</a></li>
+        <li><a href="example-api/">Displaying images from an remote API</a></li>
+        <li><a href="example-endless-scroll/">Endless scrolling</a></li>
+        <li><a href="example-filter/">Filtering tiles</a></li>
+        <li><a href="example-flexible/">Tiles with flexible width</a></li>
+        <li><a href="example-lightbox/">Showing a lightbox when clicking tiles</a></li>
+        <li><a href="example-load-images/">Load the plugin after all images have loaded</a></li>
+        <li><a href="example-placeholder/">Displaying placeholders at the bottom</a></li>
+        <li><a href="example-sort">Sorting tiles</a></li>
+        <li><a href="example-stamp">Stamping tiles to a certain position</a></li>
+      </ul>
+    </div>
+    <footer>
+      Created by <a href="mailto:chri@sto.ph" title="Send a mail to Christoph">Christoph Ono</a> (<a href="http://twitter.com/gbks" title="Christoph on Twitter">@gbks</a>)
+      for <a href="http://www.wookmark.com" title="Checkout wookmark.com">wookmark.com</a>
+      and maintained by <a href="mailto:sebastian@helzle.net" title="Send a mail to Sebastian">Sebastian Helzle</a> (<a href="http://twitter.com/sebobo" title="Sebastian on Twitter">@sebobo</a>)
+      <br/>
+      <br/>
+      <b>
+        Get the code on <a href="https://github.com/GBKS/Wookmark-jQuery" title="Wookmark plugin on Github">Github</a>!
+      </b>
+    </footer>
+  </div>
+
+  <!-- include jQuery -->
+  <script src="../libs/jquery.min.js"></script>
+
+  <!-- Include the plug-in -->
+  <script src="../jquery.wookmark.js"></script>
+
+  <!-- Once the page is loaded, initalize the plug-in. -->
+  <script type="text/javascript">
+    (function ($){
+      $(function() {
+        var handler = $('.example-tiles li');
+
+        handler.wookmark({
+            // Prepare layout options.
+            autoResize: true, // This will auto-update the layout when the browser window is resized.
+            container: $('#main'), // Optional, used for some extra CSS styling
+            offset: 5, // Optional, the distance between grid items
+            outerOffset: 10, // Optional, the distance to the containers border
+            itemWidth: 220 // Optional, the width of a grid item
+        });
+      });
+    })(jQuery);
+  </script>
+</body>
+</html>
