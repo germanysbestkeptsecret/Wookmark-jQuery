@@ -15,7 +15,6 @@
   else
     factory(jQuery);
 }(function ($) {
-
   var Wookmark, defaultOptions, __bind;
 
   __bind = function(fn, me) {
@@ -42,6 +41,19 @@
     possibleFilters: []
   };
 
+  // Function for executing css writes to dom on the next animation frame if supported
+  var executeNextFrame = window.requestAnimationFrame || function(callback) {callback()};
+  function bulkUpdateCSS(data) {
+    executeNextFrame(function() {
+      var i, item;
+      for (i in data) {
+        item = data[i];
+        item.obj.css(item.css);
+      }
+    });
+  }
+
+  // Main wookmark plugin class
   Wookmark = (function() {
 
     function Wookmark(handler, options) {
@@ -352,8 +364,7 @@
           activeItems = $.makeArray(this.getActiveItems()),
           length = activeItems.length,
           shortest = null, shortestIndex = null,
-          itemCSS = {position: 'absolute'},
-          sideOffset, heights = [],
+          sideOffset, heights = [], itemBulkCSS = [],
           leftAligned = this.align == 'left' ? true : false;
 
       this.columns = [];
@@ -380,6 +391,7 @@
             shortestIndex = k;
           }
         }
+        $item.data('wookmark-top', shortest);
 
         // stick to left side if alignment is left and this is the first column
         sideOffset = offset;
@@ -387,14 +399,20 @@
           sideOffset += shortestIndex * columnWidth;
 
         // Position the item.
-        itemCSS[this.direction] = sideOffset;
-        itemCSS.top = shortest;
-        $item.css(itemCSS).data('wookmark-top', shortest);
+        (itemBulkCSS[i] = {
+          obj: $item,
+          css: {
+            position: 'absolute',
+            top: shortest
+          }
+        }).css[this.direction] = sideOffset;
 
         // Update column height and store item in shortest column
         heights[shortestIndex] += $item.data('wookmark-height') + this.offset;
         this.columns[shortestIndex].push($item);
       }
+
+      bulkUpdateCSS(itemBulkCSS);
 
       // Return longest column
       return Math.max.apply(Math, heights);
@@ -405,9 +423,9 @@
      * existing column assignments.
      */
     Wookmark.prototype.layoutColumns = function(columnWidth, offset) {
-      var heights = [],
-          i = 0, k = 0, currentHeight,
-          column, $item, itemCSS, sideOffset;
+      var heights = [], itemBulkCSS = [],
+          i = 0, k = 0, j = 0, currentHeight,
+          column, $item, itemData, sideOffset;
 
       for (; i < this.columns.length; i++) {
         heights.push(this.outerOffset);
@@ -415,19 +433,21 @@
         sideOffset = i * columnWidth + offset;
         currentHeight = heights[i];
 
-        for (k = 0; k < column.length; k++) {
-          $item = column[k];
-          itemCSS = {
-            top: currentHeight
-          };
-          itemCSS[this.direction] = sideOffset;
-
-          $item.css(itemCSS).data('wookmark-top', currentHeight);
+        for (k = 0; k < column.length; k++, j++) {
+          $item = column[k].data('wookmark-top', currentHeight);
+          (itemBulkCSS[j] = {
+            obj: $item,
+            css: {
+              top: currentHeight
+            }
+          }).css[this.direction] = sideOffset;
 
           currentHeight += $item.data('wookmark-height') + this.offset;
         }
         heights[i] = currentHeight;
       }
+
+      bulkUpdateCSS(itemBulkCSS);
 
       // Return longest column
       return Math.max.apply(Math, heights);
