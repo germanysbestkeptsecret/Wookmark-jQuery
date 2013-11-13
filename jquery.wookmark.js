@@ -463,12 +463,13 @@
     };
 
     /**
-     * Clear event listeners and time outs.
+     * Clear event listeners and time outs and the instance itself
      */
     Wookmark.prototype.clear = function() {
       clearTimeout(this.resizeTimer);
       $(window).unbind('resize.wookmark', this.onResize);
       this.container.unbind('refreshWookmark', this.onRefresh);
+      this.handler.wookmarkInstance = null;
     };
 
     return Wookmark;
