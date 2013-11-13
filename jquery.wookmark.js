@@ -3,7 +3,7 @@
   @name jquery.wookmark.js
   @author Christoph Ono (chri@sto.ph or @gbks)
   @author Sebastian Helzle (sebastian@helzle.net or @sebobo)
-  @version 1.4.4
+  @version 1.4.5
   @date 10/20/2013
   @category jQuery plugin
   @copyright (c) 2009-2013 Christoph Ono (www.wookmark.com)
@@ -43,6 +43,7 @@
 
   // Function for executing css writes to dom on the next animation frame if supported
   var executeNextFrame = window.requestAnimationFrame || function(callback) {callback()};
+
   function bulkUpdateCSS(data) {
     executeNextFrame(function() {
       var i, item;
@@ -51,6 +52,10 @@
         item.obj.css(item.css);
       }
     });
+  }
+
+  function cleanFilterName(filterName) {
+    return $.trim(filterName).toLowerCase();
   }
 
   // Main wookmark plugin class
@@ -79,38 +84,10 @@
       this.getActiveItems = __bind(this.getActiveItems, this);
       this.refreshPlaceholders = __bind(this.refreshPlaceholders, this);
       this.sortElements = __bind(this.sortElements, this);
+      this.updateFilterClasses = __bind(this.updateFilterClasses, this);
 
-      // Collect filter data
-      var i = 0, j = 0, k = 0, filterClasses = {}, itemFilterClasses, $item, filterClass;
-
-      for (; i < handler.length; i++) {
-        $item = handler.eq(i);
-
-        // Read filter classes
-        itemFilterClasses = $item.data('filterClass');
-
-        // Globally store each filter class as object and the fitting items in the array
-        if (typeof itemFilterClasses == 'object' && itemFilterClasses.length > 0) {
-          for (j = 0; j < itemFilterClasses.length; j++) {
-            filterClass = $.trim(itemFilterClasses[j]).toLowerCase();
-
-            if (!(filterClass in filterClasses)) {
-              filterClasses[filterClass] = [];
-            }
-            filterClasses[filterClass].push($item[0]);
-          }
-        }
-      }
-
-      var possibleFilters = this.possibleFilters;
-      for (; k < possibleFilters.length; k++) {
-        var possibleFilter = $.trim(possibleFilters[k]).toLowerCase();
-        if (!(possibleFilter in filterClasses)) {
-          filterClasses[possibleFilter] = [];
-        }
-      }
-
-      this.filterClasses = filterClasses;
+      // Initial update of the filter classes
+      this.updateFilterClasses();
 
       // Listen to resize event if requested.
       if (this.autoResize)
@@ -118,6 +95,38 @@
 
       this.container.bind('refreshWookmark', this.onRefresh);
     }
+
+    Wookmark.prototype.updateFilterClasses = function() {
+      // Collect filter data
+      var i = 0, j = 0, k = 0, filterClasses = {}, itemFilterClasses,
+          $item, filterClass, possibleFilters = this.possibleFilters, possibleFilter;
+
+      for (; i < this.handler.length; i++) {
+        $item = this.handler.eq(i);
+
+        // Read filter classes and globally store each filter class as object and the fitting items in the array
+        itemFilterClasses = $item.data('filterClass');
+        if (typeof itemFilterClasses == 'object' && itemFilterClasses.length > 0) {
+          for (j = 0; j < itemFilterClasses.length; j++) {
+            filterClass = cleanFilterName(itemFilterClasses[j]);
+
+            if (!filterClasses[filterClass]) {
+              filterClasses[filterClass] = [];
+            }
+            filterClasses[filterClass].push($item[0]);
+          }
+        }
+      }
+
+      for (; k < possibleFilters.length; k++) {
+        possibleFilter = cleanFilterName(possibleFilters[k]);
+        if (!(possibleFilter in filterClasses)) {
+          filterClasses[possibleFilter] = [];
+        }
+      }
+
+      this.filterClasses = filterClasses;
+    };
 
     // Method for updating the plugins options
     Wookmark.prototype.update = function(options) {
@@ -153,7 +162,7 @@
       if (filters.length) {
         // Collect active filters
         for (i = 0; i < filters.length; i++) {
-          filter = $.trim(filters[i].toLowerCase());
+          filter = cleanFilterName(filters[i]);
           if (filter in this.filterClasses) {
             activeFilters.push(this.filterClasses[filter]);
           }
