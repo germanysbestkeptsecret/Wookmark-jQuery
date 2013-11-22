@@ -1,5 +1,14 @@
 # Changes
 
+## 1.4.5
+* Fix for placeholders in non-chrome browsers.
+* The clear method of the wookmark instance will remove the instance itself.
+* New introduction page with links to examples. Will work on that further on the way to 1.5.0.
+* Fixed bug in example-amd with requirejs.
+* CSS changes will be executed as bulk with requestAnimationFrame when available.
+* Added progressbar to imagesloaded example.
+* Filterclasses can be updated via the wookmarkInstance of the handler.
+
 ## 1.4.4
 * Wookmark layouting won't break when container isn't visible at the start. But you should call 'refreshWookmark' after making it visible.
 * Added 'possibleFilters' option. With this you can have filter even when no items fit. Patch by Aakash Goel. Thanks!
