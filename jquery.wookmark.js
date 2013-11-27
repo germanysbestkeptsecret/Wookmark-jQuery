@@ -42,12 +42,12 @@
   };
 
   // Function for executing css writes to dom on the next animation frame if supported
-  var executeNextFrame = window.requestAnimationFrame || function(callback) {callback()};
+  var executeNextFrame = window.requestAnimationFrame || function(callback) {callback();};
 
   function bulkUpdateCSS(data) {
     executeNextFrame(function() {
       var i, item;
-      for (i in data) {
+      for (i = 0; i < data.length; i++) {
         item = data[i];
         item.obj.css(item.css);
       }
