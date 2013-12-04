@@ -45,10 +45,11 @@
 }
 
 #filters li:hover {
-  background: #dedede;
+  background: #4281f5;
+  color: #ffffff;
 }
 
 #filters li.active {
-  background: #333333;
+  background: #4281f5;
   color: #ffffff;
 }
