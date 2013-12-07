@@ -3,8 +3,8 @@
   @name jquery.wookmark.js
   @author Christoph Ono (chri@sto.ph or @gbks)
   @author Sebastian Helzle (sebastian@helzle.net or @sebobo)
-  @version 1.4.5
-  @date 11/22/2013
+  @version 1.4.6
+  @date 12/07/2013
   @category jQuery plugin
   @copyright (c) 2009-2013 Christoph Ono (www.wookmark.com)
   @license Licensed under the MIT (http://www.opensource.org/licenses/mit-license.php) license.
@@ -291,7 +291,11 @@
           flexibleWidth = parseFloat(flexibleWidth) / 100 * innerWidth;
         }
 
-        var columns = ~~(0.5 + (innerWidth + this.offset) / (flexibleWidth + this.offset)),
+        // Find highest column count
+        var paddedInnerWidth = (innerWidth + this.offset),
+            flexibleColumns = ~~(0.5 + paddedInnerWidth / (flexibleWidth + this.offset)),
+            fixedColumns = ~~(paddedInnerWidth / (itemWidth + this.offset)),
+            columns = Math.max(flexibleColumns, fixedColumns),
             columnWidth = Math.min(flexibleWidth, ~~((innerWidth - (columns - 1) * this.offset) / columns));
 
         itemWidth = Math.max(itemWidth, columnWidth);
