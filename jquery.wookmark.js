@@ -29,16 +29,17 @@
     autoResize: false,
     comparator: null,
     container: $('body'),
+    direction: undefined,
     ignoreInactiveItems: true,
     itemWidth: 0,
     fillEmptySpace: false,
     flexibleWidth: 0,
-    direction: undefined,
     offset: 2,
-    onLayoutChanged: undefined,
     outerOffset: 0,
+    onLayoutChanged: undefined,
+    possibleFilters: [],
     resizeDelay: 50,
-    possibleFilters: []
+    verticalOffset: undefined
   };
 
   // Function for executing css writes to dom on the next animation frame if supported
@@ -70,6 +71,8 @@
       this.placeholders = [];
 
       $.extend(true, this, defaultOptions, options);
+
+      this.verticalOffset = this.verticalOffset || this.offset;
 
       // Bind instance methods
       this.update = __bind(this.update, this);
@@ -248,7 +251,7 @@
         } else {
           $lastColumnItem = column[column.length - 1];
           if (!$lastColumnItem) continue;
-          top = $lastColumnItem.data('wookmark-top') + $lastColumnItem.data('wookmark-height') + this.offset;
+          top = $lastColumnItem.data('wookmark-top') + $lastColumnItem.data('wookmark-height') + this.verticalOffset;
           height = containerHeight - top - innerOffset;
 
           $placeholder.css({
@@ -417,7 +420,7 @@
         }).css[this.direction] = sideOffset;
 
         // Update column height and store item in shortest column
-        heights[shortestIndex] += $item.data('wookmark-height') + this.offset;
+        heights[shortestIndex] += $item.data('wookmark-height') + this.verticalOffset;
         this.columns[shortestIndex].push($item);
       }
 
@@ -451,7 +454,7 @@
             }
           }).css[this.direction] = sideOffset;
 
-          currentHeight += $item.data('wookmark-height') + this.offset;
+          currentHeight += $item.data('wookmark-height') + this.verticalOffset;
         }
         heights[i] = currentHeight;
       }

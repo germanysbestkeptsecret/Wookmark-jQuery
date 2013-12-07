@@ -50,8 +50,9 @@ Where `myElement` is the class of the items you want to lay out in a grid.
       offset: 2,
       onLayoutChanged: undefined,
       outerOffset: 0,
+      possibleFilters: [],
       resizeDelay: 50,
-      possibleFilters: []
+      verticalOffset: undefined
     });
 
 See the [documentation page](http://www.wookmark.com/jquery-plugin) for details on available options.
@@ -61,23 +62,29 @@ See the [documentation page](http://www.wookmark.com/jquery-plugin) for details 
 These values can be given as numbers which will be interpreted as pixels or you can use percentage strings like '20%'.
 When `flexibleWidth` is set an `itemWidth` != 0 is used as minimum item width. As example using a `flexibleWidth` of 40% will result in two columns with 10% space to the sides of the container.
 
+#### offset, outerOffset and verticalOffset
+
+`offset` is the horizontal and vertical space between two tiles.
+`outerOffset` is the space between the outer tiles and the parent container.
+`verticalOffset` is optional and can be set to achieve a vertical offset between two tiles which is different from `offset`.
+
+#### fillEmptySpace
+
+This creates placeholders at the bottom of each column to create an even layout. See `example-placeholder` on how to use it. These placeholders use the css class `wookmark-placeholder`. You can overwrite it in your own css to fit your needs.
+
+#### ignoreInactiveItems
+
+When set to `false` inactive items will still be shown when filtered. This can be used to fade out filtered items. See the example-filter/fade.html example.
+
+#### comparator
+
+You can use this option to provide a custom comparator function which the plugin will use to sort the tiles. See example-sort or example-stamp on how to use it.
+
 ### Refresh trigger
 
 Elements which are hidden have cannot be laid out until they are visible. If you use wookmark on a hidden tab layout will not be immediately performed. When the tab is made visible you can manually refresh wookmark using a trigger on your container.
 
     $('#myContent').trigger('refreshWookmark');
-
-### fillEmptySpace
-
-This creates placeholders at the bottom of each column to create an even layout. See `example-placeholder` on how to use it. These placeholders use the css class `wookmark-placeholder`. You can overwrite it in your own css to fit your needs.
-
-### ignoreInactiveItems
-
-When set to `false` inactive items will still be shown when filtered. This can be used to fade out filtered items. See the example-filter/fade.html example.
-
-### comparator
-
-You can use this option to provide a custom comparator function which the plugin will use to sort the tiles. See example-sort or example-stamp on how to use it.
 
 Included examples
 -----------------
