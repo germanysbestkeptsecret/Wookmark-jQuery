@@ -1,5 +1,10 @@
 # Changes
 
+## 1.4.6
+* New option 'verticalOffset'. Old option 'offset' still defines the horizontal offset between tiles.
+* Added 'Reset filters' button to filter examples.
+* 'flexibleWidth' will now be handled a bit differently. When set the plugin will try to fit as many columns into the container as possible. `itemWidth` is then the minimum width of those columns.
+
 ## 1.4.5
 * Fix for placeholders in non-chrome browsers.
 * The clear method of the wookmark instance will remove the instance itself.
