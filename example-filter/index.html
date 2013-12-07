@@ -38,6 +38,7 @@
       -->
     <br/>
     <ol id="filters">
+      <li data-filter="all">Reset filters</li>
       <li data-filter="amsterdam">Amsterdam</li>
       <li data-filter="tokyo">Tokyo</li>
       <li data-filter="london">London</li>
@@ -215,21 +216,27 @@
         /**
          * When a filter is clicked, toggle it's active state and refresh.
          */
-        var onClickFilter = function(event) {
-          var item = $(event.currentTarget),
-              activeFilters = [];
-          item.toggleClass('active');
+        function onClickFilter(e) {
+          var $item = $(e.currentTarget),
+              activeFilters = [],
+              filterType = $item.data('filter');
 
-          // Collect active filter strings
-          filters.filter('.active').each(function() {
-            activeFilters.push($(this).data('filter'));
-          });
+          if (filterType === 'all') {
+            filters.removeClass('active');
+          } else {
+            $item.toggleClass('active');
+
+            // Collect active filter strings
+            filters.filter('.active').each(function() {
+              activeFilters.push($(this).data('filter'));
+            });
+          }
 
           handler.wookmarkInstance.filter(activeFilters, 'or');
         }
 
         // Capture filter click events.
-        filters.click(onClickFilter);
+        $('#filters').on('click.wookmark-filter', 'li', onClickFilter);
       });
     })(jQuery);
   </script>
