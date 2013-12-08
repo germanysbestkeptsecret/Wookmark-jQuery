@@ -15,45 +15,38 @@
 
   <!-- Global CSS for the page and tiles -->
   <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/overview.css">
 
 </head>
 <body>
   <div id="container">
     <header>
       <h1>jQuery Wookmark Plug-in Examples</h1>
-      <p>Click a tile to view the example</p>
+      <p>Click a tile to view the example. Created by <a href="mailto:chri@sto.ph" title="Send a mail to Christoph">Christoph Ono</a> (<a href="http://twitter.com/gbks" title="Christoph on Twitter">@gbks</a>)
+      for <a href="http://www.wookmark.com" title="Checkout wookmark.com">wookmark.com</a>
+      and maintained by <a href="mailto:sebastian@helzle.net" title="Send a mail to Sebastian">Sebastian Helzle</a> (<a href="http://twitter.com/sebobo" title="Sebastian on Twitter">@sebobo</a>). Get the code on <a href="https://github.com/GBKS/Wookmark-jQuery" title="Wookmark plugin on Github">Github</a>!</p>
     </header>
     <div id="main" role="main">
       <ul class="example-tiles">
-        <li><a href="example-amd/">Loading Wookmark via AMD</a></li>
-        <li><a href="example-api/">Displaying images from an remote API</a></li>
-        <li><a href="example-endless-scroll/">Endless scrolling</a></li>
-        <li><a href="example-filter/">Filtering tiles</a></li>
-        <li><a href="example-flexible/">Tiles with flexible width</a></li>
-        <li><a href="example-lightbox/">Showing a lightbox when clicking tiles</a></li>
-        <li><a href="example-load-images/">Load the plugin after all images have loaded</a></li>
-        <li><a href="example-placeholder/">Displaying placeholders at the bottom</a></li>
-        <li><a href="example-sort">Sorting tiles</a></li>
-        <li><a href="example-stamp">Stamping tiles to a certain position</a></li>
+        <li><a href="example-amd/"><span><b>AMD</b><br/>Dynamically loading Wookmark via AMD.</span></a></li>
+        <li><a href="example-api/"><span><b>Remote API</b><br/>Displaying images from a remote API.</span></a></li>
+        <li><a href="example-endless-scroll/"><span><b>Endless scroll</b><br/>Automatically load new content when scrolling down.</span></a></li>
+        <li><a href="example-filter/"><span><b>Filtering</b><br/>Showing and hiding tiles based on user-controlled filters.</span></a></li>
+        <li><a href="example-flexible/"><span><b>Flexible width</b><br/>Automatically adjusting tiles to always fill the container width.</b></span></a></li>
+        <li><a href="example-lightbox/"><span><b>Lightbox</b><br/>Showing a lightbox when users click tiles.</span></a></li>
+        <li><a href="example-load-images/"><span><b>Load it all</b><br/>Load the plugin after all images have loaded.</span></a></li>
+        <li><a href="example-placeholder/"><span><b>Placeholders</b><br/>Displaying placeholders at the bottom to create even-sized columns.</span></a></li>
+        <li><a href="example-sort"><span><b>Sorting</b><br/>Let users change the sort order of your tiles.</a></li>
+        <li><a href="example-stamp"><span><b>Stamping</b><br/>Stamping tiles to specific positions in the layout.</a></li>
       </ul>
     </div>
-    <footer>
-      Created by <a href="mailto:chri@sto.ph" title="Send a mail to Christoph">Christoph Ono</a> (<a href="http://twitter.com/gbks" title="Christoph on Twitter">@gbks</a>)
-      for <a href="http://www.wookmark.com" title="Checkout wookmark.com">wookmark.com</a>
-      and maintained by <a href="mailto:sebastian@helzle.net" title="Send a mail to Sebastian">Sebastian Helzle</a> (<a href="http://twitter.com/sebobo" title="Sebastian on Twitter">@sebobo</a>)
-      <br/>
-      <br/>
-      <b>
-        Get the code on <a href="https://github.com/GBKS/Wookmark-jQuery" title="Wookmark plugin on Github">Github</a>!
-      </b>
-    </footer>
   </div>
 
   <!-- include jQuery -->
-  <script src="../libs/jquery.min.js"></script>
+  <script src="libs/jquery.min.js"></script>
 
   <!-- Include the plug-in -->
-  <script src="../jquery.wookmark.js"></script>
+  <script src="jquery.wookmark.js"></script>
 
   <!-- Once the page is loaded, initalize the plug-in. -->
   <script type="text/javascript">
