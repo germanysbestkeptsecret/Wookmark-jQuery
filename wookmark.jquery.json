@@ -37,6 +37,6 @@
   "docs": "http://www.wookmark.com/jquery-plugin",
   "demo": "http://www.wookmark.com/jquery-plugin",
   "dependencies": {
-    "jquery": ">=1.5"
+    "jquery": ">=1.5.3"
   }
 }
