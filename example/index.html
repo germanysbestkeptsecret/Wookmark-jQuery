@@ -1,8 +1,5 @@
 <!doctype html>
-<!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en"> <![endif]-->
-<!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en"> <![endif]-->
-<!--[if IE 8]>    <html class="no-js ie8 oldie" lang="en"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -78,7 +75,7 @@
   <script type="text/javascript">
     (function ($){
       var handler = $('#tiles li');
-      
+
       handler.wookmark({
           // Prepare layout options.
           autoResize: true, // This will auto-update the layout when the browser window is resized.
@@ -87,7 +84,7 @@
           outerOffset: 10, // Optional, the distance to the containers border
           itemWidth: 210 // Optional, the width of a grid item
       });
-      
+
       // Capture clicks on grid items.
       handler.click(function(){
         // Randomize the height of the clicked item.

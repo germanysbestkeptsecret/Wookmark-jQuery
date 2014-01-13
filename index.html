@@ -28,16 +28,86 @@
     </header>
     <div id="main" role="main">
       <ul class="example-tiles">
-        <li><a href="example-amd/"><span><b>AMD</b><br/>Dynamically loading Wookmark via AMD.</span></a></li>
-        <li><a href="example-api/"><span><b>Remote API</b><br/>Displaying images from a remote API.</span></a></li>
-        <li><a href="example-endless-scroll/"><span><b>Endless scroll</b><br/>Automatically load new content when scrolling down.</span></a></li>
-        <li><a href="example-filter/"><span><b>Filtering</b><br/>Showing and hiding tiles based on user-controlled filters.</span></a></li>
-        <li><a href="example-flexible/"><span><b>Flexible width</b><br/>Automatically adjusting tiles to always fill the container width.</b></span></a></li>
-        <li><a href="example-lightbox/"><span><b>Lightbox</b><br/>Showing a lightbox when users click tiles.</span></a></li>
-        <li><a href="example-load-images/"><span><b>Load it all</b><br/>Load the plugin after all images have loaded.</span></a></li>
-        <li><a href="example-placeholder/"><span><b>Placeholders</b><br/>Displaying placeholders at the bottom to create even-sized columns.</span></a></li>
-        <li><a href="example-sort"><span><b>Sorting</b><br/>Let users change the sort order of your tiles.</a></li>
-        <li><a href="example-stamp"><span><b>Stamping</b><br/>Stamping tiles to specific positions in the layout.</a></li>
+        <li>
+          <a href="example-amd/">
+            <span>
+              <b>AMD</b><br/>
+              Dynamically loading Wookmark via AMD.
+            </span>
+          </a>
+        </li>
+        <li>
+          <a href="example-api/">
+            <span>
+              <b>Remote API</b><br/>
+              Displaying images from a remote API.
+            </span>
+          </a>
+        </li>
+        <li>
+          <a href="example-endless-scroll/">
+            <span>
+              <b>Endless scroll</b><br/>
+              Automatically load new content when scrolling down.
+            </span>
+          </a>
+        </li>
+        <li>
+          <a href="example-filter/">
+            <span>
+              <b>Filtering</b><br/>
+              Showing and hiding tiles based on user-controlled filters.
+            </span>
+          </a>
+        </li>
+        <li>
+          <a href="example-flexible/">
+            <span>
+              <b>Flexible width</b><br/>
+              Automatically adjusting tiles to always fill the container width.</b>
+            </span>
+          </a>
+        </li>
+        <li>
+          <a href="example-lightbox/">
+            <span>
+              <b>Lightbox</b><br/>
+              Showing a lightbox when users click tiles.
+            </span>
+          </a>
+        </li>
+        <li>
+          <a href="example-load-images/">
+            <span>
+              <b>Load it all</b>
+              <br/>Load the plugin after all images have loaded.
+            </span>
+          </a>
+        </li>
+        <li>
+          <a href="example-placeholder/">
+            <span>
+              <b>Placeholders</b><br/>
+              Displaying placeholders at the bottom to create even-sized columns.
+            </span>
+          </a>
+        </li>
+        <li>
+          <a href="example-sort">
+            <span>
+              <b>Sorting</b><br/>
+              Let users change the sort order of your tiles.
+            </span>
+          </a>
+        </li>
+        <li>
+          <a href="example-stamp">
+            <span>
+              <b>Stamping</b><br/>
+              Stamping tiles to specific positions in the layout.
+            </span>
+          </a>
+        </li>
       </ul>
     </div>
   </div>
@@ -52,9 +122,9 @@
   <script type="text/javascript">
     (function ($){
       $(function() {
-        var handler = $('.example-tiles li');
+        var $handler = $('.example-tiles li');
 
-        handler.wookmark({
+        $handler.wookmark({
             // Prepare layout options.
             autoResize: true, // This will auto-update the layout when the browser window is resized.
             container: $('#main'), // Optional, used for some extra CSS styling
