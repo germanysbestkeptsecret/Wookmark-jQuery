@@ -1,0 +1,14 @@
+{
+  "name": "GBKS/Wookmark-jQuery",
+  "version": "1.4.6",
+  "main": "jquery.wookmark.js",
+  "description": "jQuery plugin for laying out elements of varying heights in a column-based grid. It also contains support for filtering and sorting items. A lot of examples are included showing how to use all the available options.",
+  "license": "MIT",
+  "ignore": [
+    ".jshintrc",
+    "**/*.txt"
+  ],
+  "dependencies": {
+    "jQuery": ">=1.5.3"
+  }
+}
