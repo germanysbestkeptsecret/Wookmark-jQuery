@@ -155,12 +155,13 @@
      * @param filters array of string
      * @param mode 'or' or 'and'
      */
-    Wookmark.prototype.filter = function(filters, mode) {
+    Wookmark.prototype.filter = function(filters, mode, dryRun) {
       var activeFilters = [], activeFiltersLength, activeItems = $(),
           i, j, k, filter;
 
       filters = filters || [];
       mode = mode || 'or';
+      dryRun = dryRun || false;
 
       if (filters.length) {
         // Collect active filters
@@ -211,18 +212,21 @@
           }
         }
         // Hide inactive items
-        this.handler.not(activeItems).addClass('inactive');
+        if (!dryRun)
+          this.handler.not(activeItems).addClass('inactive');
       } else {
         // Show all items if no filter is selected
         activeItems = this.handler;
       }
 
       // Show active items
-      activeItems.removeClass('inactive');
-
-      // Unset columns and refresh grid for a full layout
-      this.columns = null;
-      this.layout();
+      if (!dryRun) {
+        activeItems.removeClass('inactive');
+        // Unset columns and refresh grid for a full layout
+        this.columns = null;
+        this.layout();
+      }
+      return activeItems;
     };
 
     /**

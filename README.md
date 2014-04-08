@@ -86,6 +86,15 @@ Elements which are hidden have cannot be laid out until they are visible. If you
 
     $('#myContent').trigger('refreshWookmark');
 
+### Filter
+
+You can filter all items of the handler when they have filters specified. See `example-filter` for details how to do this.
+The call to filter will also return the resulting list of items.
+
+    handler.wookmarkInstance.filter([filters=[]][,mode='or'][,dryRun=false]);
+
+If you just want to check if there would be a resulting list of items you can call filter with the `dryRun` option set to `true`.
+
 Included examples
 -----------------
 
