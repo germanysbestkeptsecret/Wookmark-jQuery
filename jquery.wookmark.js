@@ -43,7 +43,8 @@
   };
 
   // Function for executing css writes to dom on the next animation frame if supported
-  var executeNextFrame = window.requestAnimationFrame || function(callback) {callback();};
+  var executeNextFrame = window.requestAnimationFrame || function(callback) {callback();},
+      $window = $(window);
 
   function bulkUpdateCSS(data) {
     executeNextFrame(function() {
@@ -94,7 +95,7 @@
 
       // Listen to resize event if requested.
       if (this.autoResize)
-        $(window).bind('resize.wookmark', this.onResize);
+        $window.bind('resize.wookmark', this.onResize);
 
       this.container.bind('refreshWookmark', this.onRefresh);
     }
@@ -478,7 +479,7 @@
      */
     Wookmark.prototype.clear = function() {
       clearTimeout(this.resizeTimer);
-      $(window).unbind('resize.wookmark', this.onResize);
+      $window.unbind('resize.wookmark', this.onResize);
       this.container.unbind('refreshWookmark', this.onRefresh);
       this.handler.wookmarkInstance = null;
     };
