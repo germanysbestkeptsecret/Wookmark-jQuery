@@ -153,6 +153,18 @@ Set 'position: relative' on your container element and check if there are other 
 
 Send us some feedback or create an issue on github.
 
+Mentioned or used by others
+---------------------------
+
+Beware: These links lead to sites which are not necessarily related to the authors of the Wookmark plugin so we don't have any control over their content.
+
+ * [Customize the plugin online with bitconfig](http://bitconfig.com/woomark/bitconfig_woomark.html)
+ * [TYPO3 extension for YAG](http://typo3.org/extensions/repository/view/yag_themepack_jquery)
+ * [Drupal Wookmark plugin](https://drupal.org/project/views_wookmark)
+ * [Tumblr template example](http://theme-hunter.tumblr.com/post/31126746878/creating-tumblr-grid-layouts-with-wookmark)
+
+Send a [message](mailto:sebastian@helzle.net) if you want to be included with your site on this list!
+
 Feedback
 --------
 

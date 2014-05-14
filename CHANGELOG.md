@@ -1,5 +1,9 @@
 # Changes
 
+## 1.4.7
+* FIX: example amd was missing required shim so imagesLoaded plugin attaches itself to jQuery
+* Added "Mentioned or used by others" section to readme
+
 ## 1.4.6
 * New option 'verticalOffset'. Old option 'offset' still defines the horizontal offset between tiles.
 * Added 'Reset filters' button to filter examples.
