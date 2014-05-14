@@ -113,7 +113,7 @@
           for (j = 0; j < itemFilterClasses.length; j++) {
             filterClass = cleanFilterName(itemFilterClasses[j]);
 
-            if (!filterClasses[filterClass]) {
+            if (typeof(filterClasses[filterClass]) === 'undefined') {
               filterClasses[filterClass] = [];
             }
             filterClasses[filterClass].push($item[0]);
