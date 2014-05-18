@@ -4,7 +4,7 @@
   @author Christoph Ono (chri@sto.ph or @gbks)
   @author Sebastian Helzle (sebastian@helzle.net or @sebobo)
   @version 1.4.7
-  @date 05/13/2013
+  @date 05/18/2013
   @category jQuery plugin
   @copyright (c) 2009-2014 Christoph Ono (www.wookmark.com)
   @license Licensed under the MIT (http://www.opensource.org/licenses/mit-license.php) license.

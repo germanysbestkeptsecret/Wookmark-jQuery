@@ -14,7 +14,7 @@ module.exports = (grunt) ->
         '@version <%= pkg.version %>\n' +
         '@date <%= grunt.template.today("mm/dd/yyyy") %>\n' +
         '@category jQuery plugin\n' +
-        '@copyright (c) 2009-2013 Christoph Ono (www.wookmark.com)\n' +
+        '@copyright (c) 2009-2014 Christoph Ono (www.wookmark.com)\n' +
         '@license Licensed under the MIT (http://www.opensource.org/licenses/mit-license.php) license.\n' +
       '*/\n'
     uglify:
