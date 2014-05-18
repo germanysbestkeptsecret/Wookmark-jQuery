@@ -1,8 +1,12 @@
 # Changes
 
 ## 1.4.7
-* FIX: example amd was missing required shim so imagesLoaded plugin attaches itself to jQuery
-* Added "Mentioned or used by others" section to readme
+* ADD: `example-api` now has an additional example for a custom php based server app
+* FIX: Example amd was missing required shim so imagesLoaded plugin attaches itself to jQuery
+* ADD: "Mentioned or used by others" section to readme
+* ADD: dryRun feature for filtering and the filter call will return the list resulting list of items as jQuery object
+* CHG: Small optimization for window object
+* CHG: Starting opacity for list items in examples is now 1 so opacity animations have a starting point
 
 ## 1.4.6
 * New option 'verticalOffset'. Old option 'offset' still defines the horizontal offset between tiles.
