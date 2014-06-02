@@ -9,6 +9,6 @@
     "**/*.txt"
   ],
   "dependencies": {
-    "jQuery": ">=1.5.3"
+    "jquery": ">=1.5.3"
   }
 }
