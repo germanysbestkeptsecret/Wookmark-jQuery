@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/gbks/wookmark-jquery.png?label=ready&title=Ready)](https://waffle.io/gbks/wookmark-jquery)
 jQuery Wookmark
 ===============
 
