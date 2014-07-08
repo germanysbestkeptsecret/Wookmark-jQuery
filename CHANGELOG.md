@@ -1,5 +1,11 @@
 # Changes
 
+## 1.4.8
+
+* FIX: In jquery amd dependency. Patch by Guido Contreras Woda. Thanks!
+* ADD: Waffle.io badge. Will check out if it's cool to manage issues there.
+* CHG: Using MagnificPopup instead of Colorbox in examples. Works better with endless scroll and filtering.
+
 ## 1.4.7
 * ADD: `example-api` now has an additional example for a custom php based server app
 * FIX: Example amd was missing required shim so imagesLoaded plugin attaches itself to jQuery
