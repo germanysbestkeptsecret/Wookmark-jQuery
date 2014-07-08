@@ -3,15 +3,15 @@ requirejs.config({
     "jquery": "../libs/jquery.min",
     "imagesLoaded": "../libs/jquery.imagesloaded",
     "wookmark": "../jquery.wookmark",
-    "colorbox": "../libs/jquery.colorbox-min"
+    "magnificPopup": "../libs/jquery.magnific-popup.min"
   },
   "shim": {
-    "colorbox": ["jquery"],
+    "magnificPopup": ["jquery"],
     "imagesLoaded": ["jquery"]
   }
 });
 
-requirejs(['jquery', 'imagesLoaded', 'wookmark', 'colorbox'], function($) {
+requirejs(['jquery', 'imagesLoaded', 'wookmark', 'magnificPopup'], function($) {
   $('#tiles').imagesLoaded(function() {
     // Prepare layout options.
     var options = {
@@ -28,8 +28,12 @@ requirejs(['jquery', 'imagesLoaded', 'wookmark', 'colorbox'], function($) {
     handler.wookmark(options);
 
     // Init lightbox
-    $('a', handler).colorbox({
-      rel: 'lightbox'
+    $('#tiles').magnificPopup({
+      delegate: 'li:not(.inactive) a',
+      type: 'image',
+      gallery: {
+        enabled: true
+      }
     });
   });
 });
