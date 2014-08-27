@@ -128,11 +128,10 @@
 
   <!-- Once the page is loaded, initalize the plug-in. -->
   <script type="text/javascript">
-    (function ($){
-      $(function() {
-        var $handler = $('.example-tiles li');
+    (function() {
+        var wrapper = document.querySelectorAll('.example-tiles')[0];
 
-        $handler.wookmark({
+        var wookmark = Wookmark(wrapper, {
             // Prepare layout options.
             autoResize: true, // This will auto-update the layout when the browser window is resized.
             container: $('#main'), // Optional, used for some extra CSS styling
@@ -140,8 +139,7 @@
             outerOffset: 10, // Optional, the distance to the containers border
             itemWidth: 220 // Optional, the width of a grid item
         });
-      });
-    })(jQuery);
+    })();
   </script>
 </body>
 </html>

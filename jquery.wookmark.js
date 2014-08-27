@@ -3,8 +3,8 @@
   @name jquery.wookmark.js
   @author Christoph Ono (chri@sto.ph or @gbks)
   @author Sebastian Helzle (sebastian@helzle.net or @sebobo)
-  @version 1.4.8
-  @date 07/08/2013
+  @version 2.0.0
+  @date 08/27/2014
   @category jQuery plugin
   @copyright (c) 2009-2014 Christoph Ono (www.wookmark.com)
   @license Licensed under the MIT (http://www.opensource.org/licenses/mit-license.php) license.
@@ -13,8 +13,8 @@
   if (typeof define === 'function' && define.amd)
     define(['jquery'], factory);
   else
-    factory(jQuery);
-}(function ($) {
+    factory(jQuery, window, document);
+}(function ($, window, document) {
   var Wookmark, defaultOptions, __bind;
 
   __bind = function(fn, me) {
@@ -28,7 +28,7 @@
     align: 'center',
     autoResize: false,
     comparator: null,
-    container: $('body'),
+    container: document.body,
     direction: undefined,
     ignoreInactiveItems: true,
     itemWidth: 0,
@@ -43,8 +43,7 @@
   };
 
   // Function for executing css writes to dom on the next animation frame if supported
-  var executeNextFrame = window.requestAnimationFrame || function(callback) {callback();},
-      $window = $(window);
+  var executeNextFrame = window.requestAnimationFrame || function(callback) {callback();};
 
   function bulkUpdateCSS(data) {
     executeNextFrame(function() {
@@ -60,22 +59,35 @@
     return $.trim(filterName).toLowerCase();
   }
 
+  function addEventListener(el, eventName, handler) {
+    if (el.addEventListener) {
+      el.addEventListener(eventName, handler);
+    } else {
+      el.attachEvent('on' + eventName, function(){
+        handler.call(el);
+      });
+    }
+  }
+
+  function removeEventListener(el, eventName, handler) {
+    if (el.removeEventListener)
+      el.removeEventListener(eventName, handler);
+    else
+      el.detachEvent('on' + eventName, handler);
+  }
+
   // Main wookmark plugin class
   Wookmark = (function() {
 
-    function Wookmark(handler, options) {
+    function Wookmark(wrapper, options) {
       // Instance variables.
-      this.handler = handler;
+      this.wrapper = wrapper;
       this.columns = this.containerWidth = this.resizeTimer = null;
       this.activeItemCount = 0;
-      this.itemHeightsDirty = true;
       this.placeholders = [];
 
-      $.extend(true, this, defaultOptions, options);
-
-      this.verticalOffset = this.verticalOffset || this.offset;
-
       // Bind instance methods
+      this.initItems = __bind(this.initItems, this);
       this.update = __bind(this.update, this);
       this.onResize = __bind(this.onResize, this);
       this.onRefresh = __bind(this.onRefresh, this);
@@ -90,26 +102,47 @@
       this.sortElements = __bind(this.sortElements, this);
       this.updateFilterClasses = __bind(this.updateFilterClasses, this);
 
+      // Initialize items
+      this.initItems();
+
       // Initial update of the filter classes
       this.updateFilterClasses();
 
       // Listen to resize event if requested.
-      if (this.autoResize)
-        $window.bind('resize.wookmark', this.onResize);
+      if (this.autoResize) {
+        window.addEventListener('resize.wookmark', this.onResize);
+      }
 
-      this.container.bind('refreshWookmark', this.onRefresh);
+      // Listen to refresh event
+      this.container.addEventListener('refreshWookmark', this.onRefresh);
+
+      // Initial update and layout
+      this.update(options);
     }
+
+    Wookmark.prototype.initItems = function() {
+      var items = [], children = this.wrapper.children;
+      for (var i = children.length; i--;){
+        // Skip comment nodes on IE8
+        if (children[i].nodeType != 8) {
+          // Show item
+          children[i].style.display = '';
+          items.unshift(children[i]);
+        }
+      }
+      this.items = items;
+    };
 
     Wookmark.prototype.updateFilterClasses = function() {
       // Collect filter data
       var i = 0, j = 0, k = 0, filterClasses = {}, itemFilterClasses,
-          $item, filterClass, possibleFilters = this.possibleFilters, possibleFilter;
+          item, filterClass, possibleFilters = this.possibleFilters, possibleFilter;
 
-      for (; i < this.handler.length; i++) {
-        $item = this.handler.eq(i);
+      for (; i < this.items.length; i++) {
+        item = this.items[i];
 
         // Read filter classes and globally store each filter class as object and the fitting items in the array
-        itemFilterClasses = $item.data('filterClass');
+        itemFilterClasses = item.getAttribute('data-filter-class');
         if (typeof itemFilterClasses == 'object' && itemFilterClasses.length > 0) {
           for (j = 0; j < itemFilterClasses.length; j++) {
             filterClass = cleanFilterName(itemFilterClasses[j]);
@@ -117,7 +150,7 @@
             if (typeof(filterClasses[filterClass]) === 'undefined') {
               filterClasses[filterClass] = [];
             }
-            filterClasses[filterClass].push($item[0]);
+            filterClasses[filterClass].push(item[0]);
           }
         }
       }
@@ -135,7 +168,20 @@
     // Method for updating the plugins options
     Wookmark.prototype.update = function(options) {
       this.itemHeightsDirty = true;
-      $.extend(true, this, options);
+
+      // Overwrite non existing instance variables with the ones from options or the defaults
+      for (var key in defaultOptions) {
+        if (defaultOptions.hasOwnProperty(key)) {
+          if (options.hasOwnProperty(key))
+            this[key] = options[key];
+          else if (!this.hasOwnProperty(key))
+            this[key] = defaultOptions[key];
+        }
+      }
+      // Vertical offset uses a fallback to offset
+      this.verticalOffset = this.verticalOffset || this.offset;
+
+      this.layout(true);
     };
 
     // This timer ensures that layout is not continuously called as window is being dragged.
@@ -488,17 +534,20 @@
   })();
 
   $.fn.wookmark = function(options) {
-    // Create a wookmark instance if not available
-    if (!this.wookmarkInstance) {
-      this.wookmarkInstance = new Wookmark(this, options || {});
-    } else {
-      this.wookmarkInstance.update(options || {});
+    if (this.length > 1) {
+      for (var i = this.length - 1; i >= 0; i--) {
+        this[i].wookmark(options);
+      };
+    } else if (this.length == 1) {
+      // Create a wookmark instance or update an existing one
+      if (!this.wookmarkInstance) {
+        this.wookmarkInstance = new Wookmark(this, options || {});
+      } else {
+        this.wookmarkInstance.update(options || {});
+      }
     }
-
-    // Apply layout
-    this.wookmarkInstance.layout(true);
-
-    // Display items (if hidden) and return jQuery object to maintain chainability
-    return this.show();
+    return this;
   };
+
+  window.Wookmark = Wookmark;
 }));
