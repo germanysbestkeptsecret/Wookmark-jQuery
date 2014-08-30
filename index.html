@@ -120,21 +120,18 @@
     </div>
   </div>
 
-  <!-- include jQuery -->
-  <script src="libs/jquery.min.js"></script>
-
   <!-- Include the plug-in -->
   <script src="wookmark.js"></script>
 
   <!-- Once the page is loaded, initalize the plug-in. -->
   <script type="text/javascript">
     (function() {
-        var wrapper = document.querySelectorAll('.example-tiles')[0];
+        var wrapper = document.querySelector('.example-tiles');
 
-        var wookmark = Wookmark(wrapper, {
+        var wookmark = new Wookmark(wrapper, {
             // Prepare layout options.
             autoResize: true, // This will auto-update the layout when the browser window is resized.
-            container: $('#main'), // Optional, used for some extra CSS styling
+            container: document.getElementById('main'), // Optional, used for some extra CSS styling
             offset: 5, // Optional, the distance between grid items
             outerOffset: 10, // Optional, the distance to the containers border
             itemWidth: 220 // Optional, the width of a grid item
