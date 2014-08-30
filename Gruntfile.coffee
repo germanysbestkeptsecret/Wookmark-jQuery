@@ -1,6 +1,7 @@
 module.exports = (grunt) ->
 
   grunt.loadNpmTasks 'grunt-contrib-uglify'
+  grunt.loadNpmTasks 'grunt-contrib-jshint'
   grunt.loadNpmTasks 'grunt-docco'
 
   # Project configuration.
@@ -29,6 +30,8 @@ module.exports = (grunt) ->
         src: ['<%= pkg.name %>.js']
         options:
           output: 'doc/'
+    jshint:
+      all: ['<%= pkg.name %>.js']
 
   # Release task to run tests then minify js and css
-  grunt.registerTask 'release', ['uglify', 'docco']
+  grunt.registerTask 'release', ['jshint', 'uglify', 'docco']
