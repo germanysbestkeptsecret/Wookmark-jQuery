@@ -1,6 +1,7 @@
 module.exports = (grunt) ->
 
   grunt.loadNpmTasks 'grunt-contrib-uglify'
+  grunt.loadNpmTasks 'grunt-docco'
 
   # Project configuration.
   grunt.initConfig
@@ -8,7 +9,7 @@ module.exports = (grunt) ->
     meta:
       banner: '/*!\n' +
         'jQuery <%= pkg.name %> plugin\n' +
-        '@name jquery.<%= pkg.name %>.js\n' +
+        '@name <%= pkg.name %>.js\n' +
         '@author Christoph Ono (chri@sto.ph or @gbks)\n' +
         '@author Sebastian Helzle (sebastian@helzle.net or @sebobo)\n' +
         '@version <%= pkg.version %>\n' +
@@ -22,9 +23,12 @@ module.exports = (grunt) ->
         options:
           banner: '<%= meta.banner %>'
         files:
-          'jquery.<%= pkg.name %>.min.js': ['jquery.<%= pkg.name %>.js']
+          '<%= pkg.name %>.min.js': ['<%= pkg.name %>.js']
+    docco:
+      dist:
+        src: ['<%= pkg.name %>.js']
+        options:
+          output: 'doc/'
 
-  # Default task which watches, sass and coffee.
-  #grunt.registerTask 'default', ['watch']
   # Release task to run tests then minify js and css
-  grunt.registerTask 'release', ['uglify']
+  grunt.registerTask 'release', ['uglify', 'docco']
