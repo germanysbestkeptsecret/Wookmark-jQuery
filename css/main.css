@@ -33,6 +33,7 @@ header p {
   position: relative; /** Needed to ensure items are laid out relative to this container **/
   margin: 0;
   padding: 0;
+  display: none;
 }
 
 /**
@@ -45,7 +46,6 @@ header p {
           border-radius: 2px;
      -moz-border-radius: 2px;
   -webkit-border-radius: 2px;
-  display: none; /** Hide items initially to avoid a flicker effect **/
   cursor: pointer;
   padding: 4px;
 }
@@ -111,28 +111,34 @@ footer a {
   z-index: -1;
 }
 
-.example-tiles {
+.tiles-wrap {
   position: relative; /** Needed to ensure items are laid out relative to this container **/
   margin: 0;
   padding: 0;
 }
 
-.example-tiles li {
+.tiles-wrap li {
   display: block;
   opacity: 1;
   list-style-type: none;
+  background-color: #eee;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
   float: left;
-  margin: 5px;
+  border: 1px solid #ddd;
+  border-radius: 3px;
   -webkit-transition: all 0.3s ease-out;
      -moz-transition: all 0.3s ease-out;
        -o-transition: all 0.3s ease-out;
           transition: all 0.3s ease-out;
 }
 
-.example-tiles a,
-.example-tiles a:hover {
+.tiles-wrap li:hover {
+  background-color: #fafafa;
+}
+
+.tiles-wrap a {
+  padding: 5px 8px;
   color: #555;
-  background-color: #eee;
   text-align: center;
   display: table-cell;
   vertical-align: middle;
@@ -141,12 +147,48 @@ footer a {
   font-size: 2em;
   font-weight: bold;
   text-decoration: none;
-  border: 1px solid #ddd;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
-  padding: 5px 8px;
-  border-radius: 3px;
 }
 
-.example-tiles a:hover {
-  background-color: #ddd;
+/**
+ * Filters
+ */
+#filters {
+  list-style-type: none;
+  text-align: center;
+  margin: 0 5% 0 5%;
+}
+
+#filters:after {
+  content: ".";
+  display: block;
+  clear: both;
+  visibility: hidden;
+  line-height: 0;
+  height: 0;
+}
+
+#filters li {
+  font-size: 12px;
+  float: left;
+  padding: 6px 0 4px 0;
+  cursor: pointer;
+  margin: 0 1% 0 1%;
+  width: 8%;
+  -webkit-transition: all 0.15s ease-out;
+     -moz-transition: all 0.15s ease-out;
+       -o-transition: all 0.15s ease-out;
+          transition: all 0.15s ease-out;
+  -webkit-border-radius: 3px;
+     -moz-border-radius: 3px;
+          border-radius: 3px;
+}
+
+#filters li:hover {
+  background: #4281f5;
+  color: #ffffff;
+}
+
+#filters li.active {
+  background: #4281f5;
+  color: #ffffff;
 }

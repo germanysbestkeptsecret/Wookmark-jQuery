@@ -19,15 +19,19 @@
 
 </head>
 <body>
-  <div id="container">
+  <div>
     <header>
       <h1>Wookmark Plug-in Examples</h1>
       <p>Click a tile to view the example. Created by <a href="mailto:chri@sto.ph" title="Send a mail to Christoph">Christoph Ono</a> (<a href="http://twitter.com/gbks" title="Christoph on Twitter">@gbks</a>)
       for <a href="http://www.wookmark.com" title="Checkout wookmark.com">wookmark.com</a>
       and maintained by <a href="mailto:sebastian@helzle.net" title="Send a mail to Sebastian">Sebastian Helzle</a> (<a href="http://twitter.com/sebobo" title="Sebastian on Twitter">@sebobo</a>). Get the code on <a href="https://github.com/GBKS/Wookmark-jQuery" title="Wookmark plugin on Github">Github</a>!</p>
+      <a href="https://github.com/GBKS/Wookmark-jQuery" target="_blank"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
     </header>
-    <div id="main" role="main">
-      <ul class="example-tiles">
+
+    <br/>
+
+    <div role="main">
+      <ul id="container" class="tiles-wrap">
         <li>
           <a href="example-amd/">
             <span>
@@ -126,16 +130,7 @@
   <!-- Once the page is loaded, initalize the plug-in. -->
   <script type="text/javascript">
     (function() {
-        var wrapper = document.querySelector('.example-tiles');
-
-        var wookmark = new Wookmark(wrapper, {
-            // Prepare layout options.
-            autoResize: true, // This will auto-update the layout when the browser window is resized.
-            container: document.getElementById('main'), // Optional, used for some extra CSS styling
-            offset: 5, // Optional, the distance between grid items
-            outerOffset: 10, // Optional, the distance to the containers border
-            itemWidth: 220 // Optional, the width of a grid item
-        });
+        var wookmark = new Wookmark('#container');
     })();
   </script>
 </body>
