@@ -121,6 +121,22 @@
       return new RegExp('(^| )' + className + '( |$)', 'gi').test(el.className);
   }
 
+  // Add class to element (IE8+)
+  function addClass(el, className) {
+    if (el.classList)
+      el.classList.add(className);
+    else
+      el.className += ' ' + className;
+  }
+
+  // Remove class from element (IE8+)
+  function removeClass(el, className) {
+    if (el.classList)
+      el.classList.remove(className);
+    else
+      el.className = el.className.replace(new RegExp('(^|\\b)' + className.split(' ').join('|') + '(\\b|$)', 'gi'), ' ');
+  }
+
   // Get value of specified data attribute
   function getData(el, attr, isInt, prefix) {
     if (prefix === undefined) prefix = 'wookmark-';
@@ -133,6 +149,19 @@
   function setData(el, attr, val, prefix) {
     if (prefix === undefined) prefix = 'wookmark-';
     el.setAttribute('data-' + prefix + attr, val);
+  }
+
+  // Remove duplicates from given array
+  function removeDuplicates(array) {
+    var temp = {}, result = [], x, i;
+    for (i = array.length; i--;) {
+      x = array[i];
+      if (!(x in temp)) {
+        temp[x] = 1;
+        result.push(x);
+      }
+    }
+    return result;
   }
 
   // Main wookmark plugin class
@@ -173,6 +202,7 @@
       this.initItems();
 
       // Initial update and layout
+      this.container.style.display = 'block';
       this.updateOptions(options);
 
       // Collect filter classes after items have been initialized
@@ -185,7 +215,6 @@
 
       // Listen to external refresh event
       this.container.addEventListener('refreshWookmark', this.onRefresh);
-      this.container.style.display = 'block';
     }
 
     // Get all valid children of the container object and store them
@@ -218,7 +247,7 @@
         item = this.items[i];
 
         // Read filter classes and globally store each filter class as object and the fitting items in the array
-        itemFilterClasses = getData(item, 'filter-class', false, '');
+        itemFilterClasses = JSON.parse(getData(item, 'filter-class', false, ''));
         if (itemFilterClasses && typeof itemFilterClasses == 'object' && itemFilterClasses.length > 0) {
           for (j = itemFilterClasses.length; j--;) {
             filterClass = cleanFilterName(itemFilterClasses[j]);
@@ -226,7 +255,7 @@
             if (typeof(filterClasses[filterClass]) === 'undefined') {
               filterClasses[filterClass] = [];
             }
-            filterClasses[filterClass].push(item[0]);
+            filterClasses[filterClass].push(item);
           }
         }
       }
@@ -299,8 +328,8 @@
         activeFiltersLength = activeFilters.length;
         if (mode == 'or' || activeFiltersLength == 1) {
           // Set all items in all active filters active
-          for (i = 0; i < activeFiltersLength; i++) {
-            activeItems = activeItems.add(activeFilters[i]);
+          for (i = activeFiltersLength; i--; i) {
+            activeItems = activeItems.concat(activeFilters[i]);
           }
         } else if (mode == 'and') {
           var shortestFilter = activeFilters[0],
@@ -316,31 +345,36 @@
 
           // Iterate over shortest filter and find elements in other filter classes
           shortestFilter = shortestFilter || [];
-          for (i = 0; i < shortestFilter.length; i++) {
+          for (i = shortestFilter.length; i--;) {
             currentItem = shortestFilter[i];
             itemValid = true;
 
-            for (j = 0; j < activeFilters.length && itemValid; j++) {
+            for (j = activeFilters.length; j-- && itemValid;) {
               currentFilter = activeFilters[j];
               if (shortestFilter == currentFilter) continue;
 
               // Search for current item in each active filter class
-              for (k = 0, foundInFilter = false; k < currentFilter.length && !foundInFilter; k++) {
+              for (k = currentFilter.length, foundInFilter = false; k-- && !foundInFilter;) {
                 foundInFilter = currentFilter[k] == currentItem;
               }
               itemValid &= foundInFilter;
             }
             if (itemValid) {
-              activeItems.push(shortestFilter[i]);
+              activeItems = activeItems.concat(shortestFilter[i]);
             }
           }
         }
 
+        // Remove duplicates from active items
+        if (activeFiltersLength > 1) {
+          activeItems = removeDuplicates(activeItems);
+        }
+
         // Hide inactive items
         if (!dryRun) {
-          for (i = this.items.length - 1; i >= 0; i--) {
+          for (i = this.items.length; i--;) {
             if (activeItems.indexOf(this.items[i]) == -1) {
-              addClass(classInactive);
+              addClass(this.items[i], this.inactiveClass);
             }
           }
         }
@@ -351,7 +385,7 @@
 
       // Show active items
       if (!dryRun) {
-        for (i = activeItems.length - 1; i >= 0; i--) {
+        for (i = activeItems.length ; i--;) {
           removeClass(activeItems[i], this.inactiveClass);
         }
         // Unset columns and refresh grid for a full layout
@@ -401,10 +435,10 @@
 
     // Method the get active items which are not disabled and visible
     Wookmark.prototype.getActiveItems = function() {
-      var activeItems = this.items;
+      var activeItems = this.items, inactiveClass = this.inactiveClass;
       if (this.ignoreInactiveItems) {
         return Array.prototype.filter.call(this.items, function(el) {
-          return !hasClass(el, this.inactiveClass);
+          return !hasClass(el, inactiveClass);
         });
       }
       return this.items;

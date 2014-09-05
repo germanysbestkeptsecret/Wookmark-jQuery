@@ -1,7 +1,3 @@
-.example-tiles {
-  overflow: hidden;
-}
-
 header p {
   max-width: 600px;
   margin: 0 auto;
@@ -14,14 +10,14 @@ header p a:visited {
   color: #4281f5;
 }
 
-.example-tiles li {
+.tiles-wrap li {
   height: 200px;
   background-color: #ffffff;
   border: 1px solid #dddddd;
   box-shadow: none;
 }
 
-.example-tiles a {
+.tiles-wrap a {
   font-weight: 200;
   text-align: left;
   color: #000000;
@@ -37,11 +33,7 @@ header p a:visited {
   text-transform: uppercase;
 }
 
-.example-tiles a:hover {
-  color: #4281f5;
-}
-
-.example-tiles a span {
+.tiles-wrap a span {
   position: absolute;
   bottom: 20px;
   left: 15px;
@@ -50,8 +42,12 @@ header p a:visited {
   color: #666666;
 }
 
-.example-tiles a b {
+.tiles-wrap a b {
   font-size: 20px;
   line-height: 30px;
   color: #000000;
+}
+
+.tiles-wrap a:hover b {
+  color: #4281f5;
 }

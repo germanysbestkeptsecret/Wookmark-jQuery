@@ -1,13 +1,7 @@
-
 /** General page styling **/
 html {
   background-color: #e5e5e5;
   font-family: "Helvetica Neue Light", "Helvetica Neue", Arial, sans-serif;
-}
-
-#main {
-  margin: 30px 0;
-  position: relative;
 }
 
 header h1 {
@@ -23,62 +17,6 @@ header p {
   color: #666666;
   margin: 0;
   font-weight: 200;
-}
-
-/**
- * Grid container
- */
-#tiles {
-  list-style-type: none;
-  position: relative; /** Needed to ensure items are laid out relative to this container **/
-  margin: 0;
-  padding: 0;
-  display: none;
-}
-
-/**
- * Grid items
- */
-#tiles li {
-  width: 200px;
-  background-color: #ffffff;
-  border: 1px solid #dedede;
-          border-radius: 2px;
-     -moz-border-radius: 2px;
-  -webkit-border-radius: 2px;
-  cursor: pointer;
-  padding: 4px;
-}
-
-#tiles li.inactive {
-  visibility: hidden;
-  opacity: 0;
-}
-
-#tiles li img {
-  display: block;
-}
-
-/**
- * Grid item text
- */
-#tiles li p {
-  color: #666;
-  font-size: 13px;
-  line-height: 20px;
-  text-align: center;
-  font-weight: 200;
-  margin: 7px 0 2px 7px;
-}
-
-footer {
-  text-align: center;
-
-}
-
-footer a {
-  color: #435DC5;
-  text-decoration: none;
 }
 
 /**
@@ -111,29 +49,52 @@ footer a {
   z-index: -1;
 }
 
+/**
+ * Grid container
+ */
 .tiles-wrap {
   position: relative; /** Needed to ensure items are laid out relative to this container **/
   margin: 0;
   padding: 0;
+  list-style-type: none;
+  display: none;
 }
 
+
+/**
+ * Grid items
+ */
 .tiles-wrap li {
   display: block;
   opacity: 1;
   list-style-type: none;
-  background-color: #eee;
+  background-color: #fff;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
   float: left;
-  border: 1px solid #ddd;
-  border-radius: 3px;
+  cursor: pointer;
+  width: 200px;
+  padding: 4px;
+  border: 1px solid #dedede;
+          border-radius: 2px;
+     -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
   -webkit-transition: all 0.3s ease-out;
      -moz-transition: all 0.3s ease-out;
        -o-transition: all 0.3s ease-out;
           transition: all 0.3s ease-out;
 }
 
+.tiles-wrap li.wookmark-inactive {
+  visibility: hidden;
+  opacity: 0;
+}
+
 .tiles-wrap li:hover {
   background-color: #fafafa;
+}
+
+.tiles-wrap img {
+  display: block;
 }
 
 .tiles-wrap a {
