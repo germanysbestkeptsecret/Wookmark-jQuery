@@ -1,14 +1,11 @@
 <!doctype html>
-<!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en"> <![endif]-->
-<!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en"> <![endif]-->
-<!--[if IE 8]>    <html class="no-js ie8 oldie" lang="en"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-  <title>jQuery Wookmark Plug-in Example</title>
-  <meta name="description" content="An very basic example of how to use the Wookmark jQuery plug-in.">
+  <title>Wookmark Plug-in Example</title>
+  <meta name="description" content="Creating a flexible grid with the Wookmark plug-in.">
   <meta name="author" content="Christoph Ono, Sebastian Helzle">
 
   <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -24,12 +21,12 @@
     /**
      * Grid items
      */
-    #tiles li {
+    .tiles-wrap li {
       -moz-box-sizing: border-box;
            box-sizing: border-box;
     }
 
-    #tiles li img {
+    .tiles-wrap li img {
       width: 100%;
       height: auto;
     }
@@ -39,14 +36,19 @@
 
 <body>
 
-  <div id="container">
+  <div>
     <header>
-      <h1>jQuery Wookmark Plug-in Example</h1>
-      <p>Flexible: columns resize to fill the container without exceeding a maximum width.</p>
+      <h1>Wookmark Plug-in Example</h1>
+      <p>
+        Flexible: columns resize to fill the container without exceeding a maximum width.
+      </p>
+      <p>
+        This example only uses jQuery to watch the resize event of the browser window.
+      </p>
     </header>
-    <div id="main" role="main">
 
-      <ul id="tiles">
+    <div role="main">
+      <ul id="container" class="tiles-wrap">
         <!-- These are our grid blocks -->
         <li><img src="../sample-images/image_1.jpg"><p>1</p></li>
         <li><img src="../sample-images/image_2.jpg"><p>2</p></li>
@@ -80,11 +82,7 @@
         <li><img src="../sample-images/image_10.jpg"><p>30</p></li>
         <!-- End of grid blocks -->
       </ul>
-
     </div>
-    <footer>
-
-    </footer>
   </div>
 
   <!-- include jQuery -->
@@ -94,40 +92,28 @@
   <script src="../libs/jquery.imagesloaded.js"></script>
 
   <!-- Include the plug-in -->
-  <script src="../jquery.wookmark.js"></script>
+  <script src="../wookmark.js"></script>
 
-  <!-- Once the images are loaded, initalize the Wookmark plug-in. -->
+  <!-- Once the page is loaded, initalize the plug-in. -->
   <script type="text/javascript">
-    (function ($){
-      $('#tiles').imagesLoaded(function() {
-        // Prepare layout options.
-        var options = {
+    (function($) {
+      var $window = $(window);
+
+      // Instantiate wookmark after all images have been loaded
+      var wookmark;
+      imagesLoaded('#container', function() {
+        wookmark = new Wookmark('#container', {
           itemWidth: 300, // Optional min width of a grid item
-          autoResize: true, // This will auto-update the layout when the browser window is resized.
-          container: $('#tiles'), // Optional, used for some extra CSS styling
-          offset: 5, // Optional, the distance between grid items
           outerOffset: 20, // Optional the distance from grid to parent
           flexibleWidth: '50%' // Optional, the maximum width of a grid item
-        };
-
-        // Get a reference to your grid items.
-        var handler = $('#tiles li');
-
-        var $window = $(window);
-        $window.resize(function() {
-          var windowWidth = $window.width(),
-              newOptions = { flexibleWidth: '50%' };
-
-          // Breakpoint
-          if (windowWidth < 1024) {
-            newOptions.flexibleWidth = '100%';
-          }
-
-          handler.wookmark(newOptions);
         });
+      });
 
-        // Call the layout function.
-        handler.wookmark(options);
+      Change the maximum flexible width at a breakpoint
+      $window.resize(function() {
+        wookmark.updateOptions({
+          flexibleWidth: $window.width() < 1024 ? '100%' : '50%'
+        });
       });
     })(jQuery);
   </script>
