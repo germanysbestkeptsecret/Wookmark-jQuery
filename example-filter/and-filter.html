@@ -1,14 +1,11 @@
 <!doctype html>
-<!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en"> <![endif]-->
-<!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en"> <![endif]-->
-<!--[if IE 8]>    <html class="no-js ie8 oldie" lang="en"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-  <title>jQuery Wookmark Plug-in Example</title>
-  <meta name="description" content="An very basic example of how to use the Wookmark jQuery plug-in.">
+  <title>Wookmark Plug-in Example</title>
+  <meta name="description" content="Creating an and-filter with the Wookmark plug-in.">
   <meta name="author" content="Christoph Ono, Sebastian Helzle">
 
   <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -26,10 +23,15 @@
 
 <body>
 
-  <div id="container">
+  <div>
     <header>
-      <h1>jQuery Wookmark Plug-in Example</h1>
-      <p>Click the words below to filter the grid. Grid items that match all selected filters will remain visible.</p>
+      <h1>And-filter Wookmark Plug-in Example</h1>
+      <p>
+        Click the words below to filter the grid. Grid items that match all selected filters will remain visible.
+      </p>
+      <p>
+        This example only uses jQuery to simplify the toggling of the filter buttons.
+      </p>
     </header>
 
     <!--
@@ -50,9 +52,8 @@
     </ol>
     <br/>
 
-    <div id="main" role="main">
-
-      <ul id="tiles">
+    <div role="main">
+      <ul id="container" class="tiles-wrap">
         <!--
           These are our grid items. Notice how each one has classes assigned that
           are used for filtering. The classes match the "data-filter" properties above.
@@ -190,47 +191,46 @@
   <script src="../libs/jquery.imagesloaded.js"></script>
 
   <!-- Include the plug-in -->
-  <script src="../jquery.wookmark.js"></script>
+  <script src="../wookmark.js"></script>
 
   <!-- Once the page is loaded, initalize the plug-in. -->
   <script type="text/javascript">
-    (function ($){
-      $('#tiles').imagesLoaded(function() {
-        // Prepare layout options.
-        var options = {
-          autoResize: true, // This will auto-update the layout when the browser window is resized.
-          container: $('#main'), // Optional, used for some extra CSS styling
-          offset: 2, // Optional, the distance between grid items
-          itemWidth: 210, // Optional, the width of a grid item
+    (function($) {
+      // Instantiate wookmark after all images have been loaded
+      var wookmark;
+      imagesLoaded('#container', function() {
+        wookmark = new Wookmark('#container', {
           fillEmptySpace: true // Optional, fill the bottom of each column with widths of flexible height
-        };
+        });
+      });
 
-        // Get a reference to your grid items.
-        var handler = $('#tiles li'),
-            filters = $('#filters li');
+      // Setup filter buttons when jQuery is available
+      var $filters = $('#filters li');
 
-        // Call the layout function.
-        handler.wookmark(options);
+      /**
+       * When a filter is clicked, toggle it's active state and refresh.
+       */
+      function onClickFilter(e) {
+        var $item = $(e.currentTarget),
+            activeFilters = [],
+            filterType = $item.data('filter');
 
-        /**
-         * When a filter is clicked, toggle it's active state and refresh.
-         */
-        var onClickFilter = function(event) {
-          var item = $(event.currentTarget),
-              activeFilters = [];
-          item.toggleClass('active');
+        if (filterType === 'all') {
+          $filters.removeClass('active');
+        } else {
+          $item.toggleClass('active');
 
           // Collect active filter strings
-          filters.filter('.active').each(function() {
+          $filters.filter('.active').each(function() {
             activeFilters.push($(this).data('filter'));
           });
-
-          handler.wookmarkInstance.filter(activeFilters, 'and');
         }
 
-        // Capture filter click events.
-        filters.click(onClickFilter);
-      });
+        wookmark.filter(activeFilters, 'and');
+      }
+
+      // Capture filter click events.
+      $('#filters').on('click.wookmark-filter', 'li', onClickFilter);
     })(jQuery);
   </script>
 

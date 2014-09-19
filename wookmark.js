@@ -152,13 +152,13 @@
   }
 
   // Remove duplicates from given array
-  function removeDuplicates(array) {
+  function removeDuplicates(items) {
     var temp = {}, result = [], x, i;
-    for (i = array.length; i--;) {
-      x = array[i];
+    for (i = items.length; i--;) {
+      x = getData(items[i], 'id', true);
       if (!(x in temp)) {
         temp[x] = 1;
-        result.push(x);
+        result.push(items[i]);
       }
     }
     return result;
@@ -221,13 +221,15 @@
     Wookmark.prototype.initItems = function() {
       // By select all children of the container if no selector is specified
       if (this.itemSelector === undefined) {
-        var items = [], children = this.container.children;
-        for (var i = children.length; i--;){
+        var items = [], i, child, children = this.container.children;
+        for (i = children.length; i--;){
+          child = children[i];
           // Skip comment nodes on IE8
-          if (children[i].nodeType != 8) {
+          if (child.nodeType != 8) {
             // Show item
-            children[i].style.display = '';
-            items.unshift(children[i]);
+            child.style.display = '';
+            setData(child, 'id', i);
+            items.unshift(child);
           }
         }
         this.items = items;
@@ -328,7 +330,7 @@
         activeFiltersLength = activeFilters.length;
         if (mode == 'or' || activeFiltersLength == 1) {
           // Set all items in all active filters active
-          for (i = activeFiltersLength; i--; i) {
+          for (i = activeFiltersLength; i--;) {
             activeItems = activeItems.concat(activeFilters[i]);
           }
         } else if (mode == 'and') {
@@ -359,6 +361,7 @@
               }
               itemValid &= foundInFilter;
             }
+
             if (itemValid) {
               activeItems = activeItems.concat(shortestFilter[i]);
             }
