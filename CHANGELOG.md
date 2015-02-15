@@ -1,8 +1,16 @@
 # Changes
 
-## 1.4.8
+## 2.0.0
 
-* FIX: In jquery amd dependency. Patch by Guido Contreras Woda. Thanks!
+* CHG: !!! Rewrite of plugin to work without jQuery
+* CHG: !!! New initialization code (see the readme)
+* CHG: !!! jQuery and imagesloaded plugins are now installed with bower
+* CHG: Source is now lint-free and much more optimized for speed
+* CHG: Ignoring most files when installing with bower
+* ADD: itemWidth and flexibleWidth can now be functions returning a number or percentage
+
+## 1.4.8
+* FIX: In jQuery amd dependency. Patch by Guido Contreras Woda. Thanks!
 * ADD: Waffle.io badge. Will check out if it's cool to manage issues there.
 * CHG: Using MagnificPopup instead of Colorbox in examples. Works better with endless scroll and filtering.
 

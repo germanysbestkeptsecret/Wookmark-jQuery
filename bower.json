@@ -6,9 +6,19 @@
   "license": "MIT",
   "ignore": [
     ".jshintrc",
-    "**/*.txt"
+    "**/*.txt",
+    ".gitignore",
+    ".git",
+    "example*",
+    "sample-images",
+    "Gruntfile.coffee",
+    "index.html"
   ],
   "dependencies": {
-    "jquery": ">=1.5.3"
+    "jquery": ">=1.5.3",
+    "imagesloaded": "~3.1.8",
+    "normalize.css": "~3.0.2",
+    "magnific-popup": "~1.0.0",
+    "requirejs": "~2.1.16"
   }
 }

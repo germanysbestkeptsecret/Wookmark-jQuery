@@ -129,6 +129,8 @@ See our [docco](doc/wookmark.html).
 Included examples
 -----------------
 
+Some of the examples need the jQuery or imagesLoaded plugins. Be sure to run bower install to have them working.
+
 ### example
 
 Is the preferred setup. In this scenario the width and height of all images is set in the HTML img attributes.

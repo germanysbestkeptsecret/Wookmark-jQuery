@@ -4,3 +4,4 @@ node_modules
 /wookmark.jquery.sublime-project
 /wookmark.jquery.sublime-workspace
 .sublime-grunt.cache
+bower_components

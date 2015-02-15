@@ -1,10 +1,10 @@
 /*global requirejs, define, window, document*/
 requirejs.config({
   "paths": {
-    "jquery": "../libs/jquery.min",
-    "imagesLoaded": "../libs/jquery.imagesloaded",
+    "jquery": "../bower_components/jquery/dist/jquery.min",
+    "imagesLoaded": "../bower_components/imagesloaded/imagesloaded.pkgd.min",
     "wookmark": "../wookmark",
-    "magnificPopup": "../libs/jquery.magnific-popup.min"
+    "magnificPopup": "../bower_components/magnific-popup/dist/jquery.magnific-popup.min"
   },
   "shim": {
     "magnificPopup": ["jquery"],
