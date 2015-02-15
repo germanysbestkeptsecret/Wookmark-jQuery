@@ -40,7 +40,6 @@ Installation
 Copy `wookmark.js` or the minified version `wookmark.min.js` to your javascript folder.
 There are some styles for `tiles-wrap` in `css/main.css` you might want to use.
 
-
 Usage
 -----
 
@@ -121,6 +120,11 @@ The call to filter will also return the resulting list of items.
     wookmark.filter([filters=[]][,mode='or'][,dryRun=false]);
 
 If you just want to check if there would be a resulting list of items you can call filter with the `dryRun` option set to `true`.
+
+Annotated code
+--------------
+
+See our [docco](doc/wookmark.html).
 
 Included examples
 -----------------
