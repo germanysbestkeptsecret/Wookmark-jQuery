@@ -180,7 +180,19 @@
 
   // Get the computed style from an element (IE 8 compatible)
   function getStyle(el, prop) {
-    return window.getComputedStyle !== 'undefined' ? window.getComputedStyle(el, null).getPropertyValue(prop) : el.currentStyle[prop];
+    return window.getComputedStyle !== undefined ? window.getComputedStyle(el, null).getPropertyValue(prop) : el.currentStyle[prop];
+  }
+
+
+  // IE 8 compatible indexOf
+  function indexOf(items, item) {
+    var len = items.length, i;
+    for (i = 0; i < len; i++) {
+      if (items[i] === item) {
+        return i;
+      }
+    }
+    return -1;
   }
 
   // Main wookmark plugin class
@@ -408,7 +420,7 @@
       if (!dryRun) {
         i = this.items.length;
         while (i--) {
-          if (activeItems.indexOf(this.items[i]) === -1) {
+          if (indexOf(activeItems, this.items[i]) === -1) {
             addClass(this.items[i], this.inactiveClass);
           }
         }
@@ -450,7 +462,7 @@
         placeholdersHtml += '<' + this.elementTag + ' class="' + this.placeholderClass + '"/>';
       }
       this.container.insertAdjacentHTML('beforeend', placeholdersHtml);
-      this.placeholders = this.container.getElementsByClassName(this.placeholderClass);
+      this.placeholders = this.container.querySelectorAll('.' + this.placeholderClass);
     }
 
     innerOffset = (this.offset + parseInt(getStyle(this.placeholders[0], 'border-left-width'), 10) * 2) || 0;
@@ -466,7 +478,7 @@
       } else {
         lastColumnItem = column[column.length - 1];
         top = getData(lastColumnItem, 'top', true) + getData(lastColumnItem, 'height', true) + this.verticalOffset;
-        height = containerHeight - top - innerOffset;
+        height = Math.max(0, containerHeight - top - innerOffset);
 
         setCSS(placeholder, {
           position: 'absolute',
@@ -482,13 +494,21 @@
 
   // Method the get active items which are not disabled and visible
   Wookmark.prototype.getActiveItems = function () {
-    var inactiveClass = this.inactiveClass;
+    var inactiveClass = this.inactiveClass,
+      i,
+      result = [],
+      item,
+      items = this.items;
+
     if (this.ignoreInactiveItems) {
-      return Array.prototype.filter.call(this.items, function (el) {
-        return !hasClass(el, inactiveClass);
-      });
+      for (i = 0; i < items.length; i++) {
+        item = items[i];
+        if (!hasClass(item, inactiveClass)) {
+          result.push(item);
+        }
+      }
     }
-    return this.items;
+    return result;
   };
 
   // Method to get the standard item width

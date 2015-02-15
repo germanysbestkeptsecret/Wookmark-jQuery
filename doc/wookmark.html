@@ -461,7 +461,7 @@ with the element and the desired css properties.</p>
             </div>
             
             <div class="content"><div class='highlight'><pre>  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getStyle</span><span class="hljs-params">(el, prop)</span> </span>{
-    <span class="hljs-keyword">return</span> <span class="hljs-built_in">window</span>.getComputedStyle !== <span class="hljs-string">'undefined'</span> ? <span class="hljs-built_in">window</span>.getComputedStyle(el, <span class="hljs-literal">null</span>).getPropertyValue(prop) : el.currentStyle[prop];
+    <span class="hljs-keyword">return</span> <span class="hljs-built_in">window</span>.getComputedStyle !== <span class="hljs-literal">undefined</span> ? <span class="hljs-built_in">window</span>.getComputedStyle(el, <span class="hljs-literal">null</span>).getPropertyValue(prop) : el.currentStyle[prop];
   }</pre></div></div>
             
         </li>
@@ -473,9 +473,19 @@ with the element and the desired css properties.</p>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-23">&#182;</a>
               </div>
-              <h2 id="main-wookmark-plugin-class">Main wookmark plugin class</h2>
+              <p>IE 8 compatible indexOf</p>
 
             </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">indexOf</span><span class="hljs-params">(items, item)</span> </span>{
+    <span class="hljs-keyword">var</span> len = items.length, i;
+    <span class="hljs-keyword">for</span> (i = <span class="hljs-number">0</span>; i &lt; len; i++) {
+      <span class="hljs-keyword">if</span> (items[i] === item) {
+        <span class="hljs-keyword">return</span> i;
+      }
+    }
+    <span class="hljs-keyword">return</span> -<span class="hljs-number">1</span>;
+  }</pre></div></div>
             
         </li>
         
@@ -485,6 +495,19 @@ with the element and the desired css properties.</p>
               
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-24">&#182;</a>
+              </div>
+              <h2 id="main-wookmark-plugin-class">Main wookmark plugin class</h2>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-25">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-25">&#182;</a>
               </div>
               
             </div>
@@ -499,11 +522,11 @@ with the element and the desired css properties.</p>
         </li>
         
         
-        <li id="section-25">
+        <li id="section-26">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-25">&#182;</a>
+                <a class="pilcrow" href="#section-26">&#182;</a>
               </div>
               <p>Instance variables.</p>
 
@@ -520,11 +543,11 @@ with the element and the desired css properties.</p>
         </li>
         
         
-        <li id="section-26">
+        <li id="section-27">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-26">&#182;</a>
+                <a class="pilcrow" href="#section-27">&#182;</a>
               </div>
               <p>Bind instance methods</p>
 
@@ -548,11 +571,11 @@ with the element and the desired css properties.</p>
         </li>
         
         
-        <li id="section-27">
+        <li id="section-28">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-27">&#182;</a>
+                <a class="pilcrow" href="#section-28">&#182;</a>
               </div>
               <p>Initialize children of the container</p>
 
@@ -563,11 +586,11 @@ with the element and the desired css properties.</p>
         </li>
         
         
-        <li id="section-28">
+        <li id="section-29">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-28">&#182;</a>
+                <a class="pilcrow" href="#section-29">&#182;</a>
               </div>
               <p>Initial update and layout</p>
 
@@ -579,11 +602,11 @@ with the element and the desired css properties.</p>
         </li>
         
         
-        <li id="section-29">
+        <li id="section-30">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-29">&#182;</a>
+                <a class="pilcrow" href="#section-30">&#182;</a>
               </div>
               <p>Collect filter classes after items have been initialized</p>
 
@@ -594,11 +617,11 @@ with the element and the desired css properties.</p>
         </li>
         
         
-        <li id="section-30">
+        <li id="section-31">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-30">&#182;</a>
+                <a class="pilcrow" href="#section-31">&#182;</a>
               </div>
               <p>Listen to resize event of the browser if enabled</p>
 
@@ -611,11 +634,11 @@ with the element and the desired css properties.</p>
         </li>
         
         
-        <li id="section-31">
+        <li id="section-32">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-31">&#182;</a>
+                <a class="pilcrow" href="#section-32">&#182;</a>
               </div>
               <p>Listen to external refresh event</p>
 
@@ -627,11 +650,11 @@ with the element and the desired css properties.</p>
         </li>
         
         
-        <li id="section-32">
+        <li id="section-33">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-32">&#182;</a>
+                <a class="pilcrow" href="#section-33">&#182;</a>
               </div>
               <p>Get all valid children of the container object and store them</p>
 
@@ -642,11 +665,11 @@ with the element and the desired css properties.</p>
         </li>
         
         
-        <li id="section-33">
+        <li id="section-34">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-33">&#182;</a>
+                <a class="pilcrow" href="#section-34">&#182;</a>
               </div>
               <p>By select all children of the container if no selector is specified</p>
 
@@ -661,11 +684,11 @@ with the element and the desired css properties.</p>
         </li>
         
         
-        <li id="section-34">
+        <li id="section-35">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-34">&#182;</a>
+                <a class="pilcrow" href="#section-35">&#182;</a>
               </div>
               <p>Skip comment nodes on IE8</p>
 
@@ -676,11 +699,11 @@ with the element and the desired css properties.</p>
         </li>
         
         
-        <li id="section-35">
+        <li id="section-36">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-35">&#182;</a>
+                <a class="pilcrow" href="#section-36">&#182;</a>
               </div>
               <p>Show item</p>
 
@@ -705,11 +728,11 @@ with the element and the desired css properties.</p>
         </li>
         
         
-        <li id="section-36">
+        <li id="section-37">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-36">&#182;</a>
+                <a class="pilcrow" href="#section-37">&#182;</a>
               </div>
               <p>Reload all filter classes from all items and cache them</p>
 
@@ -720,11 +743,11 @@ with the element and the desired css properties.</p>
         </li>
         
         
-        <li id="section-37">
+        <li id="section-38">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-37">&#182;</a>
+                <a class="pilcrow" href="#section-38">&#182;</a>
               </div>
               <p>Collect filter data</p>
 
@@ -740,11 +763,11 @@ with the element and the desired css properties.</p>
         </li>
         
         
-        <li id="section-38">
+        <li id="section-39">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-38">&#182;</a>
+                <a class="pilcrow" href="#section-39">&#182;</a>
               </div>
               <p>Read filter classes and globally store each filter class as object and the fitting items in the array</p>
 
@@ -776,11 +799,11 @@ with the element and the desired css properties.</p>
         </li>
         
         
-        <li id="section-39">
+        <li id="section-40">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-39">&#182;</a>
+                <a class="pilcrow" href="#section-40">&#182;</a>
               </div>
               <p>Method for updating the plugins options</p>
 
@@ -794,11 +817,11 @@ with the element and the desired css properties.</p>
         </li>
         
         
-        <li id="section-40">
+        <li id="section-41">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-40">&#182;</a>
+                <a class="pilcrow" href="#section-41">&#182;</a>
               </div>
               <p>Overwrite non existing instance variables with the ones from options or the defaults</p>
 
@@ -817,11 +840,11 @@ with the element and the desired css properties.</p>
         </li>
         
         
-        <li id="section-41">
+        <li id="section-42">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-41">&#182;</a>
+                <a class="pilcrow" href="#section-42">&#182;</a>
               </div>
               <p>Vertical offset uses a fallback to offset</p>
 
@@ -832,11 +855,11 @@ with the element and the desired css properties.</p>
         </li>
         
         
-        <li id="section-42">
+        <li id="section-43">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-42">&#182;</a>
+                <a class="pilcrow" href="#section-43">&#182;</a>
               </div>
               <p>Update layout so changes apply</p>
 
@@ -848,11 +871,11 @@ with the element and the desired css properties.</p>
         </li>
         
         
-        <li id="section-43">
+        <li id="section-44">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-43">&#182;</a>
+                <a class="pilcrow" href="#section-44">&#182;</a>
               </div>
               <p>This timer ensures that layout is not continuously called as window is being dragged.</p>
 
@@ -867,11 +890,11 @@ with the element and the desired css properties.</p>
         </li>
         
         
-        <li id="section-44">
+        <li id="section-45">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-44">&#182;</a>
+                <a class="pilcrow" href="#section-45">&#182;</a>
               </div>
               <p>Marks the items heights as dirty and does a relayout</p>
 
@@ -885,11 +908,11 @@ with the element and the desired css properties.</p>
         </li>
         
         
-        <li id="section-45">
+        <li id="section-46">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-45">&#182;</a>
+                <a class="pilcrow" href="#section-46">&#182;</a>
               </div>
               <p>Filters the active items with the given string filters.
 @param filters array of string
@@ -910,11 +933,11 @@ with the element and the desired css properties.</p>
         </li>
         
         
-        <li id="section-46">
+        <li id="section-47">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-46">&#182;</a>
+                <a class="pilcrow" href="#section-47">&#182;</a>
               </div>
               <p>Collect active filters</p>
 
@@ -930,11 +953,11 @@ with the element and the desired css properties.</p>
         </li>
         
         
-        <li id="section-47">
+        <li id="section-48">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-47">&#182;</a>
+                <a class="pilcrow" href="#section-48">&#182;</a>
               </div>
               <p>Get items for active filters with the selected mode</p>
 
@@ -946,11 +969,11 @@ with the element and the desired css properties.</p>
         </li>
         
         
-        <li id="section-48">
+        <li id="section-49">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-48">&#182;</a>
+                <a class="pilcrow" href="#section-49">&#182;</a>
               </div>
               <p>Set all items in all active filters active</p>
 
@@ -966,11 +989,11 @@ with the element and the desired css properties.</p>
         </li>
         
         
-        <li id="section-49">
+        <li id="section-50">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-49">&#182;</a>
+                <a class="pilcrow" href="#section-50">&#182;</a>
               </div>
               <p>Find shortest filter class</p>
 
@@ -985,11 +1008,11 @@ with the element and the desired css properties.</p>
         </li>
         
         
-        <li id="section-50">
+        <li id="section-51">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-50">&#182;</a>
+                <a class="pilcrow" href="#section-51">&#182;</a>
               </div>
               <p>Iterate over shortest filter and find elements in other filter classes</p>
 
@@ -1009,11 +1032,11 @@ with the element and the desired css properties.</p>
         </li>
         
         
-        <li id="section-51">
+        <li id="section-52">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-51">&#182;</a>
+                <a class="pilcrow" href="#section-52">&#182;</a>
               </div>
               <p>Search for current item in each active filter class</p>
 
@@ -1037,11 +1060,11 @@ with the element and the desired css properties.</p>
         </li>
         
         
-        <li id="section-52">
+        <li id="section-53">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-52">&#182;</a>
+                <a class="pilcrow" href="#section-53">&#182;</a>
               </div>
               <p>Remove duplicates from active items</p>
 
@@ -1054,11 +1077,11 @@ with the element and the desired css properties.</p>
         </li>
         
         
-        <li id="section-53">
+        <li id="section-54">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-53">&#182;</a>
+                <a class="pilcrow" href="#section-54">&#182;</a>
               </div>
               <p>Hide inactive items</p>
 
@@ -1067,7 +1090,7 @@ with the element and the desired css properties.</p>
             <div class="content"><div class='highlight'><pre>      <span class="hljs-keyword">if</span> (!dryRun) {
         i = <span class="hljs-keyword">this</span>.items.length;
         <span class="hljs-keyword">while</span> (i--) {
-          <span class="hljs-keyword">if</span> (activeItems.indexOf(<span class="hljs-keyword">this</span>.items[i]) === -<span class="hljs-number">1</span>) {
+          <span class="hljs-keyword">if</span> (indexOf(activeItems, <span class="hljs-keyword">this</span>.items[i]) === -<span class="hljs-number">1</span>) {
             addClass(<span class="hljs-keyword">this</span>.items[i], <span class="hljs-keyword">this</span>.inactiveClass);
           }
         }
@@ -1077,11 +1100,11 @@ with the element and the desired css properties.</p>
         </li>
         
         
-        <li id="section-54">
+        <li id="section-55">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-54">&#182;</a>
+                <a class="pilcrow" href="#section-55">&#182;</a>
               </div>
               <p>Show all items if no filter is selected</p>
 
@@ -1093,11 +1116,11 @@ with the element and the desired css properties.</p>
         </li>
         
         
-        <li id="section-55">
+        <li id="section-56">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-55">&#182;</a>
+                <a class="pilcrow" href="#section-56">&#182;</a>
               </div>
               <p>Show active items</p>
 
@@ -1112,11 +1135,11 @@ with the element and the desired css properties.</p>
         </li>
         
         
-        <li id="section-56">
+        <li id="section-57">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-56">&#182;</a>
+                <a class="pilcrow" href="#section-57">&#182;</a>
               </div>
               <p>Unset columns and refresh grid for a full layout</p>
 
@@ -1131,11 +1154,11 @@ with the element and the desired css properties.</p>
         </li>
         
         
-        <li id="section-57">
+        <li id="section-58">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-57">&#182;</a>
+                <a class="pilcrow" href="#section-58">&#182;</a>
               </div>
               <p>Creates or updates existing placeholders to create columns of even height</p>
 
@@ -1156,11 +1179,11 @@ with the element and the desired css properties.</p>
         </li>
         
         
-        <li id="section-58">
+        <li id="section-59">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-58">&#182;</a>
+                <a class="pilcrow" href="#section-59">&#182;</a>
               </div>
               <p>Add more placeholders if necessary</p>
 
@@ -1171,7 +1194,7 @@ with the element and the desired css properties.</p>
         placeholdersHtml += <span class="hljs-string">'&lt;'</span> + <span class="hljs-keyword">this</span>.elementTag + <span class="hljs-string">' class="'</span> + <span class="hljs-keyword">this</span>.placeholderClass + <span class="hljs-string">'"/&gt;'</span>;
       }
       <span class="hljs-keyword">this</span>.container.insertAdjacentHTML(<span class="hljs-string">'beforeend'</span>, placeholdersHtml);
-      <span class="hljs-keyword">this</span>.placeholders = <span class="hljs-keyword">this</span>.container.getElementsByClassName(<span class="hljs-keyword">this</span>.placeholderClass);
+      <span class="hljs-keyword">this</span>.placeholders = <span class="hljs-keyword">this</span>.container.querySelectorAll(<span class="hljs-string">'.'</span> + <span class="hljs-keyword">this</span>.placeholderClass);
     }
 
     innerOffset = (<span class="hljs-keyword">this</span>.offset + <span class="hljs-built_in">parseInt</span>(getStyle(<span class="hljs-keyword">this</span>.placeholders[<span class="hljs-number">0</span>], <span class="hljs-string">'border-left-width'</span>), <span class="hljs-number">10</span>) * <span class="hljs-number">2</span>) || <span class="hljs-number">0</span>;
@@ -1180,11 +1203,11 @@ with the element and the desired css properties.</p>
         </li>
         
         
-        <li id="section-59">
+        <li id="section-60">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-59">&#182;</a>
+                <a class="pilcrow" href="#section-60">&#182;</a>
               </div>
               <p>Update each placeholder</p>
 
@@ -1199,7 +1222,7 @@ with the element and the desired css properties.</p>
       } <span class="hljs-keyword">else</span> {
         lastColumnItem = column[column.length - <span class="hljs-number">1</span>];
         top = getData(lastColumnItem, <span class="hljs-string">'top'</span>, <span class="hljs-literal">true</span>) + getData(lastColumnItem, <span class="hljs-string">'height'</span>, <span class="hljs-literal">true</span>) + <span class="hljs-keyword">this</span>.verticalOffset;
-        height = containerHeight - top - innerOffset;
+        height = <span class="hljs-built_in">Math</span>.max(<span class="hljs-number">0</span>, containerHeight - top - innerOffset);
 
         setCSS(placeholder, {
           position: <span class="hljs-string">'absolute'</span>,
@@ -1216,34 +1239,42 @@ with the element and the desired css properties.</p>
         </li>
         
         
-        <li id="section-60">
+        <li id="section-61">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-60">&#182;</a>
+                <a class="pilcrow" href="#section-61">&#182;</a>
               </div>
               <p>Method the get active items which are not disabled and visible</p>
 
             </div>
             
             <div class="content"><div class='highlight'><pre>  Wookmark.prototype.getActiveItems = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
-    <span class="hljs-keyword">var</span> inactiveClass = <span class="hljs-keyword">this</span>.inactiveClass;
+    <span class="hljs-keyword">var</span> inactiveClass = <span class="hljs-keyword">this</span>.inactiveClass,
+      i,
+      result = [],
+      item,
+      items = <span class="hljs-keyword">this</span>.items;
+
     <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.ignoreInactiveItems) {
-      <span class="hljs-keyword">return</span> <span class="hljs-built_in">Array</span>.prototype.filter.call(<span class="hljs-keyword">this</span>.items, <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(el)</span> </span>{
-        <span class="hljs-keyword">return</span> !hasClass(el, inactiveClass);
-      });
+      <span class="hljs-keyword">for</span> (i = <span class="hljs-number">0</span>; i &lt; items.length; i++) {
+        item = items[i];
+        <span class="hljs-keyword">if</span> (!hasClass(item, inactiveClass)) {
+          result.push(item);
+        }
+      }
     }
-    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.items;
+    <span class="hljs-keyword">return</span> result;
   };</pre></div></div>
             
         </li>
         
         
-        <li id="section-61">
+        <li id="section-62">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-61">&#182;</a>
+                <a class="pilcrow" href="#section-62">&#182;</a>
               </div>
               <p>Method to get the standard item width</p>
 
@@ -1267,11 +1298,11 @@ with the element and the desired css properties.</p>
         </li>
         
         
-        <li id="section-62">
+        <li id="section-63">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-62">&#182;</a>
+                <a class="pilcrow" href="#section-63">&#182;</a>
               </div>
               <p>Calculate flexible item width if option is set</p>
 
@@ -1289,11 +1320,11 @@ with the element and the desired css properties.</p>
         </li>
         
         
-        <li id="section-63">
+        <li id="section-64">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-63">&#182;</a>
+                <a class="pilcrow" href="#section-64">&#182;</a>
               </div>
               <p>Find highest column count</p>
 
@@ -1314,11 +1345,11 @@ with the element and the desired css properties.</p>
         </li>
         
         
-        <li id="section-64">
+        <li id="section-65">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-64">&#182;</a>
+                <a class="pilcrow" href="#section-65">&#182;</a>
               </div>
               <p>Main layout method.</p>
 
@@ -1329,11 +1360,11 @@ with the element and the desired css properties.</p>
         </li>
         
         
-        <li id="section-65">
+        <li id="section-66">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-65">&#182;</a>
+                <a class="pilcrow" href="#section-66">&#182;</a>
               </div>
               <p>Do nothing if container isn’t visible</p>
 
@@ -1344,11 +1375,11 @@ with the element and the desired css properties.</p>
         </li>
         
         
-        <li id="section-66">
+        <li id="section-67">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-66">&#182;</a>
+                <a class="pilcrow" href="#section-67">&#182;</a>
               </div>
               <p>Calculate basic layout parameters.</p>
 
@@ -1369,11 +1400,11 @@ with the element and the desired css properties.</p>
         </li>
         
         
-        <li id="section-67">
+        <li id="section-68">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-67">&#182;</a>
+                <a class="pilcrow" href="#section-68">&#182;</a>
               </div>
               <p>Cache item heights</p>
 
@@ -1388,11 +1419,11 @@ with the element and the desired css properties.</p>
         </li>
         
         
-        <li id="section-68">
+        <li id="section-69">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-68">&#182;</a>
+                <a class="pilcrow" href="#section-69">&#182;</a>
               </div>
               <p>Stretch items to fill calculated width</p>
 
@@ -1409,11 +1440,11 @@ with the element and the desired css properties.</p>
         </li>
         
         
-        <li id="section-69">
+        <li id="section-70">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-69">&#182;</a>
+                <a class="pilcrow" href="#section-70">&#182;</a>
               </div>
               <p>Use less columns if there are to few items</p>
 
@@ -1424,11 +1455,11 @@ with the element and the desired css properties.</p>
         </li>
         
         
-        <li id="section-70">
+        <li id="section-71">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-70">&#182;</a>
+                <a class="pilcrow" href="#section-71">&#182;</a>
               </div>
               <p>Calculate the offset based on the alignment of columns to the parent container</p>
 
@@ -1442,11 +1473,11 @@ with the element and the desired css properties.</p>
         </li>
         
         
-        <li id="section-71">
+        <li id="section-72">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-71">&#182;</a>
+                <a class="pilcrow" href="#section-72">&#182;</a>
               </div>
               <p>Get direction for positioning</p>
 
@@ -1457,11 +1488,11 @@ with the element and the desired css properties.</p>
         </li>
         
         
-        <li id="section-72">
+        <li id="section-73">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-72">&#182;</a>
+                <a class="pilcrow" href="#section-73">&#182;</a>
               </div>
               <p>If container and column count hasn’t changed, we can only update the columns.</p>
 
@@ -1477,11 +1508,11 @@ with the element and the desired css properties.</p>
         </li>
         
         
-        <li id="section-73">
+        <li id="section-74">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-73">&#182;</a>
+                <a class="pilcrow" href="#section-74">&#182;</a>
               </div>
               <p>Set container height to height of the grid.</p>
 
@@ -1492,11 +1523,11 @@ with the element and the desired css properties.</p>
         </li>
         
         
-        <li id="section-74">
+        <li id="section-75">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-74">&#182;</a>
+                <a class="pilcrow" href="#section-75">&#182;</a>
               </div>
               <p>Update placeholders</p>
 
@@ -1513,11 +1544,11 @@ with the element and the desired css properties.</p>
         </li>
         
         
-        <li id="section-75">
+        <li id="section-76">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-75">&#182;</a>
+                <a class="pilcrow" href="#section-76">&#182;</a>
               </div>
               <p>Run optional callback</p>
 
@@ -1531,11 +1562,11 @@ with the element and the desired css properties.</p>
         </li>
         
         
-        <li id="section-76">
+        <li id="section-77">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-76">&#182;</a>
+                <a class="pilcrow" href="#section-77">&#182;</a>
               </div>
               <p>Sort elements with configurable comparator</p>
 
@@ -1548,11 +1579,11 @@ with the element and the desired css properties.</p>
         </li>
         
         
-        <li id="section-77">
+        <li id="section-78">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-77">&#182;</a>
+                <a class="pilcrow" href="#section-78">&#182;</a>
               </div>
               <p>Perform a full layout update.</p>
 
@@ -1567,11 +1598,11 @@ with the element and the desired css properties.</p>
         </li>
         
         
-        <li id="section-78">
+        <li id="section-79">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-78">&#182;</a>
+                <a class="pilcrow" href="#section-79">&#182;</a>
               </div>
               <p>Sort elements before layouting</p>
 
@@ -1583,11 +1614,11 @@ with the element and the desired css properties.</p>
         </li>
         
         
-        <li id="section-79">
+        <li id="section-80">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-79">&#182;</a>
+                <a class="pilcrow" href="#section-80">&#182;</a>
               </div>
               <p>Prepare arrays to store height of columns and items.</p>
 
@@ -1601,11 +1632,11 @@ with the element and the desired css properties.</p>
         </li>
         
         
-        <li id="section-80">
+        <li id="section-81">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-80">&#182;</a>
+                <a class="pilcrow" href="#section-81">&#182;</a>
               </div>
               <p>Loop over items.</p>
 
@@ -1617,11 +1648,11 @@ with the element and the desired css properties.</p>
         </li>
         
         
-        <li id="section-81">
+        <li id="section-82">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-81">&#182;</a>
+                <a class="pilcrow" href="#section-82">&#182;</a>
               </div>
               <p>Find the shortest column.</p>
 
@@ -1640,11 +1671,11 @@ with the element and the desired css properties.</p>
         </li>
         
         
-        <li id="section-82">
+        <li id="section-83">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-82">&#182;</a>
+                <a class="pilcrow" href="#section-83">&#182;</a>
               </div>
               <p>stick to left side if alignment is left and this is the first column</p>
 
@@ -1658,11 +1689,11 @@ with the element and the desired css properties.</p>
         </li>
         
         
-        <li id="section-83">
+        <li id="section-84">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-83">&#182;</a>
+                <a class="pilcrow" href="#section-84">&#182;</a>
               </div>
               <p>Position the item.</p>
 
@@ -1680,11 +1711,11 @@ with the element and the desired css properties.</p>
         </li>
         
         
-        <li id="section-84">
+        <li id="section-85">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-84">&#182;</a>
+                <a class="pilcrow" href="#section-85">&#182;</a>
               </div>
               <p>Update column height and store item in shortest column</p>
 
@@ -1700,11 +1731,11 @@ with the element and the desired css properties.</p>
         </li>
         
         
-        <li id="section-85">
+        <li id="section-86">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-85">&#182;</a>
+                <a class="pilcrow" href="#section-86">&#182;</a>
               </div>
               <p>Return longest column</p>
 
@@ -1716,11 +1747,11 @@ with the element and the desired css properties.</p>
         </li>
         
         
-        <li id="section-86">
+        <li id="section-87">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-86">&#182;</a>
+                <a class="pilcrow" href="#section-87">&#182;</a>
               </div>
               <p>This layout method only updates the vertical position of the
 existing column assignments.</p>
@@ -1759,11 +1790,11 @@ existing column assignments.</p>
         </li>
         
         
-        <li id="section-87">
+        <li id="section-88">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-87">&#182;</a>
+                <a class="pilcrow" href="#section-88">&#182;</a>
               </div>
               <p>Return longest column</p>
 
@@ -1775,11 +1806,11 @@ existing column assignments.</p>
         </li>
         
         
-        <li id="section-88">
+        <li id="section-89">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-88">&#182;</a>
+                <a class="pilcrow" href="#section-89">&#182;</a>
               </div>
               <p>Clear event listeners and time outs and the instance itself</p>
 
@@ -1798,11 +1829,11 @@ existing column assignments.</p>
         </li>
         
         
-        <li id="section-89">
+        <li id="section-90">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-89">&#182;</a>
+                <a class="pilcrow" href="#section-90">&#182;</a>
               </div>
               <p>Register as jQuery plugin if jQuery is loaded</p>
 
@@ -1815,11 +1846,11 @@ existing column assignments.</p>
         </li>
         
         
-        <li id="section-90">
+        <li id="section-91">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-90">&#182;</a>
+                <a class="pilcrow" href="#section-91">&#182;</a>
               </div>
               <p>Use first element if container is an jQuery object</p>
 
@@ -1832,11 +1863,11 @@ existing column assignments.</p>
         </li>
         
         
-        <li id="section-91">
+        <li id="section-92">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-91">&#182;</a>
+                <a class="pilcrow" href="#section-92">&#182;</a>
               </div>
               <p>Call plugin multiple times if there are multiple elements selected</p>
 
@@ -1851,11 +1882,11 @@ existing column assignments.</p>
         </li>
         
         
-        <li id="section-92">
+        <li id="section-93">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-92">&#182;</a>
+                <a class="pilcrow" href="#section-93">&#182;</a>
               </div>
               <p>Create a wookmark instance or update an existing one</p>
 
