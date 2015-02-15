@@ -9,7 +9,7 @@
   @copyright (c) 2009-2015 Christoph Ono (www.wookmark.com)
   @license Licensed under the MIT (http://www.opensource.org/licenses/mit-license.php) license.
 */
-/*global define,window,jQuery*/
+/*global define, window, jQuery*/
 /*jslint plusplus: true, bitwise: true */
 (function (factory) {
   if (typeof define === 'function' && define.amd) {
@@ -176,6 +176,11 @@
       }
     }
     return result;
+  }
+
+  // Get the computed style from an element (IE 8 compatible)
+  function getStyle(el, prop) {
+    return window.getComputedStyle !== 'undefined' ? window.getComputedStyle(el, null).getPropertyValue(prop) : el.currentStyle[prop];
   }
 
   // Main wookmark plugin class
@@ -428,44 +433,49 @@
 
   // Creates or updates existing placeholders to create columns of even height
   Wookmark.prototype.refreshPlaceholders = function (columnWidth, sideOffset) {
-    var i = this.placeholders.length,
-      placeholdersHtml,
-      placeholder,
-      lastColumnItem,
+    var i,
+      containerHeight = getHeight(this.container),
       columnsLength = this.columns.length,
       column,
       height,
-      top,
       innerOffset,
-      containerHeight = getHeight(this.container);
+      lastColumnItem,
+      placeholdersHtml = '',
+      placeholder,
+      top;
 
-    placeholdersHtml = new [].constructor(columnsLength).join('<' + this.elementTag + ' class="' + this.placeholderClass + '"/>');
-    this.container.insertAdjacentHTML('beforeend', placeholdersHtml);
-    this.placeholders = this.container.getElementsByClassName(this.placeholderClass);
+    // Add more placeholders if necessary
+    if (this.placeholders.length < columnsLength) {
+      for (i = 0; i < columnsLength - this.placeholders.length; i++) {
+        placeholdersHtml += '<' + this.elementTag + ' class="' + this.placeholderClass + '"/>';
+      }
+      this.container.insertAdjacentHTML('beforeend', placeholdersHtml);
+      this.placeholders = this.container.getElementsByClassName(this.placeholderClass);
+    }
 
-    innerOffset = this.offset + parseInt(this.placeholders[0].style.borderLeftWidth, 10) * 2;
+    innerOffset = (this.offset + parseInt(getStyle(this.placeholders[0], 'border-left-width'), 10) * 2) || 0;
+    innerOffset += (parseInt(getStyle(this.placeholders[0], 'padding-left'), 10) * 2)  || 0;
 
+    // Update each placeholder
     for (i = 0; i < this.placeholders.length; i++) {
       placeholder = this.placeholders[i];
       column = this.columns[i];
 
-      if (i >= columnsLength || !column[column.length - 1]) {
+      if (i >= columnsLength || column.length === 0) {
         placeholder.style.display = 'none';
       } else {
         lastColumnItem = column[column.length - 1];
-        if (lastColumnItem) {
-          top = getData(lastColumnItem, 'top', true) + getData(lastColumnItem, 'height', true) + this.verticalOffset;
-          height = containerHeight - top - innerOffset;
+        top = getData(lastColumnItem, 'top', true) + getData(lastColumnItem, 'height', true) + this.verticalOffset;
+        height = containerHeight - top - innerOffset;
 
-          setCSS(placeholder, {
-            position: 'absolute',
-            display: height > 0 ? 'block' : 'none',
-            left: (i * columnWidth + sideOffset) + 'px',
-            top: top + 'px',
-            width: (columnWidth - innerOffset) + 'px',
-            height: height + 'px'
-          });
-        }
+        setCSS(placeholder, {
+          position: 'absolute',
+          display: height > 0 ? 'block' : 'none',
+          left: (i * columnWidth + sideOffset) + 'px',
+          top: top + 'px',
+          width: (columnWidth - innerOffset) + 'px',
+          height: height + 'px'
+        });
       }
     }
   };
