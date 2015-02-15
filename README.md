@@ -13,6 +13,17 @@ by their respective owners and only included for showcasing plugin functionality
 Do you like this project?
 [Buy us a beer](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=TSN2TDYNKZHF4)
 
+Upgrading to version 2.0
+========================
+
+Since version 2.0 of Wookmark, the plugin doesn't depend on jQuery anymore.
+This allows you to use Wookmark without the overhead of the jQuery library.
+
+Because this meant a big change to the plugin, we also changed a lot in the code
+and tried to make it easier to use. The way you initialize the plugin is now different
+and a few options have changend. So if you upgrade you have to adapt your code.
+See the examples and this readme on how to do this.
+
 Installation
 ------------
 
