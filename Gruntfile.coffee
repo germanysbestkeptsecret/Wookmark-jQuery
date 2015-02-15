@@ -33,5 +33,5 @@ module.exports = (grunt) ->
     jshint:
       all: ['<%= pkg.name %>.js']
 
-  # Release task to run tests then minify js and css
-  grunt.registerTask 'release', ['jshint', 'uglify', 'docco']
+  # Release task to check code, minify js and create the documentation
+  grunt.registerTask 'default', ['jshint', 'uglify', 'docco']
