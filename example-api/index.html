@@ -1,14 +1,11 @@
 <!doctype html>
-<!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en"> <![endif]-->
-<!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en"> <![endif]-->
-<!--[if IE 8]>    <html class="no-js ie8 oldie" lang="en"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
   <title>jQuery Wookmark Plug-in API Example</title>
-  <meta name="description" content="An very basic example of how to use the Wookmark jQuery plug-in.">
+  <meta name="description" content="An example for loading tiles from an API for Wookmark">
   <meta name="author" content="Christoph Ono, Sebastian Helzle">
 
   <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -23,14 +20,16 @@
 
 <body>
 
-  <div id="container">
+  <div>
     <header>
-      <h1>jQuery Wookmark Plug-in API Example</h1>
+      <h1>Wookmark API Example</h1>
       <p>Scroll down to see more content loaded via the <a href="http://www.wookmark.com/about/api" target="_blank">Wookmark API</a>.</p>
+      <p><a href="../index.html">Back to overview</a></p>
     </header>
-    <div id="main" role="main">
 
-      <ul id="tiles">
+    <div role="main">
+
+      <ul id="container" class="tiles-wrap animated">
         <!-- These is where we place content loaded from the Wookmark API -->
       </ul>
 
@@ -39,10 +38,6 @@
       </div>
 
     </div>
-
-    <footer>
-
-    </footer>
   </div>
 
   <!-- include jQuery -->
@@ -52,7 +47,7 @@
   <script src="../libs/jquery.imagesloaded.js"></script>
 
   <!-- Include the plug-in -->
-  <script src="../jquery.wookmark.js"></script>
+  <script src="../wookmark.js"></script>
 
   <!-- Once the page is loaded, initalize the plug-in. -->
   <script type="text/javascript">
@@ -60,15 +55,14 @@
       var handler = null,
           page = 1,
           isLoading = false,
-          apiURL = 'http://www.wookmark.com/api/json/popular';
-
-      // Prepare layout options.
-      var options = {
-        autoResize: true, // This will auto-update the layout when the browser window is resized.
-        container: $('#tiles'), // Optional, used for some extra CSS styling
-        offset: 2, // Optional, the distance between grid items
-        itemWidth: 210 // Optional, the width of a grid item
-      };
+          apiURL = 'http://www.wookmark.com/api/json/popular',
+          container = '#container',
+          $loaderCircle = $('#loaderCircle'),
+          wookmark = undefined,
+          options = {
+            offset: 2, // Optional, the distance between grid items
+            itemWidth: 210 // Optional, the width of a grid item
+          };
 
       /**
        * When scrolled all the way to the bottom, add more tiles.
@@ -78,20 +72,23 @@
         if(!isLoading) {
           // Check if we're within 100 pixels of the bottom edge of the broser window.
           var closeToBottom = ($(window).scrollTop() + $(window).height() > $(document).height() - 100);
-          if(closeToBottom) {
+          if (closeToBottom) {
             loadData();
           }
         }
       };
 
       /**
-       * Refreshes the layout.
+       * Refreshes the layout after all images have loaded
        */
       function applyLayout() {
-        options.container.imagesLoaded(function() {
-          // Create a new layout handler when images have loaded.
-          handler = $('#tiles li');
-          handler.wookmark(options);
+        imagesLoaded(container, function () {
+          if (wookmark === undefined) {
+            wookmark = new Wookmark(container);
+          } else {
+            wookmark.initItems();
+            wookmark.layout(true);
+          }
         });
       };
 
@@ -100,7 +97,7 @@
        */
       function loadData() {
         isLoading = true;
-        $('#loaderCircle').show();
+        $loaderCircle.show();
 
         $.ajax({
           url: apiURL,
@@ -115,7 +112,7 @@
        */
       function onLoadData(data) {
         isLoading = false;
-        $('#loaderCircle').hide();
+        $loaderCircle.hide();
 
         // Increment page index for future calls.
         page++;
@@ -137,7 +134,7 @@
         }
 
         // Add image HTML to the page.
-        $('#tiles').append(html);
+        $(container).append(html);
 
         // Apply layout.
         applyLayout();

@@ -38,13 +38,23 @@
 
   <div>
     <header>
-      <h1>Wookmark Plug-in Example</h1>
+      <h1>Wookmark Faded Tiles Example</h1>
       <p>
         Click the words below to filter the grid. Grid items that match at least one filter will remain visible.
       </p>
       <p>
         This example only uses jQuery to simplify the toggling of the filter buttons.
       </p>
+      <br>
+      <p>
+        <strong>All filtering examples:</strong>
+        <a href="index.html">Simple filtering</a> &mdash;
+        <a href="fade.html">Fading effect</a> &mdash;
+        <a href="and-filter.html">And-Filter</a> &mdash;
+        <a href="only-filter.html">Only-Filter</a>
+      </p>
+      <br>
+      <p><a href="../index.html">Back to overview</a></p>
     </header>
 
     <!--
@@ -66,7 +76,7 @@
     <br/>
 
     <div role="main">
-      <ul id="container" class="tiles-wrap">
+      <ul id="container" class="tiles-wrap animated">
         <!--
           These are our grid items. Notice how each one has classes assigned that
           are used for filtering. The classes match the "data-filter" properties above.

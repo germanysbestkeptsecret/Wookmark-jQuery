@@ -1,14 +1,11 @@
 <!doctype html>
-<!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en"> <![endif]-->
-<!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en"> <![endif]-->
-<!--[if IE 8]>    <html class="no-js ie8 oldie" lang="en"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
   <title>jQuery Wookmark Plug-in Example</title>
-  <meta name="description" content="An very basic example of how to use the Wookmark jQuery plug-in.">
+  <meta name="description" content="An example how to setup Wookmark with tile sorting">
   <meta name="author" content="Christoph Ono, Sebastian Helzle">
 
   <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -70,10 +67,12 @@
 
 <body>
 
-  <div id="container">
+  <div>
     <header>
-      <h1>jQuery Wookmark Plug-in Example</h1>
+      <h1>Wookmark Sorting Example</h1>
       <p>Click the words below to sort the grid.</p>
+      <br>
+      <p><a href="../index.html">Back to overview</a></p>
     </header>
 
     <!--
@@ -88,9 +87,9 @@
     </ol>
     <br/>
 
-    <div id="main" role="main">
+    <div role="main">
 
-      <ul id="tiles">
+      <ul id="container" class="tiles-wrap animated">
         <!--
           These are our grid items. Notice how each one has a data-attribute assigned that
           are used for sorting. The classes match the "data-sortby" properties above.
@@ -148,12 +147,12 @@
   <script src="../libs/jquery.imagesloaded.js"></script>
 
   <!-- Include the plug-in -->
-  <script src="../jquery.wookmark.js"></script>
+  <script src="../wookmark.js"></script>
 
   <!-- Once the page is loaded, initalize the plug-in. -->
   <script type="text/javascript">
-    (function ($){
-      $('#tiles').imagesLoaded(function() {
+    (function ($) {
+      imagesLoaded('#container', function () {
         function comparatorName(a, b) {
           return $(a).data('name') < $(b).data('name') ? -1 : 1;
         }
@@ -161,48 +160,46 @@
           return $(a).data('popularity') > $(b).data('popularity') ? -1 : 1;
         }
         function comparatorPrice(a, b) {
-          return $(a).data('price') < $(b).data('price') ? -1 : 1;
+          return $(a).data('price') > $(b).data('price') ? -1 : 1;
         }
 
-        // Prepare layout options.
-        var options = {
-          autoResize: true, // This will auto-update the layout when the browser window is resized.
-          container: $('#main'), // Optional, used for some extra CSS styling
-          offset: 2, // Optional, the distance between grid items
-          itemWidth: 210, // Optional, the width of a grid item
-          comparator: comparatorName
-        };
-
         // Get a reference to your grid items.
-        var $handler = $('#tiles li'),
+        var wookmark,
             $sortbys = $('#sortbys li');
 
         // Call the layout function.
-        $handler.wookmark(options);
+        wookmark = new Wookmark('#container', {
+          offset: 2, // Optional, the distance between grid items
+          itemWidth: 210, // Optional, the width of a grid item
+          comparator: comparatorName
+        });
 
         /**
          * When a filter is clicked, toggle it's active state and refresh.
          */
         var onClickSortBy = function(e) {
           e.preventDefault();
+          var comparator;
           $currentSortby = $(this);
           switch ($currentSortby.data('sortby')) {
             case 'price':
-              options.comparator = comparatorPrice;
+              comparator = comparatorPrice;
               break;
             case 'popularity':
-              options.comparator = comparatorPopularity;
+              comparator = comparatorPopularity;
               break;
             case 'name':
             default:
-              options.comparator = comparatorName;
+              comparator = comparatorName;
               break;
           }
 
           $sortbys.removeClass('active');
           $currentSortby.addClass('active');
 
-          $handler.wookmark(options);
+          wookmark.updateOptions({
+            comparator: comparator
+          });
         }
 
         // Capture filter click events.

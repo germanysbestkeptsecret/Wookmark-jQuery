@@ -1,14 +1,11 @@
 <!doctype html>
-<!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en"> <![endif]-->
-<!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en"> <![endif]-->
-<!--[if IE 8]>    <html class="no-js ie8 oldie" lang="en"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
   <title>jQuery Wookmark Plug-in Example</title>
-  <meta name="description" content="An very basic example of how to use the Wookmark jQuery plug-in.">
+  <meta name="description" content="An example for loading Wookmark with requirejs">
   <meta name="author" content="Christoph Ono, Sebastian Helzle">
 
   <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -26,14 +23,15 @@
 
 <body>
 
-  <div id="container">
+  <div>
     <header>
-      <h1>jQuery Wookmark Plug-in Example</h1>
+      <h1>Wookmark RequireJS Example</h1>
       <p>Click an item to open the display image in a lightbox.</p>
+      <p><a href="../index.html">Back to overview</a></p>
     </header>
-    <div id="main" role="main">
 
-      <ul id="tiles">
+    <div role="main">
+      <ul id="container" class="tiles-wrap animated">
         <!-- These are our grid blocks -->
         <li>
           <a href="../sample-images/image_1_big.jpg" rel="lightbox">

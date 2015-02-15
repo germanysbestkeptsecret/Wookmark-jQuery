@@ -1,5 +1,5 @@
 /** General page styling **/
-html {
+body {
   background-color: #e5e5e5;
   font-family: "Helvetica Neue Light", "Helvetica Neue", Arial, sans-serif;
 }
@@ -19,12 +19,16 @@ header p {
   font-weight: 200;
 }
 
+a {
+  text-decoration: none;
+}
+
 /**
  * Progress bar for imagesLoaded
  */
 .progress-bar {
   background-color: #0BC20B;
-  height: 2px;
+  height: 3px;
   position: absolute;
   top: 0;
   left: 0;
@@ -33,10 +37,10 @@ header p {
   -webkit-box-shadow: 0 1px 3px rgba(11, 194, 11, 0.2);
      -moz-box-shadow: 0 1px 3px rgba(11, 194, 11, 0.2);
           box-shadow: 0 1px 3px rgba(11, 194, 11, 0.2);
-  -webkit-transition: width 0.3s ease-out;
-     -moz-transition: width 0.3s ease-out;
-       -o-transition: width 0.3s ease-out;
-          transition: width 0.3s ease-out;
+  -webkit-transition: width 0.1s ease-out;
+     -moz-transition: width 0.1s ease-out;
+       -o-transition: width 0.1s ease-out;
+          transition: width 0.1s ease-out;
 }
 
 /**
@@ -56,7 +60,7 @@ header p {
  */
 .tiles-wrap {
   position: relative; /** Needed to ensure items are laid out relative to this container **/
-  margin: 0;
+  margin: 10px 0;
   padding: 0;
   list-style-type: none;
   display: none;
@@ -69,6 +73,7 @@ header p {
 .tiles-wrap li {
   display: block;
   opacity: 1;
+  text-align: center;
   list-style-type: none;
   background-color: #fff;
   float: left;
@@ -82,6 +87,8 @@ header p {
   -webkit-border-radius: 2px;
      -moz-border-radius: 2px;
           border-radius: 2px;
+}
+.tiles-wrap.animated li {
   -webkit-transition: all 0.3s ease-out;
      -moz-transition: all 0.3s ease-out;
        -o-transition: all 0.3s ease-out;
@@ -102,16 +109,27 @@ header p {
 }
 
 .tiles-wrap a {
-  padding: 5px 8px;
   color: #555;
   text-align: center;
-  display: table-cell;
-  vertical-align: middle;
+  /* display: table-cell; */
   width: 200px;
   height: 200px;
   font-size: 2em;
   font-weight: bold;
   text-decoration: none;
+}
+
+.tile-loading:after {
+  display: block;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background-color: #ddd;
+  content: "Loading\2026";
+  padding-top: 20px;
+  color: #999;
 }
 
 /**

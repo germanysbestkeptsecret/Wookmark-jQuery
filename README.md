@@ -1,8 +1,8 @@
 [![Stories in Ready](https://badge.waffle.io/gbks/wookmark-jquery.png?label=ready&title=Ready)](https://waffle.io/gbks/wookmark-jquery)
-jQuery Wookmark
-===============
+Wookmark
+========
 
-This is a [jQuery](http://www.jquery.com) plugin for laying out a dynamic grid of elements.
+This is a plugin for laying out a dynamic grid of elements.
 
 See the [documentation page](http://www.wookmark.com/jquery-plugin) for examples.
 
@@ -11,34 +11,43 @@ by their respective owners and only included for showcasing plugin functionality
 
 
 Do you like this project?
-[Buy me a beer](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=TSN2TDYNKZHF4)
+[Buy us a beer](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=TSN2TDYNKZHF4)
 
 Installation
 ------------
 
-### Prequisites
+### Install with bower
 
- * [jQuery](http://www.jquery.com) - 1.4.3 or better
+    bower install wookmark-jquery
+
+### jQuery is optional and is used in some of the examples to simplify the code a bit
+
+ * [jQuery](http://www.jquery.com) - 1.5.3 or better
 
 ### Required files
 
-Copy `jquery.wookmark.js` to your javascript folder.
+Copy `wookmark.js` or the minified version `wookmark.min.js` to your javascript folder.
+There are some styles for `tiles-wrap` in `css/main.css` you might want to use.
 
 
 Usage
 -----
 
-The plugin can be called with jQuery in different ways.
+The plugin can be intialized in different ways. `options` are optional.
 
-### Standard call with default settings:
+### Default without jQuery
 
-    $('.myElements').wookmark();
+    var wookmark = new Wookmark('#myElementContainer'[, options ]);
 
-Where `myElement` is the class of the items you want to lay out in a grid.
+### jQuery call with default settings:
+
+    $('#myElementContainer').wookmark(options);
+
+Where `myElementContainer` is the class or id of the element or elements wrapping your tiles. A Wookmark instance will be created for each element.
 
 ### Options
 
-    $('.myElements').wookmark({
+    {
       align: 'center',
       autoResize: false,
       comparator: null,
@@ -54,14 +63,16 @@ Where `myElement` is the class of the items you want to lay out in a grid.
       possibleFilters: [],
       resizeDelay: 50,
       verticalOffset: undefined
-    });
+    }
 
 See the [documentation page](http://www.wookmark.com/jquery-plugin) for details on available options.
 
 #### itemWidth and flexibleWidth
 
 These values can be given as numbers which will be interpreted as pixels or you can use percentage strings like '20%'.
-When `flexibleWidth` is set an `itemWidth` != 0 is used as minimum item width. As example using a `flexibleWidth` of 40% will result in two columns with 10% space to the sides of the container.
+You can also provide a function which should return either a number or a percentage string.
+When `flexibleWidth` is set and `itemWidth` is not 0 `itemWidth` used as minimum item width. 
+As example using a `flexibleWidth` of 40% will result in two columns with 10% space to the sides of the container.
 
 #### offset, outerOffset and verticalOffset
 
@@ -83,16 +94,20 @@ You can use this option to provide a custom comparator function which the plugin
 
 ### Refresh trigger
 
-Elements which are hidden have cannot be laid out until they are visible. If you use wookmark on a hidden tab layout will not be immediately performed. When the tab is made visible you can manually refresh wookmark using a trigger on your container.
+Elements which are hidden have cannot be laid out until they are visible. If you use wookmark on a hidden tab layout will not be immediately performed. When the tab is made visible you can manually refresh Wookmark using a trigger on your container.
 
-    $('#myContent').trigger('refreshWookmark');
+    wookmark.layout(true);
+
+or
+
+    $('#myElementContainer').trigger('refreshWookmark');
 
 ### Filter
 
 You can filter all items of the handler when they have filters specified. See `example-filter` for details how to do this.
 The call to filter will also return the resulting list of items.
 
-    handler.wookmarkInstance.filter([filters=[]][,mode='or'][,dryRun=false]);
+    wookmark.filter([filters=[]][,mode='or'][,dryRun=false]);
 
 If you just want to check if there would be a resulting list of items you can call filter with the `dryRun` option set to `true`.
 
@@ -109,7 +124,7 @@ The grid layout can be performed as soon as the document is rendered, BEFORE ima
 In this example, the width and height of the images is not known. Via Paul Irish's imagesLoaded plugin (slightly
 modified by desandro). The grid layout is performed after all images are loaded and their dimensions can be
 retrieved. This approach is much slower. The imagesLoaded plugin can also be found on github right here:
-https://gist.github.com/797120
+https://github.com/desandro/imagesloaded
 
 ### example-amd
 

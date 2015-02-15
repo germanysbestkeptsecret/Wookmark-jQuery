@@ -1,14 +1,11 @@
 <!doctype html>
-<!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en"> <![endif]-->
-<!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en"> <![endif]-->
-<!--[if IE 8]>    <html class="no-js ie8 oldie" lang="en"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
   <title>jQuery Wookmark Plug-in Example</title>
-  <meta name="description" content="An very basic example of how to use the Wookmark jQuery plug-in.">
+  <meta name="description" content="An example how to setup Wookmark with placeholders">
   <meta name="author" content="Christoph Ono, Sebastian Helzle">
 
   <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -23,14 +20,16 @@
 
 <body>
 
-  <div id="container">
+  <div >
     <header>
       <h1>jQuery Wookmark Plug-in Example</h1>
       <p>Resize the browser window or click a grid item to trigger layout updates.</p>
+      <br>
+      <p><a href="../index.html">Back to overview</a></p>
     </header>
-    <div id="main" role="main">
+    <div role="main">
 
-      <ul id="tiles">
+      <ul id="container" class="tiles-wrap animated">
         <!-- These are our grid blocks -->
         <li><img src="../sample-images/image_1.jpg" width="200" height="283"><p>1</p></li>
         <li><img src="../sample-images/image_2.jpg" width="200" height="300"><p>2</p></li>
@@ -75,28 +74,19 @@
   <script src="../libs/jquery.imagesloaded.js"></script>
 
   <!-- Include the plug-in -->
-  <script src="../jquery.wookmark.js"></script>
+  <script src="../wookmark.js"></script>
 
   <!-- Once the page is loaded, initalize the plug-in. -->
   <script type="text/javascript">
-    (function ($){
-      $('#tiles').imagesLoaded(function() {
-        // Prepare layout options.
-        var options = {
-          autoResize: true, // This will auto-update the layout when the browser window is resized.
-          container: $('#main'), // Optional, used for some extra CSS styling
+    (function () {
+      imagesLoaded('#container', function () {
+        var wookmark = new Wookmark('#container', {
           offset: 2, // Optional, the distance between grid items
           itemWidth: 210, // Optional, the width of a grid item
           fillEmptySpace: true // Optional, fill the bottom of each column with widths of flexible height
-        };
-
-        // Get a reference to your grid items.
-        var handler = $('#tiles li');
-
-        // Call the layout function.
-        handler.wookmark(options);
+        });
       });
-    })(jQuery);
+    })();
   </script>
 
 </body>

@@ -38,13 +38,13 @@
 
   <div>
     <header>
-      <h1>Wookmark Plug-in Example</h1>
+      <h1>Wookmark Flexible Example</h1>
       <p>
         Flexible: columns resize to fill the container without exceeding a maximum width.
+        Currently you cannot use this mode with CSS position transitions.
       </p>
-      <p>
-        This example only uses jQuery to watch the resize event of the browser window.
-      </p>
+      <br>
+      <p><a href="../index.html">Back to overview</a></p>
     </header>
 
     <div role="main">
@@ -85,9 +85,6 @@
     </div>
   </div>
 
-  <!-- include jQuery -->
-  <script src="../libs/jquery.min.js"></script>
-
   <!-- Include the imagesLoaded plug-in -->
   <script src="../libs/jquery.imagesloaded.js"></script>
 
@@ -96,8 +93,10 @@
 
   <!-- Once the page is loaded, initalize the plug-in. -->
   <script type="text/javascript">
-    (function($) {
-      var $window = $(window);
+    (function() {
+      function getWindowWidth() {
+        return Math.max(document.documentElement.clientWidth, window.innerWidth || 0)
+      }
 
       // Instantiate wookmark after all images have been loaded
       var wookmark;
@@ -105,17 +104,13 @@
         wookmark = new Wookmark('#container', {
           itemWidth: 300, // Optional min width of a grid item
           outerOffset: 20, // Optional the distance from grid to parent
-          flexibleWidth: '50%' // Optional, the maximum width of a grid item
+          flexibleWidth: function () {
+            // Return a maximum width depending on the viewport
+            return getWindowWidth() < 1024 ? '100%' : '50%';
+          }
         });
       });
-
-      Change the maximum flexible width at a breakpoint
-      $window.resize(function() {
-        wookmark.updateOptions({
-          flexibleWidth: $window.width() < 1024 ? '100%' : '50%'
-        });
-      });
-    })(jQuery);
+    })();
   </script>
 
 </body>

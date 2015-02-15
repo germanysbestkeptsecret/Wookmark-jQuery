@@ -5,7 +5,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
   <title>jQuery Wookmark Plug-in Example</title>
-  <meta name="description" content="An very basic example of how to use the Wookmark jQuery plug-in.">
+  <meta name="description" content="An example how to achieve a endless scroll effect with Wookmark">
   <meta name="author" content="Christoph Ono, Sebastian Helzle">
 
   <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -20,14 +20,15 @@
 
 <body>
 
-  <div id="container">
+  <div>
     <header>
-      <h1>jQuery Wookmark Plug-in Example</h1>
+      <h1>Wookmark Endless Scroll Example</h1>
       <p>Scroll down to see the infinite scroll effect.</p>
+      <p><a href="../index.html">Back to overview</a></p>
     </header>
-    <div id="main" role="main">
 
-      <ul id="tiles">
+    <div role="main">
+      <ul id="container" class="tiles-wrap animated">
         <!-- These are our grid blocks -->
         <li><img src="../sample-images/image_1.jpg" width="200" height="283"><p>1</p></li>
         <li><img src="../sample-images/image_2.jpg" width="200" height="300"><p>2</p></li>
@@ -63,9 +64,6 @@
       </ul>
 
     </div>
-    <footer>
-
-    </footer>
   </div>
 
   <!-- include jQuery -->
@@ -75,38 +73,24 @@
   <script src="../libs/jquery.imagesloaded.js"></script>
 
   <!-- Include the plug-in -->
-  <script src="../jquery.wookmark.js"></script>
+  <script src="../wookmark.js"></script>
 
   <!-- Once the page is loaded, initalize the plug-in. -->
   <script type="text/javascript">
-    (function ($){
-      var $tiles = $('#tiles'),
-          $handler = $('li', $tiles),
-          $main = $('#main'),
+    (function ($) {
+      // Instantiate wookmark after all images have been loaded
+      var wookmark,
+          container = '#container',
+          $container = $(container),
           $window = $(window),
-          $document = $(document),
-          options = {
-            autoResize: true, // This will auto-update the layout when the browser window is resized.
-            container: $main, // Optional, used for some extra CSS styling
-            offset: 20, // Optional, the distance between grid items
-            itemWidth: 210 // Optional, the width of a grid item
-          };
+          $document = $(document);
 
-      /**
-       * Reinitializes the wookmark handler after all images have loaded
-       */
-      function applyLayout() {
-        $tiles.imagesLoaded(function() {
-          // Destroy the old handler
-          if ($handler.wookmarkInstance) {
-            $handler.wookmarkInstance.clear();
-          }
-
-          // Create a new layout handler.
-          $handler = $('li', $tiles);
-          $handler.wookmark(options);
+      imagesLoaded(container, function () {
+        wookmark = new Wookmark(container, {
+          offset: 20, // Optional, the distance between grid items
+          itemWidth: 210 // Optional, the width of a grid item
         });
-      }
+      });
 
       /**
        * When scrolled all the way to the bottom, add more tiles
@@ -118,16 +102,19 @@
 
         if (closeToBottom) {
           // Get the first then items from the grid, clone them, and add them to the bottom of the grid
-          var $items = $('li', $tiles),
-              $firstTen = $items.slice(0, 10);
-          $tiles.append($firstTen.clone());
+          var $items = $('li', $container),
+              $firstTen = $items.slice(0, 10).clone().css('opacity', 0);
+          $container.append($firstTen);
 
-          applyLayout();
+          wookmark.initItems();
+          wookmark.layout(true, function () {
+            // Fade in items after layout
+            setTimeout(function() {
+              $firstTen.css('opacity', 1);
+            }, 300);
+          });
         }
       };
-
-      // Call the layout function for the first time
-      applyLayout();
 
       // Capture scroll event.
       $window.bind('scroll.wookmark', onScroll);
