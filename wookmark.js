@@ -752,7 +752,7 @@
         if (!this.wookmarkInstance) {
           this.wookmarkInstance = new Wookmark(this[0], options || {});
         } else {
-          this.wookmarkInstance.update(options || {});
+          this.wookmarkInstance.updateOptions(options || {});
         }
       }
       return this;
