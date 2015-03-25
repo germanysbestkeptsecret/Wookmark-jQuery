@@ -257,7 +257,7 @@
       while (i--) {
         child = children[i];
         // Skip comment nodes on IE8
-        if (child.nodeType !== 8) {
+        if (child.nodeType !== 8) {
           // Show item
           child.style.display = '';
           setData(child, 'id', i);
@@ -313,7 +313,7 @@
   Wookmark.prototype.updateOptions = function (options) {
     var key;
     this.itemHeightsDirty = true;
-    options = options || {};
+    options = options || {};
 
     // Overwrite non existing instance variables with the ones from options or the defaults
     for (key in defaultOptions) {
