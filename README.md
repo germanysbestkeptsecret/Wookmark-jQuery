@@ -13,6 +13,16 @@ by their respective owners and only included for showcasing plugin functionality
 Do you like this project?
 [Buy us a beer](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=TSN2TDYNKZHF4)
 
+How to make the examples work
+=============================
+
+First download or clone this repository.
+Because we use the `bower` package manager for `jQuery` and other libraries you currently have to
+to install `bower` [first](http://bower.io).
+After that you can run `bower install` and all necessary libraries for the examples will be installed.
+
+We will provide a special download in the future which contains all necessary packages.
+
 Upgrading to version 2.0
 ========================
 
