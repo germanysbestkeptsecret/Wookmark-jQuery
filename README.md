@@ -13,6 +13,9 @@ by their respective owners and only included for showcasing plugin functionality
 Do you like this project?
 [Buy us a beer](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=TSN2TDYNKZHF4)
 
+This project is kindly supported by
+[![Browserstack](assets/browserstack.png)](https://www.browserstack.com)
+
 How to make the examples work
 =============================
 
