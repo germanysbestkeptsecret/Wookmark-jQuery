@@ -11,8 +11,10 @@
     ".git",
     "example*",
     "sample-images",
+    "assets",
     "Gruntfile.coffee",
-    "index.html"
+    "index.html",
+    "CNAME"
   ],
   "dependencies": {
     "jquery": "~1.11",

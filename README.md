@@ -1,4 +1,6 @@
 [![Stories in Ready](https://badge.waffle.io/gbks/wookmark-jquery.png?label=ready&title=Ready)](https://waffle.io/gbks/wookmark-jquery)
+[![Read the docs](https://readthedocs.org/projects/wookmark/badge/)](http://wookmark.readthedocs.org/en/latest/)
+
 Wookmark
 ========
 
@@ -94,7 +96,7 @@ See the [documentation page](http://www.wookmark.com/jquery-plugin) for details 
 
 These values can be given as numbers which will be interpreted as pixels or you can use percentage strings like '20%'.
 You can also provide a function which should return either a number or a percentage string.
-When `flexibleWidth` is set and `itemWidth` is not 0 `itemWidth` used as minimum item width. 
+When `flexibleWidth` is set and `itemWidth` is not 0 `itemWidth` used as minimum item width.
 As example using a `flexibleWidth` of 40% will result in two columns with 10% space to the sides of the container.
 
 #### offset, outerOffset and verticalOffset
