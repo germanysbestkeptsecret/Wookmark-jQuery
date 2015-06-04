@@ -5,3 +5,4 @@ node_modules
 /wookmark.jquery.sublime-workspace
 .sublime-grunt.cache
 bower_components
+doc/_build

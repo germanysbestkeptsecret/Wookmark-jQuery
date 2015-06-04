@@ -14,7 +14,8 @@
     "assets",
     "Gruntfile.coffee",
     "index.html",
-    "CNAME"
+    "CNAME",
+    "doc"
   ],
   "dependencies": {
     "jquery": "~1.11",

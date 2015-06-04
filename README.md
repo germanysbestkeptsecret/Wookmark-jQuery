@@ -28,6 +28,14 @@ After that you can run `bower install` and all necessary libraries for the examp
 
 We will provide a special download in the future which contains all necessary packages.
 
+Further documentation
+=====================
+
+We are currently creating a new and better documentation at [readthedocs](http://wookmark.readthedocs.org/en/latest/).
+Its automatically created by the sources in the `doc` directory.
+
+The documentation can be rendered locally by installing `sphinx` and `sphinx-autobuild` and running `sphinx-autobuild . _build` in the `doc` directory.
+
 Upgrading to version 2.0
 ========================
 
