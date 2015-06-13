@@ -1,5 +1,6 @@
 [![Stories in Ready](https://badge.waffle.io/gbks/wookmark-jquery.png?label=ready&title=Ready)](https://waffle.io/gbks/wookmark-jquery)
 [![Read the docs](https://readthedocs.org/projects/wookmark/badge/)](http://wookmark.readthedocs.org/en/latest/)
+[![Build Status](https://travis-ci.org/germanysbestkeptsecret/Wookmark-jQuery.svg)](https://travis-ci.org/germanysbestkeptsecret/Wookmark-jQuery)
 
 Wookmark
 ========

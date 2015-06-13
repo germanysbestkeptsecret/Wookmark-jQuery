@@ -5,6 +5,7 @@
   "license": "MIT",
   "ignore": [
     ".jshintrc",
+    ".travis.yml",
     "**/*.txt",
     ".gitignore",
     ".git",
