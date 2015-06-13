@@ -2,10 +2,22 @@
   "name": "wookmark",
   "version": "2.0.0",
   "repository": "https://github.com/germanysbestkeptsecret/Wookmark-jQuery.git",
+  "description": "Javascript plugin for laying out elements of varying heights in a column-based grid. It also contains support for filtering and sorting items. A lot of examples are included showing how to use all the available options.",
+  "keywords": ["grid", "ui"],
+  "license": "MIT",
+  "bugs": "https://github.com/germanysbestkeptsecret/Wookmark-jQuery/issues",
+  "homepage": "http://plugin.wookmark.com",
+  "author": "Christoph Ono <chri@sto.ph>",
+  "contributors": [
+    {
+      "name": "Sebastian Helzle",
+      "email": "sebastian@helzle.it"
+    }
+  ],
   "devDependencies": {
     "grunt": "~0.4.5",
     "grunt-contrib-jshint": "~0.10.0",
     "grunt-contrib-uglify": "~0.5.1",
-    "grunt-docco": "~0.6.3"
+    "grunt-docco": "~0.3.3"
   }
 }

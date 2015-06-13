@@ -1,8 +1,10 @@
 {
-  "name": "GBKS/Wookmark-jQuery",
+  "name": "wookmark",
   "main": "wookmark.js",
-  "description": "jQuery plugin for laying out elements of varying heights in a column-based grid. It also contains support for filtering and sorting items. A lot of examples are included showing how to use all the available options.",
+  "description": "Javascript plugin for laying out elements of varying heights in a column-based grid. It also contains support for filtering and sorting items. A lot of examples are included showing how to use all the available options.",
+  "keywords": ["grid", "ui"],
   "license": "MIT",
+  "bugs": "https://github.com/germanysbestkeptsecret/Wookmark-jQuery/issues",
   "ignore": [
     ".jshintrc",
     ".travis.yml",
@@ -23,5 +25,17 @@
     "normalize.css": "~3.0.2",
     "magnific-popup": "~1.0.0",
     "requirejs": "~2.1.16"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/germanysbestkeptsecret/Wookmark-jQuery.git"
+  },
+  "author": "Christoph Ono <chri@sto.ph>",
+  "contributors": [
+    {
+      "name": "Sebastian Helzle",
+      "email": "sebastian@helzle.it"
+    }
+  ],
+  "main": "wookmark.js"
 }
