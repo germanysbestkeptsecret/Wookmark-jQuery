@@ -3,8 +3,8 @@
   @name wookmark.js
   @author Christoph Ono (chri@sto.ph or @gbks)
   @author Sebastian Helzle (sebastian@helzle.net or @sebobo)
-  @version 2.0.0
-  @date 02/15/2015
+  @version 2.0.1
+  @date 06/16/2015
   @category jQuery plugin
   @copyright (c) 2009-2015 Christoph Ono (www.wookmark.com)
   @license Licensed under the MIT (http://www.opensource.org/licenses/mit-license.php) license.

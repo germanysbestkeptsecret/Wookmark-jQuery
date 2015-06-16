@@ -1,5 +1,20 @@
 # Changes
 
+## 2.0.1
+
+* CHG: !!! We start to rename the plugin to `wookmark` instead of `wookmark-jquery`. Also the repository moved to https://github.com/germanysbestkeptsecret/Wookmark-jQuery.
+* CHG: Cleanup of package files, readme, plugin name
+* FIX: Correct filename in `main` property in bower.json
+* FIX: Error when creating more than one grid with jQuery
+* FIX: Use proper update function. Patch by Raik Osiablo. Thanks!
+* FIX: Replaced some strange unicode characters by spaces. Patch by weberho. Thanks!
+* FIX: Remove active filters on click again in filter example. Patch by Patrick Ludewig. Thanks!
+* FIX: Remove moot `version` property from bower.json. Patch by Kevin Kirsche. Thanks!
+* ADD: Basic rtfd.org integration to render documentation
+* ADD: Basic travis-ci integration to show build results
+* ADD: Gitter integration to create a community space
+* ADD: Inital browserstack integration for cross browser testing
+
 ## 2.0.0
 
 * CHG: !!! Rewrite of plugin to work without jQuery
