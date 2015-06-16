@@ -9,7 +9,7 @@ module.exports = (grunt) ->
     pkg: grunt.file.readJSON 'wookmark.jquery.json'
     meta:
       banner: '/*!\n' +
-        'jQuery <%= pkg.name %> plugin\n' +
+        '<%= pkg.name %> plugin\n' +
         '@name <%= pkg.name %>.js\n' +
         '@author Christoph Ono (chri@sto.ph or @gbks)\n' +
         '@author Sebastian Helzle (sebastian@helzle.net or @sebobo)\n' +

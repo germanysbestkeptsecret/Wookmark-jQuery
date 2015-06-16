@@ -1,5 +1,5 @@
 /*!
-  jQuery Wookmark plugin
+  Wookmark plugin
   @name wookmark.js
   @author Christoph Ono (chri@sto.ph or @gbks)
   @author Sebastian Helzle (sebastian@helzle.net or @sebobo)
