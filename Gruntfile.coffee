@@ -6,7 +6,7 @@ module.exports = (grunt) ->
 
   # Project configuration.
   grunt.initConfig
-    pkg: grunt.file.readJSON 'wookmark.jquery.json'
+    pkg: grunt.file.readJSON 'package.json'
     meta:
       banner: '/*!\n' +
         '<%= pkg.name %> plugin\n' +
