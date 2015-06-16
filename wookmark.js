@@ -745,7 +745,7 @@
       // Call plugin multiple times if there are multiple elements selected
       if (i > 1) {
         while (i--) {
-          this[i].wookmark(options);
+          $(this).eq(i).wookmark(options);
         }
       } else if (i === 1) {
         // Create a wookmark instance or update an existing one
