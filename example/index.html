@@ -24,11 +24,14 @@
     <header>
       <h1>Wookmark Simple Example</h1>
       <p>Resize the browser window or click a grid item to trigger layout updates.</p>
+      <p>
+        The example contains two grids to show that they both work on their own but are instantiated with a single call.
+      </p>
       <p><a href="../index.html">Back to overview</a></p>
     </header>
     <div role="main">
 
-      <ul id="container" class="tiles-wrap animated">
+      <ul class="tiles-wrap animated">
         <!-- These are our grid blocks -->
         <li><img src="../sample-images/image_1.jpg" width="200" height="283"><p>1</p></li>
         <li><img src="../sample-images/image_2.jpg" width="200" height="300"><p>2</p></li>
@@ -45,6 +48,11 @@
         <li><img src="../sample-images/image_3.jpg" width="200" height="252"><p>13</p></li>
         <li><img src="../sample-images/image_4.jpg" width="200" height="158"><p>14</p></li>
         <li><img src="../sample-images/image_5.jpg" width="200" height="300"><p>15</p></li>
+      </ul>
+
+      <hr>
+
+      <ul class="tiles-wrap animated">
         <li><img src="../sample-images/image_6.jpg" width="200" height="297"><p>16</p></li>
         <li><img src="../sample-images/image_7.jpg" width="200" height="200"><p>17</p></li>
         <li><img src="../sample-images/image_8.jpg" width="200" height="200"><p>18</p></li>
@@ -75,7 +83,7 @@
   <!-- Once the page is loaded, initalize the plug-in. -->
   <script type="text/javascript">
     (function ($){
-      var wookmark = new Wookmark('#container', {
+      var wookmark = $('.tiles-wrap').wookmark({
           // Prepare layout options.
           autoResize: true, // This will auto-update the layout when the browser window is resized.
           container: $('#main'), // Optional, used for some extra CSS styling
