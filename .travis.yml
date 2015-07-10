@@ -1,6 +1,19 @@
 language: node_js
 node_js:
-  - "0.12"
-before_install: npm install -g grunt-cli
+- '0.12'
 install: npm install
-before_script: grunt
+deploy:
+  provider: releases
+  api_key:
+    secure: bCq+5wTixeoM2IwmDHcAvTfWMeiAdsO5DeeQExSQ42ZcXZJOo82qu5BJOl8dWOcp/ZHkiULEuS0z3n2GV/JM000L5iZd5wonwTYVhDyXcva1J1/AjRXPFkm/NBxbitVddEKvmsuUu1w+w8C1gwSFbkKqOqnCYS/GB+kOyuSoX+k=
+  file:
+    - "index.html"
+    - "example-*/"
+    - "assets/"
+    - "doc/"
+    - "css/"
+    - "sample-images/"
+    - "vendor/"
+    - "bower_components/"
+  on:
+    repo: germanysbestkeptsecret/Wookmark-jQuery
