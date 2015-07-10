@@ -18,6 +18,7 @@
     }
   ],
   "devDependencies": {
+    "bower": "~1.4.1",
     "grunt": "~0.4.5",
     "grunt-cli": "~0.1.13",
     "grunt-contrib-jshint": "~0.10.0",
@@ -25,6 +26,6 @@
     "grunt-docco": "~0.3.3"
   },
   "scripts": {
-    "postinstall": "bower cache clean && bower install && grunt"
+    "postinstall": "node_modules/.bin/bower cache clean && node_modules/.bin/bower install && node_modules/.bin/grunt"
   }
 }
