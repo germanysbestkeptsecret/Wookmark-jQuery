@@ -1,19 +1,9 @@
 language: node_js
 node_js:
 - '0.12'
-install: npm install
-deploy:
-  provider: releases
-  api_key:
-    secure: bCq+5wTixeoM2IwmDHcAvTfWMeiAdsO5DeeQExSQ42ZcXZJOo82qu5BJOl8dWOcp/ZHkiULEuS0z3n2GV/JM000L5iZd5wonwTYVhDyXcva1J1/AjRXPFkm/NBxbitVddEKvmsuUu1w+w8C1gwSFbkKqOqnCYS/GB+kOyuSoX+k=
-  file:
-    - "index.html"
-    - "example-*/"
-    - "assets/"
-    - "doc/"
-    - "css/"
-    - "sample-images/"
-    - "vendor/"
-    - "bower_components/"
-  on:
-    repo: germanysbestkeptsecret/Wookmark-jQuery
+env:
+  global:
+  - secure: "Cg+r3iiCOSrghMNfcvFaZBbK0ZLT9mbIlVEYr7cW7P/PjWr3hid51hkEzJcoHxbB/UAqWGh09IBmfmFh4XN9iySj8LyUeFqI/ner9JDQYSnm+dWtxU9TZgA8MRXL4k+/fRYWmUnwOJB211F+fsevfGuKCbqQcl0axBiI+xTsfpQ="
+install: 'npm install'
+after_success:
+  - 'grunt deploy'

@@ -6,3 +6,4 @@ node_modules
 .sublime-grunt.cache
 bower_components
 doc/_build
+.grunt
