@@ -1,1 +1,0 @@
-Search.setIndex({envversion:46,filenames:["index"],objects:{},objnames:{},objtypes:{},terms:{back:0,come:0,construct:0,content:0,index:0,modul:0,page:0,search:0,soon:0,thi:0,under:0},titles:["Welcome to Wookmark&#8217;s documentation!"],titleterms:{document:0,indic:0,tabl:0,welcom:0,wookmark:0}})

@@ -43,13 +43,13 @@
 */</span>
 <span class="hljs-comment">/*global define, window, jQuery*/</span>
 <span class="hljs-comment">/*jslint plusplus: true, bitwise: true */</span>
-(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(factory)</span> </span>{
+(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">factory</span>) </span>{
   <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> define === <span class="hljs-string">'function'</span> &amp;&amp; define.amd) {
     define([<span class="hljs-string">'window'</span>, <span class="hljs-string">'document'</span>], factory);
   } <span class="hljs-keyword">else</span> {
     factory(<span class="hljs-built_in">window</span>, <span class="hljs-built_in">document</span>);
   }
-}(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(window, document)</span> </span>{</pre></div></div>
+}(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">window, document</span>) </span>{</pre></div></div>
             
         </li>
         
@@ -134,8 +134,8 @@
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__bind</span><span class="hljs-params">(fn, me)</span> </span>{
-    <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__bind</span>(<span class="hljs-params">fn, me</span>) </span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
       <span class="hljs-keyword">return</span> fn.apply(me, <span class="hljs-built_in">arguments</span>);
     };
   }</pre></div></div>
@@ -153,7 +153,7 @@
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">var</span> executeNextFrame = <span class="hljs-built_in">window</span>.requestAnimationFrame || <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(callback)</span> </span>{ callback(); };</pre></div></div>
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">var</span> executeNextFrame = <span class="hljs-built_in">window</span>.requestAnimationFrame || <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">callback</span>) </span>{ callback(); };</pre></div></div>
             
         </li>
         
@@ -168,7 +168,7 @@
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">setCSS</span><span class="hljs-params">(el, properties)</span> </span>{
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">setCSS</span>(<span class="hljs-params">el, properties</span>) </span>{
     <span class="hljs-keyword">var</span> key;
     <span class="hljs-keyword">for</span> (key <span class="hljs-keyword">in</span> properties) {
       <span class="hljs-keyword">if</span> (properties.hasOwnProperty(key)) {
@@ -193,8 +193,8 @@ with the element and the desired css properties.</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">bulkUpdateCSS</span><span class="hljs-params">(data)</span> </span>{
-    executeNextFrame(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">bulkUpdateCSS</span>(<span class="hljs-params">data</span>) </span>{
+    executeNextFrame(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
       <span class="hljs-keyword">var</span> i, item;
       <span class="hljs-keyword">for</span> (i = <span class="hljs-number">0</span>; i &lt; data.length; i++) {
         item = data[i];
@@ -216,7 +216,7 @@ with the element and the desired css properties.</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">cleanFilterName</span><span class="hljs-params">(filterName)</span> </span>{
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">cleanFilterName</span>(<span class="hljs-params">filterName</span>) </span>{
     <span class="hljs-keyword">return</span> filterName.replace(<span class="hljs-regexp">/^\s+|\s+$/g</span>, <span class="hljs-string">''</span>).toLowerCase();
   }</pre></div></div>
             
@@ -233,7 +233,7 @@ with the element and the desired css properties.</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">removeEventListener</span><span class="hljs-params">(el, eventName, handler)</span> </span>{
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">removeEventListener</span>(<span class="hljs-params">el, eventName, handler</span>) </span>{
     <span class="hljs-keyword">if</span> (el.removeEventListener) {
       el.removeEventListener(eventName, handler);
     } <span class="hljs-keyword">else</span> {
@@ -254,12 +254,12 @@ with the element and the desired css properties.</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">addEventListener</span><span class="hljs-params">(el, eventName, handler)</span> </span>{
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">addEventListener</span>(<span class="hljs-params">el, eventName, handler</span>) </span>{
     removeEventListener(el, eventName, handler);
     <span class="hljs-keyword">if</span> (el.addEventListener) {
       el.addEventListener(eventName, handler);
     } <span class="hljs-keyword">else</span> {
-      el.attachEvent(<span class="hljs-string">'on'</span> + eventName, <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+      el.attachEvent(<span class="hljs-string">'on'</span> + eventName, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
         handler.call(el);
       });
     }
@@ -278,7 +278,7 @@ with the element and the desired css properties.</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isHidden</span><span class="hljs-params">(el)</span> </span>{
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isHidden</span>(<span class="hljs-params">el</span>) </span>{
     <span class="hljs-keyword">return</span> el.offsetParent === <span class="hljs-literal">null</span>;
   }</pre></div></div>
             
@@ -295,7 +295,7 @@ with the element and the desired css properties.</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getHeight</span><span class="hljs-params">(el)</span> </span>{
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getHeight</span>(<span class="hljs-params">el</span>) </span>{
     <span class="hljs-keyword">return</span> el.offsetHeight;
   }</pre></div></div>
             
@@ -312,7 +312,7 @@ with the element and the desired css properties.</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getWidth</span><span class="hljs-params">(el)</span> </span>{
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getWidth</span>(<span class="hljs-params">el</span>) </span>{
     <span class="hljs-keyword">return</span> el.offsetWidth;
   }</pre></div></div>
             
@@ -329,7 +329,7 @@ with the element and the desired css properties.</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">hasClass</span><span class="hljs-params">(el, className)</span> </span>{
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">hasClass</span>(<span class="hljs-params">el, className</span>) </span>{
     <span class="hljs-keyword">if</span> (el.classList) {
       <span class="hljs-keyword">return</span> el.classList.contains(className);
     }
@@ -349,7 +349,7 @@ with the element and the desired css properties.</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">addClass</span><span class="hljs-params">(el, className)</span> </span>{
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">addClass</span>(<span class="hljs-params">el, className</span>) </span>{
     <span class="hljs-keyword">if</span> (el.classList) {
       el.classList.add(className);
     } <span class="hljs-keyword">else</span> {
@@ -370,7 +370,7 @@ with the element and the desired css properties.</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">removeClass</span><span class="hljs-params">(el, className)</span> </span>{
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">removeClass</span>(<span class="hljs-params">el, className</span>) </span>{
     <span class="hljs-keyword">if</span> (el.classList) {
       el.classList.remove(className);
     } <span class="hljs-keyword">else</span> {
@@ -391,7 +391,7 @@ with the element and the desired css properties.</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getData</span><span class="hljs-params">(el, attr, isInt, prefix)</span> </span>{
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getData</span>(<span class="hljs-params">el, attr, isInt, prefix</span>) </span>{
     <span class="hljs-keyword">if</span> (prefix === <span class="hljs-literal">undefined</span>) {
       prefix = <span class="hljs-string">'wookmark-'</span>;
     }
@@ -415,7 +415,7 @@ with the element and the desired css properties.</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">setData</span><span class="hljs-params">(el, attr, val, prefix)</span> </span>{
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">setData</span>(<span class="hljs-params">el, attr, val, prefix</span>) </span>{
     <span class="hljs-keyword">if</span> (prefix === <span class="hljs-literal">undefined</span>) {
       prefix = <span class="hljs-string">'wookmark-'</span>;
     }
@@ -435,7 +435,7 @@ with the element and the desired css properties.</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">removeDuplicates</span><span class="hljs-params">(items)</span> </span>{
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">removeDuplicates</span>(<span class="hljs-params">items</span>) </span>{
     <span class="hljs-keyword">var</span> temp = {}, result = [], x, i = items.length;
     <span class="hljs-keyword">while</span> (i--) {
       x = getData(items[i], <span class="hljs-string">'id'</span>, <span class="hljs-literal">true</span>);
@@ -460,7 +460,7 @@ with the element and the desired css properties.</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getStyle</span><span class="hljs-params">(el, prop)</span> </span>{
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getStyle</span>(<span class="hljs-params">el, prop</span>) </span>{
     <span class="hljs-keyword">return</span> <span class="hljs-built_in">window</span>.getComputedStyle !== <span class="hljs-literal">undefined</span> ? <span class="hljs-built_in">window</span>.getComputedStyle(el, <span class="hljs-literal">null</span>).getPropertyValue(prop) : el.currentStyle[prop];
   }</pre></div></div>
             
@@ -477,7 +477,7 @@ with the element and the desired css properties.</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">indexOf</span><span class="hljs-params">(items, item)</span> </span>{
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">indexOf</span>(<span class="hljs-params">items, item</span>) </span>{
     <span class="hljs-keyword">var</span> len = items.length, i;
     <span class="hljs-keyword">for</span> (i = <span class="hljs-number">0</span>; i &lt; len; i++) {
       <span class="hljs-keyword">if</span> (items[i] === item) {
@@ -512,7 +512,7 @@ with the element and the desired css properties.</p>
               
             </div>
             
-            <div class="content"><div class='highlight'><pre>  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Wookmark</span><span class="hljs-params">(container, options)</span> </span>{
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Wookmark</span>(<span class="hljs-params">container, options</span>) </span>{
     options = options || {};
 
     <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> container === <span class="hljs-string">'string'</span>) {
@@ -660,7 +660,7 @@ with the element and the desired css properties.</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>  Wookmark.prototype.initItems = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{</pre></div></div>
+            <div class="content"><div class='highlight'><pre>  Wookmark.prototype.initItems = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{</pre></div></div>
             
         </li>
         
@@ -738,7 +738,7 @@ with the element and the desired css properties.</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>  Wookmark.prototype.updateFilterClasses = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{</pre></div></div>
+            <div class="content"><div class='highlight'><pre>  Wookmark.prototype.updateFilterClasses = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{</pre></div></div>
             
         </li>
         
@@ -809,7 +809,7 @@ with the element and the desired css properties.</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>  Wookmark.prototype.updateOptions = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(options)</span> </span>{
+            <div class="content"><div class='highlight'><pre>  Wookmark.prototype.updateOptions = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">options</span>) </span>{
     <span class="hljs-keyword">var</span> key;
     <span class="hljs-keyword">this</span>.itemHeightsDirty = <span class="hljs-literal">true</span>;
     options = options || {};</pre></div></div>
@@ -881,7 +881,7 @@ with the element and the desired css properties.</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>  Wookmark.prototype.onResize = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+            <div class="content"><div class='highlight'><pre>  Wookmark.prototype.onResize = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
     clearTimeout(<span class="hljs-keyword">this</span>.resizeTimer);
     <span class="hljs-keyword">this</span>.itemHeightsDirty = <span class="hljs-keyword">this</span>.flexibleWidth !== <span class="hljs-number">0</span>;
     <span class="hljs-keyword">this</span>.resizeTimer = setTimeout(<span class="hljs-keyword">this</span>.layout, <span class="hljs-keyword">this</span>.resizeDelay);
@@ -900,7 +900,7 @@ with the element and the desired css properties.</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>  Wookmark.prototype.onRefresh = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+            <div class="content"><div class='highlight'><pre>  Wookmark.prototype.onRefresh = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
     <span class="hljs-keyword">this</span>.itemHeightsDirty = <span class="hljs-literal">true</span>;
     <span class="hljs-keyword">this</span>.layout();
   };</pre></div></div>
@@ -920,7 +920,7 @@ with the element and the desired css properties.</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>  Wookmark.prototype.filter = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(filters, mode, dryRun)</span> </span>{
+            <div class="content"><div class='highlight'><pre>  Wookmark.prototype.filter = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">filters, mode, dryRun</span>) </span>{
     <span class="hljs-keyword">var</span> activeFilters = [], activeFiltersLength, activeItems = [],
       i, j, k, filter;
 
@@ -1164,7 +1164,7 @@ with the element and the desired css properties.</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>  Wookmark.prototype.refreshPlaceholders = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(columnWidth, sideOffset)</span> </span>{
+            <div class="content"><div class='highlight'><pre>  Wookmark.prototype.refreshPlaceholders = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">columnWidth, sideOffset</span>) </span>{
     <span class="hljs-keyword">var</span> i,
       containerHeight = getHeight(<span class="hljs-keyword">this</span>.container),
       columnsLength = <span class="hljs-keyword">this</span>.columns.length,
@@ -1249,7 +1249,7 @@ with the element and the desired css properties.</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>  Wookmark.prototype.getActiveItems = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+            <div class="content"><div class='highlight'><pre>  Wookmark.prototype.getActiveItems = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
     <span class="hljs-keyword">var</span> inactiveClass = <span class="hljs-keyword">this</span>.inactiveClass,
       i,
       result = [],
@@ -1280,7 +1280,7 @@ with the element and the desired css properties.</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>  Wookmark.prototype.getItemWidth = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+            <div class="content"><div class='highlight'><pre>  Wookmark.prototype.getItemWidth = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
     <span class="hljs-keyword">var</span> itemWidth = <span class="hljs-keyword">this</span>.itemWidth,
       innerWidth = getWidth(<span class="hljs-keyword">this</span>.container) - <span class="hljs-number">2</span> * <span class="hljs-keyword">this</span>.outerOffset,
       flexibleWidth = <span class="hljs-keyword">this</span>.flexibleWidth;
@@ -1355,7 +1355,7 @@ with the element and the desired css properties.</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>  Wookmark.prototype.layout = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(force, callback)</span> </span>{</pre></div></div>
+            <div class="content"><div class='highlight'><pre>  Wookmark.prototype.layout = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">force, callback</span>) </span>{</pre></div></div>
             
         </li>
         
@@ -1572,7 +1572,7 @@ with the element and the desired css properties.</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>  Wookmark.prototype.sortElements = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(elements)</span> </span>{
+            <div class="content"><div class='highlight'><pre>  Wookmark.prototype.sortElements = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">elements</span>) </span>{
     <span class="hljs-keyword">return</span> <span class="hljs-keyword">typeof</span> <span class="hljs-keyword">this</span>.comparator === <span class="hljs-string">'function'</span> ? elements.sort(<span class="hljs-keyword">this</span>.comparator) : elements;
   };</pre></div></div>
             
@@ -1589,7 +1589,7 @@ with the element and the desired css properties.</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>  Wookmark.prototype.layoutFull = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(columnWidth, columns, offset)</span> </span>{
+            <div class="content"><div class='highlight'><pre>  Wookmark.prototype.layoutFull = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">columnWidth, columns, offset</span>) </span>{
     <span class="hljs-keyword">var</span> item, k = <span class="hljs-number">0</span>, i = <span class="hljs-number">0</span>, activeItems, activeItemCount, shortest = <span class="hljs-literal">null</span>, shortestIndex = <span class="hljs-literal">null</span>,
       sideOffset, heights = [], itemBulkCSS = [], leftAligned = <span class="hljs-keyword">this</span>.align === <span class="hljs-string">'left'</span>;
 
@@ -1758,7 +1758,7 @@ existing column assignments.</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>  Wookmark.prototype.layoutColumns = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(columnWidth, offset)</span> </span>{
+            <div class="content"><div class='highlight'><pre>  Wookmark.prototype.layoutColumns = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">columnWidth, offset</span>) </span>{
     <span class="hljs-keyword">var</span> heights = [], itemBulkCSS = [], k = <span class="hljs-number">0</span>, j = <span class="hljs-number">0</span>,
       i = <span class="hljs-keyword">this</span>.columns.length, currentHeight,
       column, item, sideOffset;
@@ -1816,7 +1816,7 @@ existing column assignments.</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>  Wookmark.prototype.clear = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+            <div class="content"><div class='highlight'><pre>  Wookmark.prototype.clear = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
     clearTimeout(<span class="hljs-keyword">this</span>.resizeTimer);
     <span class="hljs-keyword">var</span> i = <span class="hljs-keyword">this</span>.placeholders.length;
     <span class="hljs-keyword">while</span> (i--) {
@@ -1840,7 +1840,7 @@ existing column assignments.</p>
             </div>
             
             <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">if</span> (<span class="hljs-built_in">window</span>.jQuery !== <span class="hljs-literal">undefined</span>) {
-    jQuery.fn.wookmark = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(options)</span> </span>{
+    jQuery.fn.wookmark = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">options</span>) </span>{
       <span class="hljs-keyword">var</span> i = <span class="hljs-keyword">this</span>.length;</pre></div></div>
             
         </li>
