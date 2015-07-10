@@ -1,8 +1,0 @@
-node_modules
-.project
-.DS_Store
-/wookmark.jquery.sublime-project
-/wookmark.jquery.sublime-workspace
-.sublime-grunt.cache
-bower_components
-doc/_build

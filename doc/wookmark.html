@@ -31,12 +31,12 @@
             </div>
             
             <div class="content"><div class='highlight'><pre><span class="hljs-comment">/*!
-  jQuery Wookmark plugin
+  Wookmark plugin
   @name wookmark.js
   @author Christoph Ono (chri@sto.ph or @gbks)
   @author Sebastian Helzle (sebastian@helzle.net or @sebobo)
-  @version 2.0.0
-  @date 02/15/2015
+  @version 2.0.1
+  @date 06/16/2015
   @category jQuery plugin
   @copyright (c) 2009-2015 Christoph Ono (www.wookmark.com)
   @license Licensed under the MIT (http://www.opensource.org/licenses/mit-license.php) license.
@@ -694,7 +694,7 @@ with the element and the desired css properties.</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        <span class="hljs-keyword">if</span> (child.nodeType !== <span class="hljs-number">8</span>) {</pre></div></div>
+            <div class="content"><div class='highlight'><pre>        <span class="hljs-keyword">if</span> (child.nodeType !== <span class="hljs-number">8</span>) {</pre></div></div>
             
         </li>
         
@@ -812,7 +812,7 @@ with the element and the desired css properties.</p>
             <div class="content"><div class='highlight'><pre>  Wookmark.prototype.updateOptions = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(options)</span> </span>{
     <span class="hljs-keyword">var</span> key;
     <span class="hljs-keyword">this</span>.itemHeightsDirty = <span class="hljs-literal">true</span>;
-    options = options || {};</pre></div></div>
+    options = options || {};</pre></div></div>
             
         </li>
         
@@ -1875,7 +1875,7 @@ existing column assignments.</p>
             
             <div class="content"><div class='highlight'><pre>      <span class="hljs-keyword">if</span> (i &gt; <span class="hljs-number">1</span>) {
         <span class="hljs-keyword">while</span> (i--) {
-          <span class="hljs-keyword">this</span>[i].wookmark(options);
+          $(<span class="hljs-keyword">this</span>).eq(i).wookmark(options);
         }
       } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (i === <span class="hljs-number">1</span>) {</pre></div></div>
             
@@ -1895,7 +1895,7 @@ existing column assignments.</p>
             <div class="content"><div class='highlight'><pre>        <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.wookmarkInstance) {
           <span class="hljs-keyword">this</span>.wookmarkInstance = <span class="hljs-keyword">new</span> Wookmark(<span class="hljs-keyword">this</span>[<span class="hljs-number">0</span>], options || {});
         } <span class="hljs-keyword">else</span> {
-          <span class="hljs-keyword">this</span>.wookmarkInstance.update(options || {});
+          <span class="hljs-keyword">this</span>.wookmarkInstance.updateOptions(options || {});
         }
       }
       <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>;
