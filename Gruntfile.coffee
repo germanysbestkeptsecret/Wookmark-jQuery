@@ -39,8 +39,8 @@ module.exports = (grunt) ->
         user:
           name: process.env.GIT_NAME
           email: process.env.GIT_EMAIL
-          repo: 'https://' + process.env.GH_TOKEN + '@github.com/germanysbestkeptsecret/Wookmark-jQuery.git'
-          silent: true
+        repo: 'https://' + process.env.GH_TOKEN + '@github.com/germanysbestkeptsecret/Wookmark-jQuery.git'
+        silent: true
       src: [
         'assets/*.png'
         'css/**/*'
