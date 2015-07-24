@@ -524,7 +524,7 @@
     if (this.items.length > 0 && (itemWidth === undefined || (itemWidth === 0 && !this.flexibleWidth))) {
       itemWidth = getWidth(this.items[0]);
     } else if (typeof itemWidth === 'string' && itemWidth.indexOf('%') >= 0) {
-      itemWidth = parseFloat(this.itemWidth) / 100 * innerWidth;
+      itemWidth = parseFloat(itemWidth) / 100 * innerWidth;
     }
 
     // Calculate flexible item width if option is set
