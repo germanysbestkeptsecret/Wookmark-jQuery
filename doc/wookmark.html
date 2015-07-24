@@ -1292,7 +1292,7 @@ with the element and the desired css properties.</p>
     <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.items.length &gt; <span class="hljs-number">0</span> &amp;&amp; (itemWidth === <span class="hljs-literal">undefined</span> || (itemWidth === <span class="hljs-number">0</span> &amp;&amp; !<span class="hljs-keyword">this</span>.flexibleWidth))) {
       itemWidth = getWidth(<span class="hljs-keyword">this</span>.items[<span class="hljs-number">0</span>]);
     } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> itemWidth === <span class="hljs-string">'string'</span> &amp;&amp; itemWidth.indexOf(<span class="hljs-string">'%'</span>) &gt;= <span class="hljs-number">0</span>) {
-      itemWidth = <span class="hljs-built_in">parseFloat</span>(<span class="hljs-keyword">this</span>.itemWidth) / <span class="hljs-number">100</span> * innerWidth;
+      itemWidth = <span class="hljs-built_in">parseFloat</span>(itemWidth) / <span class="hljs-number">100</span> * innerWidth;
     }</pre></div></div>
             
         </li>
