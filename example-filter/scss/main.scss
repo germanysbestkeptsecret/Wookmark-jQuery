@@ -1,8 +1,13 @@
 
 // Quad
-$easeInQuad     : cubic-bezier(0.550, 0.085, 0.680, 0.530);
-$easeOutQuad    : cubic-bezier(0.250, 0.460, 0.450, 0.940);
-$easeInOutQuad  : cubic-bezier(0.455, 0.030, 0.515, 0.955);
+$ease-in-quad: cubic-bezier(.550, .085, .680, .530);
+$ease-out-quad: cubic-bezier(.250, .460, .450, .940);
+$ease-in-out-quad: cubic-bezier(.455, .030, .515, .955);
+
+// Colors
+$text-color: #fff;
+$text-color-dark: #808080;
+$bg-color: #000;
 
 html {
   font-family: "Helvetica Neue", helvetica, sans-serif;
@@ -11,108 +16,112 @@ html {
 }
 
 body {
-  background: #000000 url('../img/taylor-background.jpg') no-repeat center top;
+  background: $bg-color url('../img/taylor-background.jpg') no-repeat center top;
 }
 
 header {
-  padding-top: 64px;
   padding-bottom: 36px;
+  padding-top: 64px;
 
   h1 {
-    margin: 0 0 0 48px;
-    font-weight: 100;
+    color: $text-color;
     font-size: 96px;
+    font-weight: 100;
     line-height: 80px;
-    color: #ffffff;
+    margin: 0 0 0 48px;
+    text-shadow: 0 1px 0 rgba(0, 0, 0, .25);
     text-transform: uppercase;
-    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.25);
   }
 
   p {
-    margin: 0 0 0 48px;
-    font-weight: 500;
+    color: $text-color;
     font-size: 20px;
+    font-weight: 500;
+    letter-spacing: -.5px;
     line-height: 16px;
-    letter-spacing: -0.5px;
-    color: #ffffff;
-    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.25);
+    margin: 0 0 0 48px;
+    text-shadow: 0 1px 0 rgba(0, 0, 0, .25);
   }
 
   nav {
-    margin-top: 48px;
     margin-left: 48px;
+    margin-top: 48px;
 
     a {
-      font-weight: 200;
+      color: $text-color;
       font-size: 18px;
-      color: #ffffff;
-      text-transform: uppercase;
-      text-shadow: 0 1px 0 rgba(0, 0, 0, 0.25);
-      text-decoration: none;
-      margin-right: 24px;
+      font-weight: 200;
       letter-spacing: 1px;
+      margin-right: 24px;
+      text-decoration: none;
+      text-shadow: 0 1px 0 rgba(0, 0, 0, .25);
+      text-transform: uppercase;
 
       &:last-child {
         margin-right: 0;
       }
 
       &:after {
-        position: absolute;
-        display: block;
-        content: '';
-        background-image: url('../img/arrow-down.svg');
+        background: url('../img/arrow-down.svg') no-repeat center top;
         background-size: 17px 9px;
-        background-position: center top;
-        background-repeat: no-repeat;
         bottom: -9px;
-        left: 0;
-        right: 0;
+        content: '';
+        display: block;
         height: 9px;
+        left: 0;
         opacity: 0;
         pointer-events: none;
-        transition: all 0.35s ease-out;
+        position: absolute;
+        right: 0;
+        transition: all .35s ease-out;
       }
 
       &.is-active {
         position: relative;
 
         &:after {
-          opacity: 1;
           bottom: -16px;
+          opacity: 1;
         }
       }
     }
   }
 }
 
-#container {
-  position: relative;
+.tiles-wrap {
   list-style-type: none;
-  margin: 0 0 0 0;
-  padding: 0 0 64px 0;
+  margin: 0;
+  padding: 0 0 64px;
   perspective: 800px;
+  position: relative;
+
+  &.wookmark-initialised {
+    li {
+      opacity: 1;
+      transition: all .35s $ease-out-quad;
+      transition-delay: .05s;
+    }
+  }
 
   li {
-    width: 208px;
-    background-color: #ffffff;
-    border-radius: 3px;
-    border-top-left-radius: 4px;
-    border-top-right-radius: 4px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
-    transition: all 0.35s $easeOutQuad;
-    transition-delay: 0.05s;
+    background-color: $text-color;
+    border-radius: 4px 4px 3px 3px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, .25);
+    float: left;
+    opacity: 0;
     transform: translate3d(0, 0, 0);
+    width: 208px;
 
     &:nth-child(2n) {
-      transition-delay: 0.1s;
+      transition-delay: .1s;
     }
 
     &:nth-child(3n) {
-      transition-delay: 0.2s;
+      transition-delay: .2s;
     }
 
     &:nth-child(5n) {
-      transition-delay: 0.3s;
+      transition-delay: .3s;
     }
 
     img {
@@ -122,21 +131,21 @@ header {
     }
 
     h2 {
-      margin: 16px 0 0 0;
-      padding: 0 24px 0 24px;
-      color: #000000;
-      font-weight: 100;
+      color: $bg-color;
       font-size: 22px;
+      font-weight: 100;
       line-height: 20px;
+      margin: 16px 0 0;
+      padding: 0 24px;
       text-transform: uppercase;
     }
 
     p {
-      margin: 16px 0 16px 0;
-      padding: 0 24px 0 24px;
+      color: $text-color-dark;
       font-size: 14px;
       line-height: 20px;
-      color: #808080;
+      margin: 16px 0;
+      padding: 0 24px;
     }
 
     h2 + p {
@@ -145,52 +154,46 @@ header {
 
     &.style--quote {
       blockquote {
-        position: absolute;
-        left: 0;
-        right: 0;
+        background: linear-gradient(to bottom, rgba($bg-color, 0), rgba($bg-color, .25));
         bottom: 0;
+        left: 0;
         margin: 0;
-        background: linear-gradient(to bottom, rgba(#000000, 0), rgba(#000000, 0.25));
+        position: absolute;
+        right: 0;
 
         p {
+          border-top: 1px solid rgba($text-color, .25);
+          color: $text-color;
+          font-size: 16px;
+          font-style: italic;
+          font-weight: bold;
+          margin-bottom: 0;
           margin-left: 16px;
           margin-right: 16px;
-          margin-bottom: 0;
-          padding-top: 12px;
-          padding-left: 0;
-          padding-right: 0;
-          padding-bottom: 12px;
-          border-top: 1px solid rgba(#ffffff, 0.25);
-          font-size: 16px;
-          font-weight: bold;
-          font-style: italic;
-          color: #ffffff;
+          padding: 12px 0;
+          text-shadow: 0 1px 0 rgba(0, 0, 0, .35);
           text-transform: uppercase;
-          text-shadow: 0 1px 0 rgba(0, 0, 0, 0.35);
         }
       }
     }
 
     &.style--tint {
       .angle {
-        width: 0; 
-        height: 0; 
-        position: relative;
+        border-bottom: 30px solid transparent;
+        border-right: 208px solid transparent;
+        height: 0;
         margin-top: -30px;
-        border-right-style: solid;
-        border-right-width: 208px;
-        border-right-color: transparent;
-        border-bottom-style: solid;
-        border-bottom-width: 30px;
+        position: relative;
+        width: 0;
       }
 
       h2 {
+        color: $text-color;
         margin-top: 0;
-        color: #ffffff;
       }
 
       p {
-        color: #ffffff;
+        color: $text-color;
       }
     }
 
@@ -198,7 +201,7 @@ header {
       opacity: 0;
       pointer-events: none;
       transform: translate3d(0, 0, -100px);
-      transition-delay: 0.05s;
+      transition-delay: .05s;
     }
   }
 }

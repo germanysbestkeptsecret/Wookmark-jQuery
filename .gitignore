@@ -10,3 +10,4 @@ doc/_build
 .idea
 *.scssc
 config.codekit
+*.map
