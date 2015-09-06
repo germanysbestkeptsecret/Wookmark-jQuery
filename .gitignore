@@ -7,3 +7,7 @@ node_modules
 bower_components
 doc/_build
 .grunt
+
+*.scssc
+
+config.codekit
