@@ -92,11 +92,9 @@
 
         <!-- Once the page is loaded, initalize the plug-in. -->
         <script type="text/javascript">
-            (function ($){
-                var wookmark = new Wookmark('#container', {
-                    // Prepare layout options.
+            (function ($) {
+                var wookmark = new Wookmark('.tiles-wrap', {
                     autoResize: true, // This will auto-update the layout when the browser window is resized.
-                    container: $('#main'), // Optional, used for some extra CSS styling
                     offset: 10, // Optional, the distance between grid items
                     outerOffset: 0, // Optional, the distance to the containers border
                     itemWidth: 208 // Optional, the width of a grid item
@@ -109,8 +107,8 @@
                 * When a filter is clicked, toggle it's active state and refresh.
                 */
                 function onClickFilter(e) {
-                    event.preventDefault();
-                    event.stopPropagation();
+                    e.preventDefault();
+                    e.stopPropagation();
 
                     var $item = $(e.currentTarget),
                     activeFilters = [],

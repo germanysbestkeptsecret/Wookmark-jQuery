@@ -68,12 +68,16 @@
   // befor the browsers next animation frame.
   // The parameter `data` has to be an array containing objects, each
   // with the element and the desired css properties.
-  function bulkUpdateCSS(data) {
+  function bulkUpdateCSS(data, callback) {
     executeNextFrame(function () {
       var i, item;
       for (i = 0; i < data.length; i++) {
         item = data[i];
         setCSS(item.el, item.css);
+      }
+      // Run optional callback
+      if (typeof callback === 'function') {
+        executeNextFrame(callback);
       }
     });
   }
@@ -253,7 +257,7 @@
     // By select all children of the container if no selector is specified
     if (this.itemSelector === undefined) {
       var items = [], child, children = this.container.children,
-        i = children.length;
+          i = children.length;
       while (i--) {
         child = children[i];
         // Skip comment nodes on IE8
@@ -561,7 +565,7 @@
       containerWidth = getWidth(this.container),
       innerWidth = containerWidth - 2 * this.outerOffset,
       columns = Math.floor((innerWidth + this.offset) / columnWidth),
-      offset = 0,
+      offset,
       maxHeight = 0,
       activeItems = this.getActiveItems(),
       activeItemsLength = activeItems.length,
@@ -629,7 +633,7 @@
   // Perform a full layout update.
   Wookmark.prototype.layoutFull = function (columnWidth, columns, offset) {
     var item, k = 0, i = 0, activeItems, activeItemCount, shortest = null, shortestIndex = null,
-      sideOffset, heights = [], itemBulkCSS = [], leftAligned = this.align === 'left';
+        sideOffset, heights = [], itemBulkCSS = [], leftAligned = this.align === 'left', self = this;
 
     this.columns = [];
 
@@ -680,7 +684,13 @@
       i++;
     }
 
-    bulkUpdateCSS(itemBulkCSS);
+    // Update all css in the next frame and mark container as initalised
+    bulkUpdateCSS(itemBulkCSS, function () {
+      // Initialisation done
+      if (!hasClass(self.container, 'wookmark-initialised')) {
+        addClass(self.container, 'wookmark-initialised');
+      }
+    });
 
     // Return longest column
     return Math.max.apply(Math, heights);
