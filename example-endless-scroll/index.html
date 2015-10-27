@@ -14,7 +14,7 @@
   <link rel="stylesheet" href="../bower_components/normalize.css/normalize.css">
 
   <!-- Global CSS for the page and tiles -->
-  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="../css/main.css">
 
 </head>
 
@@ -22,7 +22,7 @@
 
   <div>
     <header>
-      <h1>Wookmark Endless<br/>Scroll Example</h1>
+      <h1>Wookmark Endless Scroll Example</h1>
       <p>Scroll down to see the infinite scroll effect.</p>
       <p><a href="../index.html">Back to overview</a></p>
     </header>
@@ -30,36 +30,36 @@
     <div role="main">
       <ul id="container" class="tiles-wrap animated">
         <!-- These are our grid blocks -->
-        <li>1</li>
-        <li>2</li>
-        <li>3</li>
-        <li>4</li>
-        <li>5</li>
-        <li>6</li>
-        <li>7</li>
-        <li>8</li>
-        <li>9</li>
-        <li>10</li>
-        <li>11</li>
-        <li>12</li>
-        <li>13</li>
-        <li>14</li>
-        <li>15</li>
-        <li>16</li>
-        <li>17</li>
-        <li>18</li>
-        <li>19</li>
-        <li>20</li>
-        <li>21</li>
-        <li>22</li>
-        <li>23</li>
-        <li>24</li>
-        <li>25</li>
-        <li>26</li>
-        <li>27</li>
-        <li>28</li>
-        <li>29</li>
-        <li>30</li>
+        <li><img src="../sample-images/image_1.jpg" width="200" height="283"><p>1</p></li>
+        <li><img src="../sample-images/image_2.jpg" width="200" height="300"><p>2</p></li>
+        <li><img src="../sample-images/image_3.jpg" width="200" height="252"><p>3</p></li>
+        <li><img src="../sample-images/image_4.jpg" width="200" height="158"><p>4</p></li>
+        <li><img src="../sample-images/image_5.jpg" width="200" height="300"><p>5</p></li>
+        <li><img src="../sample-images/image_6.jpg" width="200" height="297"><p>6</p></li>
+        <li><img src="../sample-images/image_7.jpg" width="200" height="200"><p>7</p></li>
+        <li><img src="../sample-images/image_8.jpg" width="200" height="200"><p>8</p></li>
+        <li><img src="../sample-images/image_9.jpg" width="200" height="398"><p>9</p></li>
+        <li><img src="../sample-images/image_10.jpg" width="200" height="267"><p>10</p></li>
+        <li><img src="../sample-images/image_1.jpg" width="200" height="283"><p>11</p></li>
+        <li><img src="../sample-images/image_2.jpg" width="200" height="300"><p>12</p></li>
+        <li><img src="../sample-images/image_3.jpg" width="200" height="252"><p>13</p></li>
+        <li><img src="../sample-images/image_4.jpg" width="200" height="158"><p>14</p></li>
+        <li><img src="../sample-images/image_5.jpg" width="200" height="300"><p>15</p></li>
+        <li><img src="../sample-images/image_6.jpg" width="200" height="297"><p>16</p></li>
+        <li><img src="../sample-images/image_7.jpg" width="200" height="200"><p>17</p></li>
+        <li><img src="../sample-images/image_8.jpg" width="200" height="200"><p>18</p></li>
+        <li><img src="../sample-images/image_9.jpg" width="200" height="398"><p>19</p></li>
+        <li><img src="../sample-images/image_10.jpg" width="200" height="267"><p>20</p></li>
+        <li><img src="../sample-images/image_1.jpg" width="200" height="283"><p>21</p></li>
+        <li><img src="../sample-images/image_2.jpg" width="200" height="300"><p>22</p></li>
+        <li><img src="../sample-images/image_3.jpg" width="200" height="252"><p>23</p></li>
+        <li><img src="../sample-images/image_4.jpg" width="200" height="158"><p>24</p></li>
+        <li><img src="../sample-images/image_5.jpg" width="200" height="300"><p>25</p></li>
+        <li><img src="../sample-images/image_6.jpg" width="200" height="297"><p>26</p></li>
+        <li><img src="../sample-images/image_7.jpg" width="200" height="200"><p>27</p></li>
+        <li><img src="../sample-images/image_8.jpg" width="200" height="200"><p>28</p></li>
+        <li><img src="../sample-images/image_9.jpg" width="200" height="398"><p>29</p></li>
+        <li><img src="../sample-images/image_10.jpg" width="200" height="267"><p>30</p></li>
         <!-- End of grid blocks -->
       </ul>
 
@@ -71,9 +71,6 @@
 
   <!-- Include the imagesLoaded plug-in -->
   <script src="../bower_components/imagesloaded/imagesloaded.pkgd.min.js"></script>
-
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-  <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.2.min.js"><\/script>')</script>
 
   <!-- Include the plug-in -->
   <script src="../wookmark.js"></script>
@@ -88,9 +85,11 @@
           $window = $(window),
           $document = $(document);
 
-      wookmark = new Wookmark(container, {
-        offset: 24, // Optional, the distance between grid items
-        itemWidth: 300 // Optional, the width of a grid item
+      imagesLoaded(container, function () {
+        wookmark = new Wookmark(container, {
+          offset: 20, // Optional, the distance between grid items
+          itemWidth: 210 // Optional, the width of a grid item
+        });
       });
 
       /**
@@ -102,18 +101,10 @@
             closeToBottom = ($window.scrollTop() + winHeight > $document.height() - 100);
 
         if (closeToBottom) {
-          var $items = $('li', $container);
-          var html = "";
-
-          for(var i=0; i<10; i++) {
-            html += '<li>'+($items.length+i)+'</li>';
-          }
-          $container.append(html);
-
           // Get the first then items from the grid, clone them, and add them to the bottom of the grid
-          // var $items = $('li', $container),
-          //     $firstTen = $items.slice(0, 10).clone().css('opacity', 0);
-          // $container.append($firstTen);
+          var $items = $('li', $container),
+              $firstTen = $items.slice(0, 10).clone().css('opacity', 0);
+          $container.append($firstTen);
 
           wookmark.initItems();
           wookmark.layout(true, function () {
