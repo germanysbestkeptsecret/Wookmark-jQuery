@@ -72,7 +72,7 @@ a {
  */
 .tiles-wrap li {
   display: block;
-  opacity: 1;
+  opacity: 0;
   text-align: center;
   list-style-type: none;
   background-color: #fff;
@@ -93,6 +93,10 @@ a {
      -moz-transition: all 0.3s ease-out;
        -o-transition: all 0.3s ease-out;
           transition: all 0.3s ease-out;
+}
+
+.tiles-wrap.wookmark-initialised li {
+  opacity: 1;
 }
 
 .tiles-wrap li.wookmark-inactive {
