@@ -53,6 +53,10 @@ Installation
 
     bower install wookmark-jquery
 
+### Install with npm
+
+    npm install wookmark
+
 ### jQuery is optional and is used in some of the examples to simplify the code a bit
 
  * [jQuery](http://www.jquery.com) - 1.5.3 or better
