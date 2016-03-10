@@ -1,5 +1,15 @@
 # Changes
 
+## 2.1.0
+
+* FIX: Simple example didn't work properly
+* FIX: Reduce flickering on loading
+* FIX: Only enable transition after wookmark has initialized
+* FIX: Defined dev only scripts in package.json
+* FIX: layout call didn't trigger item height recomputation
+* ADD: Add initialised state after first layout
+* CHG: Updated readme
+
 ## 2.0.1
 
 * CHG: !!! We start to rename the plugin to `wookmark` instead of `wookmark-jquery`. Also the repository moved to https://github.com/germanysbestkeptsecret/Wookmark-jQuery.
