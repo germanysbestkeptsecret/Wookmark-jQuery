@@ -1,6 +1,7 @@
 # Magnific Popup Repository
 
-[![Build Status](https://travis-ci.org/dimsemenov/Magnific-Popup.png)](https://travis-ci.org/dimsemenov/Magnific-Popup)
+[![Build Status](https://travis-ci.org/dimsemenov/Magnific-Popup.png)](https://travis-ci.org/dimsemenov/Magnific-Popup) 
+[![Flattr](http://api.flattr.com/button/flattr-badge-large.png)](https://flattr.com/thing/1310305/Magnific-Popup-by-dimsemenov)
 
 Fast, light and responsive lightbox plugin, for jQuery and Zepto.js.
 
@@ -8,8 +9,8 @@ Fast, light and responsive lightbox plugin, for jQuery and Zepto.js.
 - [Examples and plugin home page](http://dimsemenov.com/plugins/magnific-popup/).
 - More examples in [CodePen collection](http://codepen.io/collection/nLcqo).
 
-Optionally, install via Bower: `bower install magnific-popup`.
-[Ruby gem](https://rubygems.org/gems/magnific-popup-rails), `gem install magnific-popup-rails`.
+Optionally, install via Bower `bower install magnific-popup` or npm: `npm install magnific-popup`.
+[Ruby gem](https://rubygems.org/gems/magnific-popup-rails): `gem install magnific-popup-rails`.
 
 ## Extensions
 
@@ -67,3 +68,9 @@ Script is MIT licensed and free and will always be kept this way. But has a smal
 Created by [@dimsemenov](http://twitter.com/dimsemenov) & [contributors](https://github.com/dimsemenov/Magnific-Popup/contributors).
 
 [![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/dimsemenov/magnific-popup/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
+## Bugs & contributing
+
+Please report bugs via GitHub and ask general questions through [StackOverflow](http://stackoverflow.com/questions/tagged/magnific-popup). Feel free to submit commit [pull-request](https://github.com/dimsemenov/Magnific-Popup/pulls), even the tiniest contributions to the script or to the documentation are very welcome.
+
+

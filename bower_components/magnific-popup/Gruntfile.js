@@ -69,28 +69,33 @@ module.exports = function(grunt) {
     },
     jekyll: {
       dev: {
-        src: 'website',
-        dest: '_site',
-        url: 'local',
-        raw: jekyllConfig + "url: local"
+        options: {
+          src: 'website',
+          dest: '_site',
+          url: 'local',
+          raw: jekyllConfig + "url: local"
+        }
       },
       production: {
-        src: 'website',
-        dest: '_production',
-        url: 'production',
-        raw: jekyllConfig + "url: production"
+        options: {
+          src: 'website',
+          dest: '_production',
+          url: 'production',
+          raw: jekyllConfig + "url: production"
+        }
+        
       }
     },
 
     copy: {
       main: {
         files: [
-          {src: ['dist/**'], dest: 'website/'}
+          {expand:true, src: ['dist/**'], dest: 'website/'}
         ]
       },
       dev: {
         files: [
-          {src: ['dist/**'], dest: '_site/'}
+          {expand:true, src: ['dist/**'], dest: '_site/'}
         ]
       }
     },

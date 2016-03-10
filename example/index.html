@@ -23,7 +23,7 @@
   <div>
     <header>
       <h1>Wookmark Simple Example</h1>
-      <p>Resize the browser window or click a grid item to trigger layout updates.</p>
+      <p>Resize the browser window to trigger layout updates.</p>
       <p>
         The example contains two grids to show that they both work on their own but are instantiated with a single call.
       </p>
@@ -31,7 +31,7 @@
     </header>
     <div role="main">
 
-      <ul class="tiles-wrap animated">
+      <ul class="tiles-wrap animated" id="wookmark1">
         <!-- These are our grid blocks -->
         <li><img src="../sample-images/image_1.jpg" width="200" height="283"><p>1</p></li>
         <li><img src="../sample-images/image_2.jpg" width="200" height="300"><p>2</p></li>
@@ -52,7 +52,7 @@
 
       <hr>
 
-      <ul class="tiles-wrap animated">
+      <ul class="tiles-wrap animated" id="wookmark2">
         <li><img src="../sample-images/image_6.jpg" width="200" height="297"><p>16</p></li>
         <li><img src="../sample-images/image_7.jpg" width="200" height="200"><p>17</p></li>
         <li><img src="../sample-images/image_8.jpg" width="200" height="200"><p>18</p></li>
@@ -83,22 +83,14 @@
   <!-- Once the page is loaded, initalize the plug-in. -->
   <script type="text/javascript">
     (function ($) {
-      var wookmark = $('.tiles-wrap').wookmark({
-          // Prepare layout options.
-          autoResize: true, // This will auto-update the layout when the browser window is resized.
-          offset: 5, // Optional, the distance between grid items
+      var wookmark1 = new Wookmark('#wookmark1', {
           outerOffset: 10, // Optional, the distance to the containers border
           itemWidth: 210 // Optional, the width of a grid item
       });
 
-      // Capture clicks on grid items.
-      $('.tiles-wrap').on('click', 'li', function () {
-        // Randomize the height of the clicked item.
-        var newHeight = $('img', this).height() + Math.round(Math.random() * 300 + 30);
-        $(this).css('height', newHeight+'px');
-
-        // Update the layout.
-        wookmark.layout(true);
+      var wookmark2 = new Wookmark('#wookmark2', {
+          outerOffset: 10, // Optional, the distance to the containers border
+          itemWidth: 210 // Optional, the width of a grid item
       });
     })(jQuery);
   </script>
