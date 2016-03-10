@@ -210,7 +210,7 @@
 
     // Instance variables.
     this.container = container;
-    this.columns = this.containerWidth = this.resizeTimer = null;
+    this.columns = this.resizeTimer = null;
     this.activeItemCount = 0;
     this.placeholders = [];
     this.itemHeightsInitialized = false;
@@ -569,12 +569,11 @@
       maxHeight = 0,
       activeItems = this.getActiveItems(),
       activeItemsLength = activeItems.length,
-      item,
-      i = activeItemsLength;
+      item;
 
     // Cache item heights
-    if (this.itemHeightsDirty || !this.itemHeightsInitialized) {
-      while (i--) {
+    if (force || this.itemHeightsDirty || !this.itemHeightsInitialized) {
+      for (var i = 0; i < activeItemsLength; i++) {
         item = activeItems[i];
 
         if (this.flexibleWidth) {
