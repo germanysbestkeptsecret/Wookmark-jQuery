@@ -511,6 +511,8 @@
           result.push(item);
         }
       }
+    } else {
+      return items;
     }
     return result;
   };
