@@ -559,7 +559,7 @@
   // Main layout method.
   Wookmark.prototype.layout = function (force, callback) {
     // Do nothing if container isn't visible
-    if (isHidden(this.container)) { return; }
+    if (!force && isHidden(this.container)) { return; }
 
     // Calculate basic layout parameters.
     var calculatedItemWidth = this.getItemWidth(),
