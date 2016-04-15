@@ -3,8 +3,8 @@
   @name wookmark.js
   @author Christoph Ono (chri@sto.ph or @gbks)
   @author Sebastian Helzle (sebastian@helzle.net or @sebobo)
-  @version 2.1.0
-  @date 03/10/2016
+  @version 2.1.1
+  @date 04/15/2016
   @category jQuery plugin
   @copyright (c) 2009-2016 Christoph Ono (www.wookmark.com)
   @license Licensed under the MIT (http://www.opensource.org/licenses/mit-license.php) license.
@@ -511,6 +511,8 @@
           result.push(item);
         }
       }
+    } else {
+      return items;
     }
     return result;
   };
@@ -557,7 +559,7 @@
   // Main layout method.
   Wookmark.prototype.layout = function (force, callback) {
     // Do nothing if container isn't visible
-    if (isHidden(this.container)) { return; }
+    if (!force && isHidden(this.container)) { return; }
 
     // Calculate basic layout parameters.
     var calculatedItemWidth = this.getItemWidth(),
