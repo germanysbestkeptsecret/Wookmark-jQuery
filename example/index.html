@@ -74,15 +74,12 @@
     </div>
   </div>
 
-  <!-- include jQuery -->
-  <script src="../bower_components/jquery/dist/jquery.min.js"></script>
-
   <!-- Include the plug-in -->
   <script src="../wookmark.js"></script>
 
   <!-- Once the page is loaded, initalize the plug-in. -->
   <script type="text/javascript">
-    (function ($) {
+    window.onload = function () {
       var wookmark1 = new Wookmark('#wookmark1', {
           outerOffset: 10, // Optional, the distance to the containers border
           itemWidth: 210 // Optional, the width of a grid item
@@ -92,7 +89,7 @@
           outerOffset: 10, // Optional, the distance to the containers border
           itemWidth: 210 // Optional, the width of a grid item
       });
-    })(jQuery);
+    };
   </script>
 
 </body>
