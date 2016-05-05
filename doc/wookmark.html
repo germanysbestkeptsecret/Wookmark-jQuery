@@ -904,7 +904,6 @@ with the element and the desired css properties.</p>
             </div>
             
             <div class="content"><div class='highlight'><pre>  Wookmark.prototype.onResize = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'onResize'</span>);
     clearTimeout(<span class="hljs-keyword">this</span>.resizeTimer);
     <span class="hljs-keyword">this</span>.itemHeightsDirty = <span class="hljs-keyword">this</span>.flexibleWidth !== <span class="hljs-number">0</span>;
     <span class="hljs-keyword">this</span>.resizeTimer = setTimeout(<span class="hljs-keyword">this</span>.layout, <span class="hljs-keyword">this</span>.resizeDelay);
@@ -924,7 +923,6 @@ with the element and the desired css properties.</p>
             </div>
             
             <div class="content"><div class='highlight'><pre>  Wookmark.prototype.onRefresh = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'onRefresh'</span>);
     <span class="hljs-keyword">this</span>.itemHeightsDirty = <span class="hljs-literal">true</span>;
     <span class="hljs-keyword">this</span>.layout();
   };</pre></div></div>
