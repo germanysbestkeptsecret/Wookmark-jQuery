@@ -1,5 +1,14 @@
 # Changes
 
+## 2.1.2
+
+* FIX: Resize and refresh events were not triggered correctly
+
+## 2.1.1
+
+* FIX: Layout on hidden containers couldn't be forced
+* FIX: Items were not rendered when ignoreActiveItems was set
+
 ## 2.1.0
 
 * FIX: Simple example didn't work properly

@@ -118,25 +118,44 @@ As example using a `flexibleWidth` of 40% will result in two columns with 10% sp
 
 #### fillEmptySpace
 
-This creates placeholders at the bottom of each column to create an even layout. See `example-placeholder` on how to use it. These placeholders use the css class `wookmark-placeholder`. You can overwrite it in your own css to fit your needs.
+This creates placeholders at the bottom of each column to create an even layout. See `example-placeholder` on how to use it. 
+These placeholders use the css class `wookmark-placeholder`. You can overwrite it in your own css to fit your needs.
 
 #### ignoreInactiveItems
 
-When set to `false` inactive items will still be shown when filtered. This can be used to fade out filtered items. See the example-filter/fade.html example.
+When set to `false` inactive items will still be shown when filtered. This can be used to fade out filtered items. 
+See the example-filter/fade.html example.
 
 #### comparator
 
-You can use this option to provide a custom comparator function which the plugin will use to sort the tiles. See example-sort or example-stamp on how to use it.
+You can use this option to provide a custom comparator function which the plugin will use to sort the tiles. 
+See example-sort or example-stamp on how to use it.
 
 ### Refresh trigger
 
-Elements which are hidden have cannot be laid out until they are visible. If you use wookmark on a hidden tab layout will not be immediately performed. When the tab is made visible you can manually refresh Wookmark using a trigger on your container.
+Elements which are hidden have cannot be laid out until they are visible. 
+If you use wookmark on a hidden tab layout will not be immediately performed. 
+When the tab is made visible you can manually refresh Wookmark using a trigger on your container.
 
     wookmark.layout(true);
-
+    
 or
 
-    $('#myElementContainer').trigger('refreshWookmark');
+    document.getElementById('container').dispatchEvent(new Event('refreshWookmark'));
+
+or with jQuery
+
+    $('#container').trigger('refreshWookmark');
+    
+### Resize trigger
+
+A relayout happens then the viewport is resized, you can also trigger this manually via
+
+    window.dispatchEvent(new Event('resize'));
+    
+or with jQuery
+
+    $(window).trigger('resize');
 
 ### Filter
 

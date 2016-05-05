@@ -2,9 +2,9 @@
   Wookmark plugin
   @name wookmark.js
   @author Christoph Ono (chri@sto.ph or @gbks)
-  @author Sebastian Helzle (sebastian@helzle.net or @sebobo)
-  @version 2.1.1
-  @date 04/15/2016
+  @author Sebastian Helzle (me@helzle.it or @sebobo)
+  @version 2.1.2
+  @date 05/05/2016
   @category jQuery plugin
   @copyright (c) 2009-2016 Christoph Ono (www.wookmark.com)
   @license Licensed under the MIT (http://www.opensource.org/licenses/mit-license.php) license.
@@ -89,7 +89,9 @@
 
   // Remove listener from an element (IE8 compatible)
   function removeEventListener(el, eventName, handler) {
-    if (el.removeEventListener) {
+    if (window.jQuery) {
+      $(el).off(eventName, handler);
+    } else if (el.removeEventListener) {
       el.removeEventListener(eventName, handler);
     } else {
       el.detachEvent('on' + eventName, handler);
@@ -99,7 +101,10 @@
   // Add listener to an element (IE8 compatible)
   function addEventListener(el, eventName, handler) {
     removeEventListener(el, eventName, handler);
-    if (el.addEventListener) {
+
+    if (window.jQuery) {
+      $(el).on(eventName, handler);
+    } else if (el.addEventListener) {
       el.addEventListener(eventName, handler);
     } else {
       el.attachEvent('on' + eventName, function () {
