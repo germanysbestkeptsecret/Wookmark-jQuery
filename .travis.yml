@@ -3,7 +3,13 @@ node_js:
 - '0.12'
 env:
   global:
-  - secure: "Cg+r3iiCOSrghMNfcvFaZBbK0ZLT9mbIlVEYr7cW7P/PjWr3hid51hkEzJcoHxbB/UAqWGh09IBmfmFh4XN9iySj8LyUeFqI/ner9JDQYSnm+dWtxU9TZgA8MRXL4k+/fRYWmUnwOJB211F+fsevfGuKCbqQcl0axBiI+xTsfpQ="
-install: 'npm install'
+  - secure: Cg+r3iiCOSrghMNfcvFaZBbK0ZLT9mbIlVEYr7cW7P/PjWr3hid51hkEzJcoHxbB/UAqWGh09IBmfmFh4XN9iySj8LyUeFqI/ner9JDQYSnm+dWtxU9TZgA8MRXL4k+/fRYWmUnwOJB211F+fsevfGuKCbqQcl0axBiI+xTsfpQ=
+install: npm install
 after_success:
-  - 'npm run update && npm run deploy'
+- npm run update && npm run deploy
+deploy:
+  provider: npm
+  api_key:
+    secure: Css6ttIy1gSqfeM78A00ZuBi0Ij7DZeGLsBemNMijXmQvWr7NtcuVdXwZGbVy4iCzdbcGdSeDPUeD/lPCVBJ0nU0dhpESl2/nTNC4BfMUCPOzaA24SIn6wb+c9nO9CeIf7yDQMejgaqlL0FJk39XE4mbZY0tLwKS0OTHa2AbYp4=
+  on:
+  - tags: true
