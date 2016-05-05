@@ -9,6 +9,7 @@ after_success:
   - npm run update && npm run deploy
 deploy:
   provider: npm
+  email: 'npm@helzle.it'
   api_key:
     secure: Css6ttIy1gSqfeM78A00ZuBi0Ij7DZeGLsBemNMijXmQvWr7NtcuVdXwZGbVy4iCzdbcGdSeDPUeD/lPCVBJ0nU0dhpESl2/nTNC4BfMUCPOzaA24SIn6wb+c9nO9CeIf7yDQMejgaqlL0FJk39XE4mbZY0tLwKS0OTHa2AbYp4=
   only:
