@@ -77,23 +77,23 @@
             </div>
             
             <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">var</span> defaultOptions = {
-    align: <span class="hljs-string">'center'</span>,
-    autoResize: <span class="hljs-literal">true</span>,
-    comparator: <span class="hljs-literal">null</span>,
-    direction: <span class="hljs-literal">undefined</span>,
-    ignoreInactiveItems: <span class="hljs-literal">true</span>,
-    inactiveClass: <span class="hljs-string">'wookmark-inactive'</span>,
-    itemSelector: <span class="hljs-literal">undefined</span>,
-    itemWidth: <span class="hljs-number">0</span>,
-    fillEmptySpace: <span class="hljs-literal">false</span>,
-    flexibleWidth: <span class="hljs-number">0</span>,
-    offset: <span class="hljs-number">5</span>,
-    outerOffset: <span class="hljs-number">0</span>,
-    onLayoutChanged: <span class="hljs-literal">undefined</span>,
-    placeholderClass: <span class="hljs-string">'wookmark-placeholder'</span>,
-    possibleFilters: [],
-    resizeDelay: <span class="hljs-number">50</span>,
-    verticalOffset: <span class="hljs-literal">undefined</span>
+    <span class="hljs-attr">align</span>: <span class="hljs-string">'center'</span>,
+    <span class="hljs-attr">autoResize</span>: <span class="hljs-literal">true</span>,
+    <span class="hljs-attr">comparator</span>: <span class="hljs-literal">null</span>,
+    <span class="hljs-attr">direction</span>: <span class="hljs-literal">undefined</span>,
+    <span class="hljs-attr">ignoreInactiveItems</span>: <span class="hljs-literal">true</span>,
+    <span class="hljs-attr">inactiveClass</span>: <span class="hljs-string">'wookmark-inactive'</span>,
+    <span class="hljs-attr">itemSelector</span>: <span class="hljs-literal">undefined</span>,
+    <span class="hljs-attr">itemWidth</span>: <span class="hljs-number">0</span>,
+    <span class="hljs-attr">fillEmptySpace</span>: <span class="hljs-literal">false</span>,
+    <span class="hljs-attr">flexibleWidth</span>: <span class="hljs-number">0</span>,
+    <span class="hljs-attr">offset</span>: <span class="hljs-number">5</span>,
+    <span class="hljs-attr">outerOffset</span>: <span class="hljs-number">0</span>,
+    <span class="hljs-attr">onLayoutChanged</span>: <span class="hljs-literal">undefined</span>,
+    <span class="hljs-attr">placeholderClass</span>: <span class="hljs-string">'wookmark-placeholder'</span>,
+    <span class="hljs-attr">possibleFilters</span>: [],
+    <span class="hljs-attr">resizeDelay</span>: <span class="hljs-number">50</span>,
+    <span class="hljs-attr">verticalOffset</span>: <span class="hljs-literal">undefined</span>
   };</pre></div></div>
             
         </li>
@@ -1247,12 +1247,12 @@ with the element and the desired css properties.</p>
         height = <span class="hljs-built_in">Math</span>.max(<span class="hljs-number">0</span>, containerHeight - top - innerOffset);
 
         setCSS(placeholder, {
-          position: <span class="hljs-string">'absolute'</span>,
-          display: height &gt; <span class="hljs-number">0</span> ? <span class="hljs-string">'block'</span> : <span class="hljs-string">'none'</span>,
-          left: (i * columnWidth + sideOffset) + <span class="hljs-string">'px'</span>,
-          top: top + <span class="hljs-string">'px'</span>,
-          width: (columnWidth - innerOffset) + <span class="hljs-string">'px'</span>,
-          height: height + <span class="hljs-string">'px'</span>
+          <span class="hljs-attr">position</span>: <span class="hljs-string">'absolute'</span>,
+          <span class="hljs-attr">display</span>: height &gt; <span class="hljs-number">0</span> ? <span class="hljs-string">'block'</span> : <span class="hljs-string">'none'</span>,
+          <span class="hljs-attr">left</span>: (i * columnWidth + sideOffset) + <span class="hljs-string">'px'</span>,
+          <span class="hljs-attr">top</span>: top + <span class="hljs-string">'px'</span>,
+          <span class="hljs-attr">width</span>: (columnWidth - innerOffset) + <span class="hljs-string">'px'</span>,
+          <span class="hljs-attr">height</span>: height + <span class="hljs-string">'px'</span>
         });
       }
     }
@@ -1723,10 +1723,10 @@ with the element and the desired css properties.</p>
             </div>
             
             <div class="content"><div class='highlight'><pre>      itemBulkCSS[i] = {
-        el: item,
-        css: {
-          position: <span class="hljs-string">'absolute'</span>,
-          top: shortest + <span class="hljs-string">'px'</span>
+        <span class="hljs-attr">el</span>: item,
+        <span class="hljs-attr">css</span>: {
+          <span class="hljs-attr">position</span>: <span class="hljs-string">'absolute'</span>,
+          <span class="hljs-attr">top</span>: shortest + <span class="hljs-string">'px'</span>
         }
       };
       itemBulkCSS[i].css[<span class="hljs-keyword">this</span>.direction] = sideOffset + <span class="hljs-string">'px'</span>;</pre></div></div>
@@ -1827,9 +1827,9 @@ existing column assignments.</p>
         item = column[k];
         setData(item, <span class="hljs-string">'top'</span>, currentHeight);
         itemBulkCSS[j] = {
-          el: item,
-          css: {
-            top: currentHeight + <span class="hljs-string">'px'</span>
+          <span class="hljs-attr">el</span>: item,
+          <span class="hljs-attr">css</span>: {
+            <span class="hljs-attr">top</span>: currentHeight + <span class="hljs-string">'px'</span>
           }
         };
         itemBulkCSS[j].css[<span class="hljs-keyword">this</span>.direction] = sideOffset + <span class="hljs-string">'px'</span>;
