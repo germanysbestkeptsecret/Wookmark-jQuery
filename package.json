@@ -8,6 +8,7 @@
     "ui"
   ],
   "license": "MIT",
+  "main": "wookmark.js",
   "bugs": "https://github.com/germanysbestkeptsecret/Wookmark-jQuery/issues",
   "homepage": "http://plugin.wookmark.com",
   "author": "Christoph Ono <chri@sto.ph>",
