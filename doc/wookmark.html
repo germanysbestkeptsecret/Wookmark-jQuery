@@ -45,11 +45,11 @@
 <span class="hljs-comment">/*jslint plusplus: true, bitwise: true */</span>
 (<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">factory</span>) </span>{
   <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> define === <span class="hljs-string">'function'</span> &amp;&amp; define.amd) {
-    define([<span class="hljs-string">'window'</span>, <span class="hljs-string">'document'</span>], factory);
+    define(factory);
   } <span class="hljs-keyword">else</span> {
-    factory(<span class="hljs-built_in">window</span>, <span class="hljs-built_in">document</span>);
+    factory();
   }
-}(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">window, document</span>) </span>{</pre></div></div>
+}(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{</pre></div></div>
             
         </li>
         

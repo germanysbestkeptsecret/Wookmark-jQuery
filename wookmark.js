@@ -13,11 +13,11 @@
 /*jslint plusplus: true, bitwise: true */
 (function (factory) {
   if (typeof define === 'function' && define.amd) {
-    define(['window', 'document'], factory);
+    define(factory);
   } else {
-    factory(window, document);
+    factory();
   }
-}(function (window, document) {
+}(function () {
 
   // Wookmark default options
   // ------------------------
