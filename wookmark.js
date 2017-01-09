@@ -11,6 +11,8 @@
 */
 /*global define, window, jQuery*/
 /*jslint plusplus: true, bitwise: true */
+
+(function ($) {
 (function (factory) {
   if (typeof define === 'function' && define.amd) {
     define(factory);
@@ -778,3 +780,4 @@
   window.Wookmark = Wookmark;
   return Wookmark;
 }));
+})(jQuery);
