@@ -43,6 +43,8 @@
 */</span>
 <span class="hljs-comment">/*global define, window, jQuery*/</span>
 <span class="hljs-comment">/*jslint plusplus: true, bitwise: true */</span>
+
+(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">$</span>) </span>{
 (<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">factory</span>) </span>{
   <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> define === <span class="hljs-string">'function'</span> &amp;&amp; define.amd) {
     define(factory);
@@ -1958,7 +1960,8 @@ existing column assignments.</p>
 
   <span class="hljs-built_in">window</span>.Wookmark = Wookmark;
   <span class="hljs-keyword">return</span> Wookmark;
-}));</pre></div></div>
+}));
+})(jQuery);</pre></div></div>
             
         </li>
         
