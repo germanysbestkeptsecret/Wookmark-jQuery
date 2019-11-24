@@ -780,4 +780,4 @@
   window.Wookmark = Wookmark;
   return Wookmark;
 }));
-})(jQuery);
+})(window.jQuery);
