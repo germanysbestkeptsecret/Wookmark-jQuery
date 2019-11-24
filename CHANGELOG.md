@@ -1,5 +1,17 @@
 # Changes
 
+## 2.2.0
+
+* FIX: Mainly a release to make npm load the latest version including changes from 2.1.3
+* FIX: Add docco as dependency to make grunt build task work properly
+* CHG: Updated some dependencies and removed bower
+
+## 2.1.3
+
+* FIX: Use own $ variable, make sure Jquery can be loaded. Patch by @dollars0427. Thanks!
+* FIX: Reference correct `main` file for ES6 imports. Patch by @teawithfruit. Thanks!
+* CHG: Removed window and document. Patch by @teawithfruit. Thanks!
+
 ## 2.1.2
 
 * FIX: Resize and refresh events were not triggered correctly
